@@ -20,8 +20,8 @@ export default function AuthLogin() {
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <LinkUI href="/" className="flex items-center mb-6 hover:no-underline">
           <Img
-            src="/images/logo/logo-trans-min.png"
-            data-src-full="/images/logo/logo-trans.png"
+            src="/images/logo/logo.png"
+            data-src-full="/images/logo/logo.png"
             alt="Logo"
             className="w-8 h-8 mr-2 relative top-[-2px]"
           />

@@ -1,4 +1,4 @@
-import {Box, BoxProps} from "@/components/ui/Box";
+import {Box} from "@/components/ui/Box";
 import {forwardRefWithAs} from "@/utils/forwardRefWithAs";
 import {uuidv4} from "@/utils/helper";
 import {cn} from "@/utils/ui";

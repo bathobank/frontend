@@ -43,15 +43,16 @@ export interface HeadingProps
   extends React.HTMLAttributes<HTMLParagraphElement | HTMLSpanElement>,
     VariantProps<typeof textVariants> {
   as?: 'p' | 'span' | 'small' | 'b' | 'strong' | 'i' | 'em';
+  custom?: boolean;
 }
 
 const Text = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, size, weight, col, align, as = 'p', children, ...props }, ref) => {
+  ({ className, size, weight, col, align, as = 'p', custom = false, children, ...props }, ref) => {
     const Comp = as;
 
     return (
       <Comp
-        className={cn(textVariants({ size, weight, col, align, className }), 'mobile:text-base')}
+        className={cn('mobile:text-base', custom ? 'relative top-[2px]' : '', textVariants({ size, weight, col, align, className }))}
         ref={ref}
         {...props}
       >

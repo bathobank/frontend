@@ -1,4 +1,4 @@
-import React from 'react';
+import {forwardRef, HTMLAttributes} from 'react';
 
 import {cva, type VariantProps} from 'class-variance-authority';
 
@@ -50,11 +50,11 @@ const flexVariants = cva('flex', {
 });
 
 export interface ContainerProps
-    extends React.HTMLAttributes<HTMLDivElement>,
+    extends HTMLAttributes<HTMLDivElement>,
         VariantProps<typeof flexVariants> {
 }
 
-const Flex = React.forwardRef<HTMLDivElement, ContainerProps>(
+const Flex = forwardRef<HTMLDivElement, ContainerProps>(
   ({className, justify, items, wrap, direction, ...props}, ref) => (
     <Box
       ref={ref}
