@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  bathobank_frontend:
+    container_name: bathobank_frontend
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/bathobank_frontend
+    command: sh -c "/bathobank_frontend/docker-command.sh"
+    environment:
+      NODE_ENV: development
+    networks:
+      - bathobank_frontend_network
+
+networks:
+  bathobank_frontend_network:
+    driver: bridge
