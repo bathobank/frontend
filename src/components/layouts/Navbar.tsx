@@ -63,7 +63,7 @@ export const Navbar = () => {
             <Img src='/images/user.png' size={40} circle={true} />
             <Box className="pl-3">
               <Text className='m-0 text-[12px] text-[#c7c7c7]'>Xin chào</Text>
-              <Text col="white">vietdau</Text>
+              <Text>vietdau</Text>
             </Box>
           </Flex>
           <Box className="group rounded-lg bg-[#ffffff0d] px-3 py-2 cursor-pointer transition-all hover:bg-[#cbd4ff3d]">
