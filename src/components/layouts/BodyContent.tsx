@@ -2,7 +2,7 @@ import {Header} from "@/components/layouts/Header";
 import {Box} from "@/components/ui/Box";
 import {ReactNode, useEffect, useRef, useState} from "react";
 
-export const BodyContent = ({children}: { children: ReactNode }) => {
+export const BodyContent = ({children, showHeader = true}: { children: ReactNode, showHeader?: boolean }) => {
   const [bodyHeight, setBodyHeight] = useState<string>('100%');
   const headerRef = useRef<HTMLDivElement>(null);
 
@@ -14,7 +14,7 @@ export const BodyContent = ({children}: { children: ReactNode }) => {
   return (
     <Box className="min-h-[100vh]">
       <Box ref={headerRef}>
-        <Header/>
+        {showHeader && <Header/>}
       </Box>
       <Box className="overflow-auto px-3" style={{height: bodyHeight, maxHeight: bodyHeight}}>
         {children}

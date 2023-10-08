@@ -34,7 +34,6 @@ const App: FC<AppProps> = ({Component, ...rest}: AppProps) => {
               <link rel="shortcut icon" href="/images/logo/favicon.ico"/>
             </Head>
             <Component {...pageProps} />
-            <Loading/>
             <ToastContainer />
           </CacheProvider>
         </QueryClientProvider>

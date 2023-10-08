@@ -1,26 +1,39 @@
+import {TBank} from "@/@types/bank";
+import {BankQRModal} from "@/components/modals/BankQR";
 import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import {useToast} from "@/hooks/useToast";
+import {useBankReceiveQuery} from "@/queries/bank/receive";
 import {copyContent, formatMoney} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import QrCode2RoundedIcon from '@mui/icons-material/QrCode2Rounded';
-
-const BankConfig: {code: string; title: string; number: string; name: string; min: number, max: number}[] = [
-  {code: 'TCB', title: 'Techcombank', number: '1234567890', name: 'Nguyễn Văn A', min: 10000, max: 3000000},
-  {code: 'VCB', title: 'Vietcombank', number: '1234567890', name: 'Nguyễn Văn A', min: 10000, max: 3000000},
-  {code: 'MB', title: 'MBBank', number: '1234567890', name: 'Nguyễn Văn A', min: 10000, max: 3000000}
-];
+import {useEffect, useState} from "react";
 
 export const BankList = () => {
+  const [isOpenBankQrModal, setOpenBankQrModal] = useState<boolean>(false);
+  const [bankInfoOpen, setBankInfoOpen] = useState<TBank|undefined>(undefined);
+  const [bankReceives, setBankReceives] = useState<TBank[]>([]);
   const toast = useToast();
+  const bankReceiveQuery = useBankReceiveQuery();
+
+  useEffect(() => {
+    if (bankReceiveQuery) {
+      setBankReceives(bankReceiveQuery.data.banks);
+    }
+  }, [bankReceiveQuery]);
 
   const triggerCopyContent = (content: string) => {
     copyContent(content, () => {
       toast.success('Copy số tài khoản thành công!', { autoClose: 2000 });
     });
+  }
+
+  const triggerOpenBankQrModal = (bank: TBank) => {
+    setBankInfoOpen(bank);
+    setOpenBankQrModal(true);
   }
 
   return (
@@ -48,26 +61,26 @@ export const BankList = () => {
             </tr>
           </thead>
           <tbody>
-            {BankConfig.map((config, index) => (
+            {bankReceives.map((bank, index) => (
               <tr key={`tr-bank-list-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
                 <td className="py-3 w-[130px]">
-                  <Text size="sm">Mã NH: {config.code}</Text>
-                  <Text size="sm">{config.title}</Text>
+                  <Text size="sm">Mã NH: {bank.code}</Text>
+                  <Text size="sm">{bank.title}</Text>
                 </td>
                 <td className="py-3 w-[150px]">
-                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(config.number)}>
-                    <Text size="sm" custom={true} className="mr-1">{config.number}</Text>
+                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(bank.number)}>
+                    <Text size="sm" custom={true} className="mr-1">{bank.number}</Text>
                     <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
                   </Flex>
-                  <Text size="sm">{config.name}</Text>
+                  <Text size="sm">{bank.name}</Text>
                 </td>
                 <td className="py-3">
-                  <Text size="sm">Min: <span className="text-[#ff55a5]">{formatMoney(config.min)}</span></Text>
-                  <Text size="sm">Max: <span className="text-[#ff55a5]">{formatMoney(config.max)}</span></Text>
+                  <Text size="sm">Min: <span className="text-[#ff55a5]">{formatMoney(bank.min)}</span></Text>
+                  <Text size="sm">Max: <span className="text-[#ff55a5]">{formatMoney(bank.max)}</span></Text>
                 </td>
                 <td className="min-w-[50px] text-center">
                   <Flex justify="center">
-                    <Box className="p-1 bg-[#ff55a51a] rounded cursor-pointer">
+                    <Box className="p-1 bg-[#ff55a51a] rounded cursor-pointer" onClick={() => triggerOpenBankQrModal(bank)}>
                       <QrCode2RoundedIcon className="text-[#5bceae]" />
                     </Box>
                   </Flex>
@@ -77,6 +90,11 @@ export const BankList = () => {
           </tbody>
         </table>
       </Box>
+      <BankQRModal
+        isOpen={isOpenBankQrModal}
+        onClose={() => setOpenBankQrModal(false)}
+        bank={bankInfoOpen}
+      />
     </Box>
   );
 }

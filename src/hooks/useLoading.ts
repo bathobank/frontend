@@ -5,9 +5,7 @@ export const useLoading = () => {
   const dispatch = useDispatch();
 
   const removeLoading = () => {
-    setTimeout(() => {
-      dispatch(setIsLoading(false))
-    }, 1000);
+    dispatch(setIsLoading(false))
   }
 
   const showLoading = () => {

@@ -4,6 +4,7 @@ import {Img} from "@/components/ui/Img";
 import {LinkUI} from "@/components/ui/Link";
 import {Text} from "@/components/ui/Text";
 import {cn} from "@/utils/ui";
+import {useRouter} from "next/router";
 import {ReactNode, useEffect, useRef, useState} from "react";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
@@ -20,30 +21,30 @@ type TMenu = {
   title: string;
   icon: ReactNode;
   href: string;
-  isActive: boolean;
 };
 
-const createMenu = (title: string, href: string, isActive: boolean, icon: ReactNode): TMenu => {
-  return {title, href, isActive, icon}
+const createMenu = (title: string, href: string, icon: ReactNode): TMenu => {
+  return {title, href, icon}
 }
 
 const MENU: TMenu[] = [
-  createMenu('Trang chủ', '/', true, <HomeRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Cài đặt bank', '/', false, <AccountBalanceRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Giftcode', '/', false, <CardGiftcardRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Nhiệm vụ ngày', '/', false, <ConfirmationNumberRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Nổ hũ', '/', false, <EmojiEventsRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Lịch sử chơi', '/', false, <HistoryRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Liên kết telegram', '/', false, <SendRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Đổi mật khẩu', '/', false, <ManageAccountsRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Đăng xuất', '/', false, <ExitToAppRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Box chat', '/', false, <QuestionAnswerRoundedIcon className="!text-[1.25rem]" />)
+  createMenu('Trang chủ', '/', <HomeRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Cài đặt bank', '/bank-setup', <AccountBalanceRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Giftcode', '/gift-code', <CardGiftcardRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Nhiệm vụ ngày', '/daily-mission', <ConfirmationNumberRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Nổ hũ', '/jackpot', <EmojiEventsRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Lịch sử chơi', '/history', <HistoryRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Liên kết telegram', '/telegram-connect', <SendRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Đổi mật khẩu', '/change-password', <ManageAccountsRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Đăng xuất', '#', <ExitToAppRoundedIcon className="!text-[1.25rem]" />),
+  createMenu('Box chat', '#', <QuestionAnswerRoundedIcon className="!text-[1.25rem]" />)
 ];
 
 export const Navbar = () => {
   const [menuHeight, setMenuHeight] = useState<string>('100%');
   const logoRef = useRef<HTMLDivElement>(null);
   const copyrightRef = useRef<HTMLDivElement>(null);
+  const {pathname} = useRouter();
 
   useEffect(() => {
     if (!logoRef.current || !copyrightRef.current) return;
@@ -73,7 +74,7 @@ export const Navbar = () => {
       </Box>
       <Box className="py-5 overflow-auto" style={{ height: menuHeight, maxHeight: menuHeight }}>
         {MENU.map((menu, index) => (
-          <LinkUI key={`box-menu-${index}`} href={menu.href} underline={false} className={cn("text-white transition-all", menu.isActive ? 'text-[#ff55a5]' : 'hover:text-[#ff55a5]')}>
+          <LinkUI key={`box-menu-${index}`} href={menu.href} underline={false} className={cn("text-white transition-all", pathname === menu.href ? 'text-[#ff55a5]' : 'hover:text-[#ff55a5]')}>
             <Flex className='py-3 pl-6 gap-[10px]'>
               {menu.icon}
               <span className="uppercase text-[13px] relative top-[2px]">{menu.title}</span>

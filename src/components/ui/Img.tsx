@@ -1,3 +1,4 @@
+import {cn} from "@/utils/ui";
 import { twMerge } from "tailwind-merge";
 
 type Props = {
@@ -15,12 +16,13 @@ export const Img = ({src, alt, size, circle, className, ...props}: Props) => {
       <img
         src={src}
         alt={alt ?? 'Image'}
-        className={twMerge(
-          'w-auto h-auto',
-          size ? `w-[${size}px] h-[${size}px]` : '',
+        className={cn(
+          size ? '' : 'w-auto h-auto',
+          size ? `max-w-full max-h-full` : '',
           circle ? 'rounded-[50%]' : '',
           className ?? ''
         )}
+        style={{ width: size ? (size + 'px') : undefined, height: size ? (size + 'px') : undefined }}
         {...props}
       />
     </picture>
