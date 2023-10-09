@@ -3,8 +3,6 @@ import {Button} from "@/components/ui/Button";
 import {Flex} from "@/components/ui/Flex";
 import {Img} from "@/components/ui/Img";
 import {Modal} from "@/components/ui/Modal";
-import {Text} from "@/components/ui/Text";
-import {useEffect} from "react";
 
 type Props = {
   isOpen: boolean;

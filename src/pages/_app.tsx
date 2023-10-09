@@ -4,7 +4,6 @@ import {InitComponentData} from "@/components/Init";
 import type {AppProps} from 'next/app'
 import Head from 'next/head'
 import {Comfortaa} from 'next/font/google'
-import Loading from "@/components/layouts/Loading";
 import {wrapper} from "@/stores/store";
 import {FC} from "react";
 import createEmotionCache from '@emotion/cache'

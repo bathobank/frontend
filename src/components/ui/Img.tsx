@@ -1,5 +1,4 @@
 import {cn} from "@/utils/ui";
-import { twMerge } from "tailwind-merge";
 
 type Props = {
     src: string;

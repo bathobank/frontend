@@ -1,4 +1,3 @@
-import {TCallable} from "@/@types/util";
 import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {Img} from "@/components/ui/Img";

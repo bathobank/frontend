@@ -2,7 +2,7 @@ import {BodyContent} from "@/components/layouts/BodyContent";
 import {Navbar} from "@/components/layouts/Navbar";
 import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
-import {ReactNode, useEffect} from "react";
+import {ReactNode} from "react";
 
 type Props = {
     children: ReactNode;
