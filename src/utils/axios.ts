@@ -18,6 +18,9 @@ axiosInstance.interceptors.response.use(
   }, function (error) {
     if (!error.response) return Promise.reject(error);
     if (!error.response.data) return Promise.reject(error.response);
+    if (error.response.status === 401) {
+      window.localStorage.removeItem('customer-token');
+    }
     return Promise.reject({...error.response.data, responseStatus: error.response.status});
   }
 );

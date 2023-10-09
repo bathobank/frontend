@@ -2,26 +2,28 @@ import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import {useToast} from "@/hooks/useToast";
+import {useUser} from "@/hooks/useUser";
 import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 
 const ConfigGame: {key: string; end: string; ratio: string}[] = [
-  {key: 'vietdau D0', end: '0', ratio: 'x5'},
-  {key: 'vietdau D1', end: '1', ratio: 'x7'},
-  {key: 'vietdau D2', end: '2', ratio: 'x7'},
-  {key: 'vietdau D3', end: '3', ratio: 'x7'},
-  {key: 'vietdau D4', end: '4', ratio: 'x7'},
-  {key: 'vietdau D5', end: '5', ratio: 'x7'},
-  {key: 'vietdau D6', end: '6', ratio: 'x7'},
-  {key: 'vietdau D7', end: '7', ratio: 'x7'},
-  {key: 'vietdau D8', end: '8', ratio: 'x7'},
-  {key: 'vietdau D9', end: '9', ratio: 'x7'}
+  {key: 'D0', end: '0', ratio: 'x5'},
+  {key: 'D1', end: '1', ratio: 'x7'},
+  {key: 'D2', end: '2', ratio: 'x7'},
+  {key: 'D3', end: '3', ratio: 'x7'},
+  {key: 'D4', end: '4', ratio: 'x7'},
+  {key: 'D5', end: '5', ratio: 'x7'},
+  {key: 'D6', end: '6', ratio: 'x7'},
+  {key: 'D7', end: '7', ratio: 'x7'},
+  {key: 'D8', end: '8', ratio: 'x7'},
+  {key: 'D9', end: '9', ratio: 'x7'}
 ]
 
 export const GameDoanSo = () => {
   const toast = useToast();
+  const {user} = useUser();
 
   const triggerCopyContent = (content: string) => {
     copyContent(content, () => {
@@ -54,8 +56,8 @@ export const GameDoanSo = () => {
             {ConfigGame.map((config, index) => (
               <tr key={`tr-game-cltx-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
                 <td className="py-3 w-[150px]">
-                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(config.key)}>
-                    <Text custom={true} className="mr-1">{config.key}</Text>
+                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} ${config.key}`)}>
+                    <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} {config.key}</Text>
                     <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
                   </Flex>
                 </td>

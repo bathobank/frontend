@@ -6,6 +6,7 @@ type Theme = 'light' | 'dark' | 'colored';
 type Config = {
   position?: Position;
   autoClose?: number;
+  time?: number;
   hideProgressBar?: boolean;
   closeOnClick?: boolean;
   pauseOnHover?: boolean;
@@ -16,7 +17,7 @@ type Config = {
 const getConfig = (config?: Config): Config => {
   return {
     position: 'top-center',
-    autoClose: 5000,
+    autoClose: config?.time ?? 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

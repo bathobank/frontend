@@ -1,84 +1,103 @@
-import {Img} from "@/components/ui/Img";
-import {Flex} from "@/components/ui/Flex";
+import {TApiErrorResponse, TApiSuccessResponse, TParamError} from "@/@types/axios";
+import {TUserCreate} from "@/@types/user";
+import {GlobalLayout} from "@/components/layouts/GlobalLayout";
+import {Button} from "@/components/ui/Button";
 import {Box} from "@/components/ui/Box";
+import {Input} from "@/components/ui/Input";
 import {Text} from "@/components/ui/Text";
-import Link from "next/link";
-import {useEffect} from "react";
-import {setIsLoading} from "@/stores/slices/loading";
-import {useDispatch} from "react-redux";
 import {LinkUI} from "@/components/ui/Link";
+import {useToast} from "@/hooks/useToast";
+import {useAuthRegisterMutation} from "@/queries/auth/register";
+import {buildErrorParam} from "@/utils/helper";
+import {useRouter} from "next/router";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
 
-export default function AuthLogin() {
-  const dispatch = useDispatch();
+export default function AuthRegister() {
+  const [isRequesting, setRequesting] = useState<boolean>(false);
+  const authRegisterMutate = useAuthRegisterMutation();
+  const toast = useToast();
+  const router = useRouter();
 
-  useEffect(() => {
-    dispatch(setIsLoading(false));
-  }, [dispatch]);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {errors}
+  } = useForm<TUserCreate>();
+
+  const onSubmit = (data: TUserCreate) => {
+    setRequesting(true);
+    authRegisterMutate.mutate(data, {
+      onSuccess(result) {
+        const {message} = result as unknown as TApiSuccessResponse<[]>;
+        toast.success(message, {time: 2000});
+        reset();
+        router.push('/auth/login');
+      },
+      onError(error) {
+        const errorData = error as TApiErrorResponse<TParamError>;
+        if (errorData.responseStatus === 422) {
+          const errMgs: string = buildErrorParam((error as TApiErrorResponse<TParamError>).data);
+          toast.error(errMgs);
+        } else {
+          toast.error(errorData.message);
+        }
+      },
+      onSettled() {
+        setRequesting(false);
+      }
+    });
+  }
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <LinkUI href="/" className="flex items-center mb-6 hover:no-underline">
-          <Img
-            src="/images/logo/logo.png"
-            data-src-full="/images/logo/logo.png"
-            alt="Logo"
-            className="w-8 h-8 mr-2 relative top-[-2px]"
-          />
-          <Text className='text-2xl font-semibold text-gray-900 dark:text-white'>VietD</Text>
-        </LinkUI>
-        <div
-          className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
-                            Create new account
-            </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
-              <div>
-                <label htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                                    email</label>
-                <input type="email" name="email" id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com" required={true}/>
-              </div>
-              <div>
-                <label htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required={true}/>
-              </div>
-              <div>
-                <label htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat
-                                    Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required={true}/>
-              </div>
-              <button type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Register
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-right">
-                                Already have an account? <Link href="/auth/login"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</Link>
+    <GlobalLayout showHeader={false}>
+      <Box className='w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+        <Box className="w-full rounded-lg shadow">
+          <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <Text align="center" className="text-xl">Đăng ký tài khoản</Text>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Box className="mb-3">
+                <Input
+                  id="nickname"
+                  label="Nickname"
+                  {...register('nickname', {required: true})}
+                />
+                {errors.nickname && <Text size='sm' col='red' className='italic !mt-1'>Hãy nhập Nickname</Text>}
+              </Box>
+              <Box className="mb-3">
+                <Input
+                  id="password"
+                  label="Mật khẩu"
+                  type="password"
+                  {...register('password', {required: true})}
+                />
+                {errors.password && <Text size='sm' col='red' className='italic !mt-1'>Mật khẩu không được trống</Text>}
+              </Box>
+              <Box className="mb-5">
+                <Input
+                  id="password_confirm"
+                  label="Nhập lại mật khẩu"
+                  type="password"
+                  {...register('password_confirm', {required: true})}
+                />
+                {errors.password_confirm && <Text size='sm' col='red' className='italic !mt-1'>Hãy nhập lại mật khẩu</Text>}
+              </Box>
+              <Button
+                type="submit"
+                fullWidth={true}
+                variant="theme"
+                disabled={isRequesting}
+                className="mb-3">
+                Đăng ký
+              </Button>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
+                Bạn đã có tài khoản? <LinkUI href="/auth/login">Đăng nhập</LinkUI>
               </p>
             </form>
-            <Flex justify="between" className="text-black">
-              <Box className="w-[42%] h-0 border-[1px] border-solid border-[#ddd]"></Box>
-              <Text as="span">or</Text>
-              <Box className="w-[42%] h-0 border-[1px] border-solid border-[#ddd]"></Box>
-            </Flex>
-            <Flex justify="center" items="center"
-              className="rounded-2xl border hover:bg-[#f3f4f6] transition-all cursor-pointer py-[10px] select-none">
-              <Img src="/images/icons/google.svg" alt="Icon" className="w-[28px] h-[28px]"/>
-              <Text weight="semibold" className="ml-2">Create with Google</Text>
-            </Flex>
-          </div>
-        </div>
-      </div>
-    </section>
+          </Box>
+        </Box>
+      </Box>
+    </GlobalLayout>
   );
 }

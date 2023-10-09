@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import {InitComponentData} from "@/components/Init";
 import type {AppProps} from 'next/app'
 import Head from 'next/head'
 import {Comfortaa} from 'next/font/google'
@@ -29,12 +30,14 @@ const App: FC<AppProps> = ({Component, ...rest}: AppProps) => {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <CacheProvider value={emotionCache}>
-            <Head>
-              <title>Bát Họ Bank</title>
-              <link rel="shortcut icon" href="/images/logo/favicon.ico"/>
-            </Head>
-            <Component {...pageProps} />
-            <ToastContainer />
+            <InitComponentData>
+              <Head>
+                <title>Bát Họ Bank</title>
+                <link rel="shortcut icon" href="/images/logo/favicon.ico"/>
+              </Head>
+              <Component {...pageProps} />
+              <ToastContainer />
+            </InitComponentData>
           </CacheProvider>
         </QueryClientProvider>
       </Provider>

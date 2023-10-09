@@ -18,19 +18,26 @@ export const buildErrorParam = (errors: TParamError): string => {
   return errorMgs.join(', ');
 }
 
-export const defaultOptionReactQueryResponse = (cbSuccess?: () => void) => {
+export const defaultOptionReactQueryResponse = <T>(cbSuccess?: (result: T) => void, cbDone?: () => void) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const toast = useToast();
 
   return {
-    onSuccess(data: unknown) {
-      const {message} = data as TApiSuccessResponse<[]>;
+    onSuccess(result: unknown) {
+      const {message, data} = result as unknown as TApiSuccessResponse<[]>;
       toast.success(message);
-      cbSuccess && cbSuccess();
+      cbSuccess && cbSuccess(data as T);
     },
     onError(error: unknown) {
-      const {data} = error as TApiErrorResponse<TParamError>;
-      toast.error(buildErrorParam(data));
+      const {data, responseStatus, message} = error as TApiErrorResponse<TParamError>;
+      if (responseStatus === 422) {
+        toast.error(buildErrorParam(data));
+      } else {
+        toast.error(message);
+      }
+    },
+    onSettled() {
+      cbDone && cbDone();
     }
   };
 }

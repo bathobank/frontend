@@ -1,91 +1,90 @@
-import {Img} from "@/components/ui/Img";
+import {TUserLogin} from "@/@types/user";
+import {GlobalLayout} from "@/components/layouts/GlobalLayout";
+import {Button} from "@/components/ui/Button";
 import {Flex} from "@/components/ui/Flex";
 import {Box} from "@/components/ui/Box";
+import {Input} from "@/components/ui/Input";
 import {Text} from "@/components/ui/Text";
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {setIsLoading} from "@/stores/slices/loading";
 import {LinkUI} from "@/components/ui/Link";
+import {useAuthLoginMutation} from "@/queries/auth/login";
+import {AUTH_GET_USER_QK} from "@/queries/auth/user";
+import {defaultOptionReactQueryResponse} from "@/utils/helper";
+import {useRouter} from "next/router";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
+import {useQueryClient} from "react-query";
 
 export default function AuthLogin() {
-  const dispatch = useDispatch();
+  const [isRequesting, setRequesting] = useState<boolean>(false);
+  const authLoginMutation = useAuthLoginMutation();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(setIsLoading(false));
-    }, 1000);
-  }, [dispatch]);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {errors}
+  } = useForm<TUserLogin>();
+
+  const onSubmit = (data: TUserLogin) => {
+    const mutateOption = defaultOptionReactQueryResponse<{token: string}>((result) => {
+      reset();
+      window.localStorage.setItem('customer-token', result.token);
+      queryClient.invalidateQueries({
+        queryKey: [AUTH_GET_USER_QK]
+      });
+      router.push('/');
+    }, () => {
+      setRequesting(false);
+    });
+
+    setRequesting(true);
+    authLoginMutation.mutate(data, mutateOption);
+  }
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <LinkUI href="/" className="flex items-center mb-6 hover:no-underline">
-          <Img
-            src="/images/logo/logo.png"
-            data-src-full="/images/logo/logo.png"
-            alt="Logo"
-            className="w-8 h-8 mr-2 relative top-[-2px]"
-          />
-          <Text className='text-2xl font-semibold text-gray-900 dark:text-white'>VietD</Text>
-        </LinkUI>
-        <div
-          className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
-                            Sign in to your account
-            </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
-              <div>
-                <label htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                                    email</label>
-                <input type="email" name="email" id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com" required={true}/>
-              </div>
-              <div>
-                <label htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required={true}/>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start cursor-pointer">
-                  <div className="flex items-center h-5">
-                    <input id="remember" aria-describedby="remember" type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required={true}/>
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300 cursor-pointer">Remember
-                                            me</label>
-                  </div>
-                </div>
-                <LinkUI href="#" className="text-sm">Forgot password?</LinkUI>
-              </div>
-              <button type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign
-                                in
-              </button>
+    <GlobalLayout showHeader={false}>
+      <Box className='w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+        <Box className="w-full rounded-lg shadow">
+          <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <Text align="center" className="text-xl">Đăng nhập</Text>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Box className="mb-3">
+                <Input
+                  id="nickname"
+                  label="Nickname"
+                  {...register('nickname', {required: true})}
+                />
+                {errors.nickname && <Text size='sm' col='red' className='italic !mt-1'>Hãy nhập Nickname</Text>}
+              </Box>
+              <Box className="mb-5">
+                <Input
+                  id="password"
+                  label="Mật khẩu"
+                  type="password"
+                  {...register('password', {required: true})}
+                />
+                {errors.password && <Text size='sm' col='red' className='italic !mt-1'>Hãy nhập mật khẩu</Text>}
+              </Box>
+              <Flex justify="end" className="mb-3">
+                <LinkUI href="#" className="text-sm">Quên mật khẩu?</LinkUI>
+              </Flex>
+              <Button
+                type="submit"
+                fullWidth={true}
+                variant="theme"
+                disabled={isRequesting}
+                className="mb-3">
+                Đăng nhập
+              </Button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-                                Don’t have an account yet? <LinkUI href="/auth/register">Signup</LinkUI>
+                Bạn chưa có tài khoản? <LinkUI href="/auth/register">Đăng ký</LinkUI>
               </p>
             </form>
-            <Flex justify="between" className="text-black">
-              <Box className="w-[42%] h-0 border-[1px] border-solid border-[#ddd]"></Box>
-              <Text as="span">or</Text>
-              <Box className="w-[42%] h-0 border-[1px] border-solid border-[#ddd]"></Box>
-            </Flex>
-            <Flex justify="center" items="center"
-              className="rounded-2xl border hover:bg-[#f3f4f6] transition-all cursor-pointer py-[10px]">
-              <Img src="/images/icons/google.svg" alt="Icon" className="w-[28px] h-[28px]"/>
-              <Text weight="semibold" className="ml-2">Login with Google</Text>
-            </Flex>
-          </div>
-        </div>
-      </div>
-    </section>
+          </Box>
+        </Box>
+      </Box>
+    </GlobalLayout>
   );
 }

@@ -33,13 +33,13 @@ export const Modal = ({id, children, title, onClose, onOpen, isOpen = false}: Pr
       backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
       closable: true,
       onHide: () => {
-        console.log('modal is hidden');
+        // todo
       },
       onShow: () => {
-        console.log('modal is shown');
+        // todo
       },
       onToggle: () => {
-        console.log('modal has been toggled');
+        // todo
       }
     }
 

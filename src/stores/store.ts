@@ -1,3 +1,4 @@
+import {userSlice} from "@/stores/slices/user";
 import {configureStore} from "@reduxjs/toolkit";
 import {createWrapper} from "next-redux-wrapper";
 import {cartSlice} from "@/stores/slices/store";
@@ -9,7 +10,8 @@ const makeStore = () =>
     reducer: {
       [cartSlice.name]: cartSlice.reducer,
       [loadingSlice.name]: loadingSlice.reducer,
-      [gameSlice.name]: gameSlice.reducer
+      [gameSlice.name]: gameSlice.reducer,
+      [userSlice.name]: userSlice.reducer,
     },
     devTools: true,
   });

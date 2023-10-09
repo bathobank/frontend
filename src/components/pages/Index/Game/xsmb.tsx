@@ -2,27 +2,15 @@ import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import {useToast} from "@/hooks/useToast";
+import {useUser} from "@/hooks/useUser";
 import {copyContent} from "@/utils/helper";
-import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import ArrowRightAltRoundedIcon from '@mui/icons-material/ArrowRightAltRounded';
 
-const ConfigGame: {key: string; end: string; ratio: string}[] = [
-  {key: 'vietdau D0', end: '0', ratio: 'x5'},
-  {key: 'vietdau D1', end: '1', ratio: 'x7'},
-  {key: 'vietdau D2', end: '2', ratio: 'x7'},
-  {key: 'vietdau D3', end: '3', ratio: 'x7'},
-  {key: 'vietdau D4', end: '4', ratio: 'x7'},
-  {key: 'vietdau D5', end: '5', ratio: 'x7'},
-  {key: 'vietdau D6', end: '6', ratio: 'x7'},
-  {key: 'vietdau D7', end: '7', ratio: 'x7'},
-  {key: 'vietdau D8', end: '8', ratio: 'x7'},
-  {key: 'vietdau D9', end: '9', ratio: 'x7'}
-]
-
 export const GameXsmb = () => {
   const toast = useToast();
+  const {user} = useUser();
 
   const triggerCopyContent = (content: string) => {
     copyContent(content, () => {
@@ -60,8 +48,8 @@ export const GameXsmb = () => {
                 <Text>LÔ</Text>
               </td>
               <td className="py-3 w-[150px]">
-                <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent('vietdau XSL')}>
-                  <Text custom={true} className="mr-1">vietdau XSL (số chọn)</Text>
+                <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} XSL`)}>
+                  <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} XSL (số chọn)</Text>
                   <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
                 </Flex>
               </td>
@@ -81,8 +69,8 @@ export const GameXsmb = () => {
                 <Text>ĐỀ</Text>
               </td>
               <td className="py-3 w-[150px]">
-                <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent('vietdau XSD')}>
-                  <Text custom={true} className="mr-1">vietdau XSD (số chọn)</Text>
+                <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} XSD`)}>
+                  <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} XSD (số chọn)</Text>
                   <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
                 </Flex>
               </td>
@@ -102,8 +90,8 @@ export const GameXsmb = () => {
                 <Text>XIÊN 2</Text>
               </td>
               <td className="py-3 w-[150px]">
-                <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent('vietdau XSX')}>
-                  <Text custom={true} className="mr-1">vietdau XSX (số chọn)</Text>
+                <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} XSX`)}>
+                  <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} XSX (số chọn)</Text>
                   <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
                 </Flex>
               </td>
@@ -123,7 +111,7 @@ export const GameXsmb = () => {
                 <Flex>
                   <Text className="mr-2">ĐÁNH LÔ 85</Text>
                   <ArrowRightAltRoundedIcon className='text-white' />
-                  <Text className="text-[12px] ml-2 px-2 py-1 bg-[#ff55a51a] rounded select-none">vietdau XSL 85</Text>
+                  <Text className="text-[12px] ml-2 px-2 py-1 bg-[#ff55a51a] rounded select-none">{user?.nickname ?? 'nickname'} XSL 85</Text>
                 </Flex>
               </td>
             </tr>
@@ -132,7 +120,7 @@ export const GameXsmb = () => {
                 <Flex>
                   <Text className="mr-2">ĐÁNH ĐỀ 85</Text>
                   <ArrowRightAltRoundedIcon className='text-white' />
-                  <Text className="text-[12px] ml-2 px-2 py-1 bg-[#ff55a51a] rounded select-none">vietdau XSD 85</Text>
+                  <Text className="text-[12px] ml-2 px-2 py-1 bg-[#ff55a51a] rounded select-none">{user?.nickname ?? 'nickname'} XSD 85</Text>
                 </Flex>
               </td>
             </tr>
@@ -141,7 +129,7 @@ export const GameXsmb = () => {
                 <Flex>
                   <Text className="mr-2">ĐÁNH XIÊN 85-58</Text>
                   <ArrowRightAltRoundedIcon className='text-white' />
-                  <Text className="text-[12px] ml-2 px-2 py-1 bg-[#ff55a51a] rounded select-none">vietdau XSX 85 58</Text>
+                  <Text className="text-[12px] ml-2 px-2 py-1 bg-[#ff55a51a] rounded select-none">{user?.nickname ?? 'nickname'} XSX 85 58</Text>
                 </Flex>
               </td>
             </tr>

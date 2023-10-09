@@ -2,19 +2,21 @@ import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import {useToast} from "@/hooks/useToast";
+import {useUser} from "@/hooks/useUser";
 import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 
 const ConfigGame: {key: string; calculation: string; end: string; ratio: string}[] = [
-  {key: 'vietdau G3', calculation: '2 số cuối', end: '02,13,17,19,21,29,35,37,47,49,51,54,57,63,64,74,83,91,95,96', ratio: 'x3'},
-  {key: 'vietdau G3', calculation: '2 số cuối', end: '66,99', ratio: 'x4'},
-  {key: 'vietdau G3', calculation: '3 số cuối', end: '123,234,456,678,789', ratio: 'x5'}
+  {key: 'G3', calculation: '2 số cuối', end: '02,13,17,19,21,29,35,37,47,49,51,54,57,63,64,74,83,91,95,96', ratio: 'x3'},
+  {key: 'G3', calculation: '2 số cuối', end: '66,99', ratio: 'x4'},
+  {key: 'G3', calculation: '3 số cuối', end: '123,234,456,678,789', ratio: 'x5'}
 ]
 
 export const GameGap3 = () => {
   const toast = useToast();
+  const {user} = useUser();
 
   const triggerCopyContent = (content: string) => {
     copyContent(content, () => {
@@ -50,8 +52,8 @@ export const GameGap3 = () => {
             {ConfigGame.map((config, index) => (
               <tr key={`tr-game-cltx-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
                 <td className="py-3 w-[150px]">
-                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(config.key)}>
-                    <Text custom={true} className="mr-1">{config.key}</Text>
+                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} ${config.key}`)}>
+                    <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} {config.key}</Text>
                     <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
                   </Flex>
                 </td>

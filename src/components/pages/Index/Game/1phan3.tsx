@@ -2,19 +2,26 @@ import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import {useToast} from "@/hooks/useToast";
+import {useUser} from "@/hooks/useUser";
 import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import {useEffect} from "react";
 
 const ConfigGame: {key: string; end: string; ratio: string}[] = [
-  {key: 'vietdau N1', end: '1,5,7', ratio: 'x2.8'},
-  {key: 'vietdau N2', end: '2,4,8', ratio: 'x2.8'},
-  {key: 'vietdau N3', end: '3,6,9', ratio: 'x2.8'}
+  {key: 'N1', end: '1,5,7', ratio: 'x2.8'},
+  {key: 'N2', end: '2,4,8', ratio: 'x2.8'},
+  {key: 'N3', end: '3,6,9', ratio: 'x2.8'}
 ]
 
 export const Game1Phan3 = () => {
   const toast = useToast();
+  const {user} = useUser();
+
+  useEffect(() => {
+    console.log('user', user)
+  }, [user]);
 
   const triggerCopyContent = (content: string) => {
     copyContent(content, () => {
@@ -47,8 +54,8 @@ export const Game1Phan3 = () => {
             {ConfigGame.map((config, index) => (
               <tr key={`tr-game-cltx-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
                 <td className="py-3 w-[150px]">
-                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(config.key)}>
-                    <Text custom={true} className="mr-1">{config.key}</Text>
+                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} ${config.key}`)}>
+                    <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} {config.key}</Text>
                     <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
                   </Flex>
                 </td>

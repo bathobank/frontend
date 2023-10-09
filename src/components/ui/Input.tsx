@@ -29,7 +29,7 @@ export const Input = forwardRefWithAs<'input', Props>((props, ref) => {
     <Box>
       {label && (
         <label
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-white"
           htmlFor={inputId}>
           {label}
         </label>

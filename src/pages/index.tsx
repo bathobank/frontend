@@ -10,7 +10,10 @@ import {GameXsmb} from "@/components/pages/Index/Game/xsmb";
 import {Box} from "@/components/ui/Box";
 import {GlobalLayout} from "@/components/layouts/GlobalLayout";
 import {Flex} from "@/components/ui/Flex";
+import {LinkUI} from "@/components/ui/Link";
+import {Text} from "@/components/ui/Text";
 import {useStore} from "@/hooks/useStore";
+import {useUser} from "@/hooks/useUser";
 import {getGameOpen} from "@/stores/slices/game";
 import {useEffect, useRef} from "react";
 
@@ -19,6 +22,7 @@ export default function Home() {
   const bankRef = useRef<HTMLDivElement>(null);
   const store = useStore();
   const gameOpen = store.get(getGameOpen);
+  const {isLogined} = useUser();
 
   useEffect(() => {
     if (!gameRef.current || !bankRef.current) return;
@@ -29,7 +33,7 @@ export default function Home() {
     const height = bankHeight > gameHeight ? bankHeight : gameHeight;
     gameRef.current.style.height = height + 'px';
     bankRef.current.style.height = height + 'px';
-  }, [gameOpen, gameRef, bankRef]);
+  }, [gameOpen, gameRef, bankRef, isLogined]);
 
   return (
     <GlobalLayout>
@@ -49,7 +53,13 @@ export default function Home() {
         <Box
           ref={bankRef}
           className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
-          <BankList />
+          {isLogined ? (
+            <BankList />
+          ) : (
+            <Box className="px-3 py-5">
+              <Text align="center">ĐỂ LẤY THÔNG TIN BANK CHUYỂN KHOẢN, VUI LÒNG <LinkUI href='/auth/login' className="text-[#ff55a5]">ĐĂNG NHẬP</LinkUI> HOẶC <LinkUI href="/auth/register" className="text-[#ff55a5]">ĐĂNG KÝ NHANH</LinkUI></Text>
+            </Box>
+          )}
         </Box>
       </Flex>
     </GlobalLayout>
