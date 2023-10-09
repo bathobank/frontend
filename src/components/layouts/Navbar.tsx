@@ -5,7 +5,6 @@ import {LinkUI} from "@/components/ui/Link";
 import {Text} from "@/components/ui/Text";
 import {useUser} from "@/hooks/useUser";
 import {cn} from "@/utils/ui";
-import {router} from "next/client";
 import {useRouter} from "next/router";
 import {ReactNode, useEffect, useRef, useState} from "react";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -57,7 +56,7 @@ export const Navbar = () => {
   const [menuHeight, setMenuHeight] = useState<string>('calc(100vh - 158px)');
   const logoRef = useRef<HTMLDivElement>(null);
   const copyrightRef = useRef<HTMLDivElement>(null);
-  const {pathname} = useRouter();
+  const {pathname, push} = useRouter();
   const {isLogined, user, logout} = useUser();
 
   useEffect(() => {
@@ -74,7 +73,7 @@ export const Navbar = () => {
   const actions: {[key: string]: any} = {
     logout() {
       logout();
-      router.push(menu[0].href);
+      push(menu[0].href);
     }
   };
 
