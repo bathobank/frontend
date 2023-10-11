@@ -7,6 +7,9 @@ import {GameGap3} from "@/components/pages/Index/Game/gap3";
 import {GameTong3So} from "@/components/pages/Index/Game/tong3so";
 import {GameXien} from "@/components/pages/Index/Game/xien";
 import {GameXsmb} from "@/components/pages/Index/Game/xsmb";
+import {History} from "@/components/pages/Index/History";
+import {HistoryWinGame} from "@/components/pages/Index/HistoryWinGame";
+import {TopWeekAndRule} from "@/components/pages/Index/TopWeekAndRule";
 import {Box} from "@/components/ui/Box";
 import {GlobalLayout} from "@/components/layouts/GlobalLayout";
 import {Flex} from "@/components/ui/Flex";
@@ -37,10 +40,8 @@ export default function Home() {
 
   return (
     <GlobalLayout>
-      <Flex justify='between' items="start">
-        <Box
-          ref={gameRef}
-          className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+      <Flex justify='between' items="start" className="mb-3">
+        <Box ref={gameRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
           {gameOpen === 'cltx' && <GameCltx />}
           {gameOpen === 'cltx2' && <GameCltx2 />}
           {gameOpen === 'gap3' && <GameGap3 />}
@@ -50,9 +51,7 @@ export default function Home() {
           {gameOpen === 'doanso' && <GameDoanSo />}
           {gameOpen === 'xsmb' && <GameXsmb />}
         </Box>
-        <Box
-          ref={bankRef}
-          className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+        <Box ref={bankRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
           {isLogined ? (
             <BankList />
           ) : (
@@ -62,6 +61,15 @@ export default function Home() {
           )}
         </Box>
       </Flex>
+      <Box className="mb-3">
+        <History />
+      </Box>
+      <Box className="mb-3">
+        <HistoryWinGame />
+      </Box>
+      <Box className="mb-3">
+        <TopWeekAndRule />
+      </Box>
     </GlobalLayout>
   )
 }
