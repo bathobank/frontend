@@ -37,3 +37,20 @@ body {
   color: rgb(var(--foreground-rgb));
   min-height: 100vh;
 }
+
+.select__input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.select__value-container {
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+
+.select__input-container {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

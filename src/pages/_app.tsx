@@ -1,12 +1,13 @@
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {InitComponentData} from "@/components/Init";
-import type {AppProps} from 'next/app'
-import Head from 'next/head'
-import {Comfortaa} from 'next/font/google'
+import {useFont} from "@/hooks/useFont";
+import type {AppProps} from 'next/app';
+import {Comfortaa} from "next/font/google";
+import Head from 'next/head';
 import {wrapper} from "@/stores/store";
 import {FC} from "react";
-import createEmotionCache from '@emotion/cache'
+import createEmotionCache from '@emotion/cache';
 import {QueryClient, QueryClientProvider} from "react-query";
 import {Provider} from "react-redux";
 import {CacheProvider} from "@emotion/react";
@@ -14,7 +15,7 @@ import {ToastContainer} from "react-toastify";
 
 const comfortaa = Comfortaa({
   weight: '400',
-  subsets: ['latin'],
+  subsets: ['vietnamese'],
 });
 
 const clientSideEmotionCache = createEmotionCache({key: 'app-cached'});
@@ -29,7 +30,7 @@ const App: FC<AppProps> = ({Component, ...rest}: AppProps) => {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <CacheProvider value={emotionCache}>
-            <InitComponentData>
+            <InitComponentData fontClass={comfortaa.className}>
               <Head>
                 <title>Bát Họ Bank</title>
                 <link rel="shortcut icon" href="/images/logo/favicon.ico"/>

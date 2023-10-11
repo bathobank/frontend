@@ -1,3 +1,4 @@
+import {fontSlice} from "@/stores/slices/font";
 import {userSlice} from "@/stores/slices/user";
 import {configureStore} from "@reduxjs/toolkit";
 import {createWrapper} from "next-redux-wrapper";
@@ -12,6 +13,7 @@ const makeStore = () =>
       [loadingSlice.name]: loadingSlice.reducer,
       [gameSlice.name]: gameSlice.reducer,
       [userSlice.name]: userSlice.reducer,
+      [fontSlice.name]: fontSlice.reducer,
     },
     devTools: true,
   });
