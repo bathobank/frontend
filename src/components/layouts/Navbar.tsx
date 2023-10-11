@@ -101,7 +101,9 @@ export const Navbar = () => {
                 <Text>{user?.nickname}</Text>
               </Box>
             </Flex>
-            <Box className="group rounded-lg bg-[#ffffff0d] px-3 py-2 cursor-pointer transition-all hover:bg-[#cbd4ff3d]">
+            <Box
+              onClick={() => callAction('logout')}
+              className="group rounded-lg bg-[#ffffff0d] px-3 py-2 cursor-pointer transition-all hover:bg-[#cbd4ff3d]">
               <ExitToAppRoundedIcon className="text-[#fff] transition-all group-hover:text-[#ff55a5]" />
             </Box>
           </Flex>

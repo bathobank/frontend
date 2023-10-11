@@ -19,10 +19,6 @@ export const Game1Phan3 = () => {
   const toast = useToast();
   const {user} = useUser();
 
-  useEffect(() => {
-    console.log('user', user)
-  }, [user]);
-
   const triggerCopyContent = (content: string) => {
     copyContent(content, () => {
       toast.success('Copy nội dung thành công!', { autoClose: 2000 });
