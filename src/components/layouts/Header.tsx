@@ -25,11 +25,15 @@ export const Header = () => {
     dispatch(setGameOpen(gameSlug));
   }
 
-  useEffect(() => {
-    if (gameOpen == '') {
-      changeGame(MENU[0].slug);
-    }
-  }, [gameOpen]);
+  useEffect(
+    () => {
+      if (gameOpen == '') {
+        changeGame(MENU[0].slug);
+      }
+    },
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    [gameOpen]
+  );
 
   return (
     <Box className="px-3 py-3">
