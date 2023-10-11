@@ -8,7 +8,7 @@ import {Text} from "@/components/ui/Text";
 import ReactSelect from "react-select";
 import {useBankAllQuery} from "@/queries/bank/all";
 import {useUserBankReceive, useUserBankReceiveMutation} from "@/queries/bank/user";
-import {defaultOptionReactQueryResponse, uuidv4} from "@/utils/helper";
+import {defaultOptionReactQueryResponse} from "@/utils/helper";
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
