@@ -1,7 +1,6 @@
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {InitComponentData} from "@/components/Init";
-import {useFont} from "@/hooks/useFont";
 import type {AppProps} from 'next/app';
 import {Comfortaa} from "next/font/google";
 import Head from 'next/head';
