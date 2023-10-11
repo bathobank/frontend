@@ -5,10 +5,10 @@ import {Button} from "@/components/ui/Button";
 import {Flex} from "@/components/ui/Flex";
 import {Input} from "@/components/ui/Input";
 import {Text} from "@/components/ui/Text";
-import {ReactSelect} from "@/hooks/dynamic";
+import ReactSelect from "react-select";
 import {useBankAllQuery} from "@/queries/bank/all";
 import {useUserBankReceive, useUserBankReceiveMutation} from "@/queries/bank/user";
-import {defaultOptionReactQueryResponse} from "@/utils/helper";
+import {defaultOptionReactQueryResponse, uuidv4} from "@/utils/helper";
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
@@ -97,6 +97,8 @@ export default function BankSetup() {
                   noOptionsMessage={() => 'Không có ngân hàng phù hợp'}
                   options={banks}
                   value={bankSelected}
+                  inputId="bank_receive"
+                  instanceId="instance_bank_receive"
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   onChange={setBankSelected}
