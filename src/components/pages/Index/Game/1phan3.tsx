@@ -7,7 +7,6 @@ import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
-import {useEffect} from "react";
 
 const ConfigGame: {key: string; end: string; ratio: string}[] = [
   {key: 'N1', end: '1,5,7', ratio: 'x2.8'},
