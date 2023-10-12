@@ -1,29 +1,27 @@
+import {TMission} from "@/@types/mission";
 import {GlobalLayout} from "@/components/layouts/GlobalLayout";
 import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {LinkUI} from "@/components/ui/Link";
 import {Text} from "@/components/ui/Text";
+import {useUser} from "@/hooks/useUser";
+import {useMissionQuery} from "@/queries/mission/all";
 import {formatMoney} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import ConfirmationNumberRoundedIcon from '@mui/icons-material/ConfirmationNumberRounded';
-
-type TMission = {
-  money: number;
-  point: number;
-}
-
-const Missions: TMission[] = [
-  {money: 1000000, point: 11111},
-  {money: 5000000, point: 55555},
-  {money: 10000000, point: 111111},
-  {money: 30000000, point: 333333},
-  {money: 49000000, point: 555555},
-  {money: 100000000, point: 1111111},
-  {money: 200000000, point: 2222222},
-  {money: 500000000, point: 6666666}
-];
+import {useEffect, useState} from "react";
 
 export default function DailyMission(){
+  const [missions, setMissions] = useState<TMission[]>([]);
+  const missionQuery = useMissionQuery();
+  const {isLogined} = useUser();
+
+  useEffect(() => {
+    if (missionQuery) {
+      setMissions(missionQuery.data.missions);
+    }
+  }, [missionQuery]);
+
   return (
     <GlobalLayout showHeader={false}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
@@ -33,7 +31,11 @@ export default function DailyMission(){
         </Flex>
         <Box className="py-5">
           <Box className="text-center">
-            <Text size="sm">VUI LÒNG <LinkUI href='/auth/login' className="text-[#ff55a5]">ĐĂNG NHẬP</LinkUI> HOẶC <LinkUI href="/auth/register" className="text-[#ff55a5]">ĐĂNG KÝ NHANH</LinkUI> ĐỂ NHẬN THƯỞNG</Text>
+            {isLogined ? (
+              <Text>Tổng chơi trong ngày: <span className="text-[#ff55a5]">0</span></Text>
+            ) : (
+              <Text size="sm">VUI LÒNG <LinkUI href='/auth/login' className="text-[#ff55a5]">ĐĂNG NHẬP</LinkUI> HOẶC <LinkUI href="/auth/register" className="text-[#ff55a5]">ĐĂNG KÝ NHANH</LinkUI> ĐỂ NHẬN THƯỞNG</Text>
+            )}
           </Box>
           <Box className="w-full max-w-[550px] m-auto border border-[#ffffff0d] mt-7">
             <table className="w-full">
@@ -51,16 +53,30 @@ export default function DailyMission(){
                 </tr>
               </thead>
               <tbody>
-                {Missions.map((mission, index) => (
+                {missions.map((mission, index) => (
                   <tr className={cn("text-center", index > 0 ? 'border-t border-t-[#ffffff0d]' : '')} key={`mission-list-${index}`}>
                     <td className="py-3">
-                      <Text size="sm">{formatMoney(mission.money)}</Text>
+                      <Text size="sm">{formatMoney(mission.milestone)}</Text>
                     </td>
                     <td className="py-3">
-                      <Text size="sm">{formatMoney(mission.point)}</Text>
+                      <Text size="sm">{formatMoney(mission.bonus)}</Text>
                     </td>
                     <td className="py-3">
-                      <Text as="span" size="xs" className="text-[12px] px-2 py-1 bg-[#f266271a] rounded select-none">CHƯA ĐẠT</Text>
+                      {mission.is_done === 0 ? (
+                        <Text
+                          as="span"
+                          size="xs"
+                          className="text-[12px] px-2 py-1 bg-[#f266271a] rounded select-none">
+                          Chưa đạt
+                        </Text>
+                      ) : (
+                        <Text
+                          as="span"
+                          size="xs"
+                          className="text-[12px] px-2 py-1 bg-[#3ab43196] rounded select-none">
+                          Đã đạt
+                        </Text>
+                      )}
                     </td>
                   </tr>
                 ))}
