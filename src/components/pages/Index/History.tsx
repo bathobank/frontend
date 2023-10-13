@@ -12,7 +12,7 @@ export const History = () => {
         <Text custom={true} className="ml-2 text-white">LỊCH SỬ CHƠI GẦN ĐÂY</Text>
       </Flex>
       <Box className="px-3 py-5">
-        <Text align="center" size="sm">ĐỂ LẤY THÔNG TIN BANK CHUYỂN KHOẢN, VUI LÒNG <LinkUI href='/auth/login' className="text-[#ff55a5]">ĐĂNG NHẬP</LinkUI> HOẶC <LinkUI href="/auth/register" className="text-[#ff55a5]">ĐĂNG KÝ NHANH</LinkUI></Text>
+        <Text align="center" size="sm">ĐỂ XEM LỊCH SỬ, VUI LÒNG <LinkUI href='/auth/login' className="text-[#ff55a5]">ĐĂNG NHẬP</LinkUI> HOẶC <LinkUI href="/auth/register" className="text-[#ff55a5]">ĐĂNG KÝ NHANH</LinkUI></Text>
       </Box>
     </Box>
   );

@@ -4,8 +4,24 @@ import {Button} from "@/components/ui/Button";
 import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
+import {useEffect, useState} from "react";
+import {useJackpotQuery} from "@/queries/jackpot";
 
 export default function Jackpot(){
+  const [jackpot, setJackpot] = useState<string>('0000000');
+  const jackpotQuery = useJackpotQuery();
+
+  useEffect(() => {
+    if (!jackpotQuery) return;
+    const jackpotData = jackpotQuery.data.jackpot;
+    if (jackpotData >= 1000000) {
+      setJackpot(String(jackpotData));
+      return;
+    }
+    const prefix = Array(7 - String(jackpotData).length).fill('0').join('');
+    setJackpot(prefix + jackpotData);
+  }, [jackpotQuery]);
+
   return (
     <GlobalLayout showHeader={false}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
@@ -18,7 +34,7 @@ export default function Jackpot(){
             <Text align="center" size="xs">SỐ TIỀN HIỆN TẠI TRONG HŨ ĐANG CHỜ BẠN!</Text>
           </Box>
           <Flex justify="center" className="space-x-3 mb-5">
-            {'12345678'.split('').map((str, index) => (
+            {jackpot.split('').map((str, index) => (
               <Text
                 key={`td-jackpot-money-${index}`}
                 className="text-[14px] px-3 py-1 bg-[#ff55a51a] rounded select-none">
