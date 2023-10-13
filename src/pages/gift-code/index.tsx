@@ -11,7 +11,7 @@ export default function GiftCode(){
   const {isLogined} = useUser();
 
   return (
-    <GlobalLayout showHeader={false}>
+    <GlobalLayout showHeader={false} title="Giftcode">
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <CardGiftcardRoundedIcon className="text-[#ff55a5] mr-3" />

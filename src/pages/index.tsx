@@ -18,7 +18,7 @@ import {Text} from "@/components/ui/Text";
 import {useStore} from "@/hooks/useStore";
 import {useUser} from "@/hooks/useUser";
 import {getGameOpen} from "@/stores/slices/game";
-import {useEffect, useRef} from "react";
+import {useEffect, useMemo, useRef} from "react";
 
 export default function Home() {
   const gameRef = useRef<HTMLDivElement>(null);
@@ -38,8 +38,20 @@ export default function Home() {
     bankRef.current.style.height = height + 'px';
   }, [gameOpen, gameRef, bankRef, isLogined]);
 
+  const title: string|undefined = useMemo(() => {
+    if (gameOpen === 'cltx') return 'Chẵn lẻ - Tài xỉu';
+    if (gameOpen === 'cltx2') return 'Chẵn lẻ - Tài xỉu - Cộng 2 số';
+    if (gameOpen === 'gap3') return 'Gấp 3';
+    if (gameOpen === 'tong3so') return 'Tổng 3 số';
+    if (gameOpen === '1phan3') return 'Một phần 3';
+    if (gameOpen === 'xien') return 'Xiên số';
+    if (gameOpen === 'doanso') return 'Đoán số';
+    if (gameOpen === 'xsmb') return 'Xổ số Miền Bắc';
+    return undefined;
+  }, [gameOpen]);
+
   return (
-    <GlobalLayout>
+    <GlobalLayout title={title}>
       <Flex justify='between' items="start" className="mb-3">
         <Box ref={gameRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
           {gameOpen === 'cltx' && <GameCltx />}

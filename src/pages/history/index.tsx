@@ -6,7 +6,7 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
 
 export default function History(){
   return (
-    <GlobalLayout showHeader={false}>
+    <GlobalLayout showHeader={false} title="Lịch sử chơi">
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <HistoryRoundedIcon className="text-[#ff55a5] mr-3" />
