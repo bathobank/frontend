@@ -44,7 +44,7 @@ export default function AuthLogin() {
   }
 
   return (
-    <GlobalLayout showHeader={false}>
+    <GlobalLayout showHeader={false} title="Đăng nhập">
       <Box className='w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
         <Box className="w-full rounded-lg shadow">
           <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -67,9 +67,6 @@ export default function AuthLogin() {
                 />
                 {errors.password && <Text size='sm' col='red' className='italic !mt-1'>Hãy nhập mật khẩu</Text>}
               </Box>
-              <Flex justify="end" className="mb-3">
-                <LinkUI href="#" className="text-sm">Quên mật khẩu?</LinkUI>
-              </Flex>
               <Button
                 type="submit"
                 fullWidth={true}

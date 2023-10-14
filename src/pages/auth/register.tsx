@@ -51,7 +51,7 @@ export default function AuthRegister() {
   }
 
   return (
-    <GlobalLayout showHeader={false}>
+    <GlobalLayout showHeader={false} title="Đăng ký">
       <Box className='w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
         <Box className="w-full rounded-lg shadow">
           <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
