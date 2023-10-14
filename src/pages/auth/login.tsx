@@ -17,7 +17,7 @@ export default function AuthLogin() {
   const [isRequesting, setRequesting] = useState<boolean>(false);
   const authLoginMutation = useAuthLoginMutation();
   const {push} = useRouter();
-  const queryClient = useQueryClient();
+  const {invalidateQueries} = useQueryClient();
 
   const {
     register,
@@ -27,10 +27,10 @@ export default function AuthLogin() {
   } = useForm<TUserLogin>();
 
   const onSubmit = (data: TUserLogin) => {
-    const mutateOption = defaultOptionReactQueryResponse<{token: string}>((result) => {
+    const mutateOption = defaultOptionReactQueryResponse<{ token: string }>((result) => {
       reset();
       window.localStorage.setItem('customer-token', result.token);
-      queryClient.invalidateQueries({
+      invalidateQueries({
         queryKey: [AUTH_GET_USER_QK]
       });
       void push('/');

@@ -16,7 +16,7 @@ import {AUTH_GET_USER_QK} from "@/queries/auth/user";
 export default function ChangePassword(){
   const changePasswordMutation = useChangePasswordMutation();
   const {push} = useRouter();
-  const queryClient = useQueryClient();
+  const {invalidateQueries} = useQueryClient();
 
   const {
     handleSubmit,
@@ -27,7 +27,7 @@ export default function ChangePassword(){
   const onSubmit = (data: TChangePwForm) => {
     changePasswordMutation.mutate(data, defaultOptionReactQueryResponse(() => {
       reset();
-      queryClient.invalidateQueries([AUTH_GET_USER_QK]);
+      invalidateQueries([AUTH_GET_USER_QK]);
       void push('/auth/login');
     }))
   }

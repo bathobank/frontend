@@ -9,12 +9,12 @@ import {useSelector} from "react-redux";
 export const useUser = () => {
   const user: TUser|null = useSelector(getUser);
   const isLogined = useSelector(getLogined);
-  const queryClient = useQueryClient();
+  const {invalidateQueries} = useQueryClient();
   const toast = useToast();
   const userLogoutMutation = useAuthLogoutMutation(() => {
     toast.success('Đã đăng xuất!', {time: 3000});
     window.localStorage.removeItem('customer-token');
-    queryClient.invalidateQueries({
+    invalidateQueries({
       queryKey: [AUTH_GET_USER_QK]
     })
   });
