@@ -1,7 +1,6 @@
 import {TUserLogin} from "@/@types/user";
 import {GlobalLayout} from "@/components/layouts/GlobalLayout";
 import {Button} from "@/components/ui/Button";
-import {Flex} from "@/components/ui/Flex";
 import {Box} from "@/components/ui/Box";
 import {Input} from "@/components/ui/Input";
 import {Text} from "@/components/ui/Text";
@@ -17,7 +16,7 @@ import {useQueryClient} from "react-query";
 export default function AuthLogin() {
   const [isRequesting, setRequesting] = useState<boolean>(false);
   const authLoginMutation = useAuthLoginMutation();
-  const router = useRouter();
+  const {push} = useRouter();
   const queryClient = useQueryClient();
 
   const {
@@ -34,7 +33,7 @@ export default function AuthLogin() {
       queryClient.invalidateQueries({
         queryKey: [AUTH_GET_USER_QK]
       });
-      router.push('/');
+      void push('/');
     }, () => {
       setRequesting(false);
     });
