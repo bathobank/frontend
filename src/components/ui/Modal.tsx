@@ -29,7 +29,7 @@ export const Modal = ({id, children, title, onClose, onOpen, isOpen = false}: Pr
     if (!$modalElement) return;
     const modalOptions: ModalOptions = {
       placement: 'center',
-      backdrop: 'dynamic',
+      backdrop: 'static',
       backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
       closable: true,
       onHide: () => {
