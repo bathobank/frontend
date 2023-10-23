@@ -76,9 +76,9 @@ export default function Home() {
       <Box className="mb-3">
         <History />
       </Box>
-      <Box className="mb-3">
-        <HistoryWinGame />
-      </Box>
+      {/*<Box className="mb-3">*/}
+      {/*  <HistoryWinGame />*/}
+      {/*</Box>*/}
       <Box className="mb-3">
         <TopWeekAndRule />
       </Box>
