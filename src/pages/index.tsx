@@ -8,7 +8,6 @@ import {GameTong3So} from "@/components/pages/Index/Game/tong3so";
 import {GameXien} from "@/components/pages/Index/Game/xien";
 import {GameXsmb} from "@/components/pages/Index/Game/xsmb";
 import {History} from "@/components/pages/Index/History";
-import {HistoryWinGame} from "@/components/pages/Index/HistoryWinGame";
 import {TopWeekAndRule} from "@/components/pages/Index/TopWeekAndRule";
 import {Box} from "@/components/ui/Box";
 import {GlobalLayout} from "@/components/layouts/GlobalLayout";
