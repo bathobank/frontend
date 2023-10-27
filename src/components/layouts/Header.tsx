@@ -14,7 +14,6 @@ const MENU: Array<{slug: string; title: string;}> = [
   {slug: '1phan3', title: '1 phần 3'},
   {slug: 'xien', title: 'Xiên'},
   {slug: 'doanso', title: 'Đoán số'},
-  {slug: 'xsmb', title: 'XSMB'},
 ]
 
 export const Header = () => {

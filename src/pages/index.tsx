@@ -6,7 +6,6 @@ import {GameDoanSo} from "@/components/pages/Index/Game/doanso";
 import {GameGap3} from "@/components/pages/Index/Game/gap3";
 import {GameTong3So} from "@/components/pages/Index/Game/tong3so";
 import {GameXien} from "@/components/pages/Index/Game/xien";
-import {GameXsmb} from "@/components/pages/Index/Game/xsmb";
 import {History} from "@/components/pages/Index/History";
 import {TopWeekAndRule} from "@/components/pages/Index/TopWeekAndRule";
 import {Box} from "@/components/ui/Box";
@@ -45,7 +44,6 @@ export default function Home() {
     if (gameOpen === '1phan3') return 'Một phần 3';
     if (gameOpen === 'xien') return 'Xiên số';
     if (gameOpen === 'doanso') return 'Đoán số';
-    if (gameOpen === 'xsmb') return 'Xổ số Miền Bắc';
     return undefined;
   }, [gameOpen]);
 
@@ -60,7 +58,6 @@ export default function Home() {
           {gameOpen === '1phan3' && <Game1Phan3 />}
           {gameOpen === 'xien' && <GameXien />}
           {gameOpen === 'doanso' && <GameDoanSo />}
-          {gameOpen === 'xsmb' && <GameXsmb />}
         </Box>
         <Box ref={bankRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
           {isLogined ? (
