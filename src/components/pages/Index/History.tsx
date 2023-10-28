@@ -70,7 +70,7 @@ export const History = () => {
                       </Flex>
                     </td>
                     <td className="py-3 text-center">
-                      <Text size="sm">{history.transaction_code.toLowerCase()}</Text>
+                      <Text size="sm">{history.transaction_code}</Text>
                     </td>
                     <td className="py-3 text-center">
                       <Text size="sm">{formatMoney(history.money_coming)}</Text>
