@@ -3,7 +3,6 @@ import {Button} from "@/components/ui/Button";
 import {Flex} from "@/components/ui/Flex";
 import {Img} from "@/components/ui/Img";
 import {Modal} from "@/components/ui/Modal";
-import {useMemo} from "react";
 
 type Props = {
   isOpen: boolean;
@@ -18,12 +17,6 @@ export const BankQRModal = ({
   bank
 }: Props) => {
 
-  const bankImage: string = useMemo(() => {
-    if (!bank) return '';
-    if (bank.code === 'MB') return '/images/banks/mbbank.png';
-    return '';
-  }, [bank]);
-
   return (
     <Modal
       id='bank-qr-modal'
@@ -31,7 +24,9 @@ export const BankQRModal = ({
       title='Bank QR'
       onClose={onClose}>
       <Flex justify="center" className="py-5">
-        <Img src={bankImage} className="w-[450px] max-w-full" />
+        {bank?.bank_qr && (
+          <Img src={bank.bank_qr} className="w-[450px] max-w-full" />
+        )}
       </Flex>
       <Flex items="center" justify="center" className="p-6 border-t border-gray-200 rounded-b dark:border-gray-600 gap-[10px]">
         <Button variant='light' onClick={onClose}>

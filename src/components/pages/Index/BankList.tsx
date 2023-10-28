@@ -21,7 +21,8 @@ export const BankList = () => {
 
   useEffect(() => {
     if (bankReceiveQuery) {
-      setBankReceives(bankReceiveQuery.data.banks);
+      const banks = bankReceiveQuery.data.banks.filter((bank) => !!bank.bank_qr);
+      setBankReceives(banks);
     }
   }, [bankReceiveQuery]);
 

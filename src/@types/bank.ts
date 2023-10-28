@@ -5,7 +5,8 @@ export type TBank = {
   name: string;
   min: number;
   max: number;
-  bank: TBankData
+  bank: TBankData;
+  bank_qr?: string;
 };
 
 export type TBankData = {
