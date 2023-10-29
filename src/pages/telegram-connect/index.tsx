@@ -11,10 +11,6 @@ import {Button} from "@/components/ui/Button";
 export default function TelegramConnect() {
   const {user} = useUser();
 
-  useEffect(() => {
-    console.log('user', user)
-  }, [user]);
-
   return (
     <GlobalLayout showHeader={false} title="Liên kết">
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
