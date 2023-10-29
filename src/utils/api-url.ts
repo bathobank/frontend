@@ -11,6 +11,7 @@ export const USER_HISTORIES: string = 'api/v1/user/histories';
 export const USER_USE_GIFT_CODE: string = 'api/v1/user/gift-code';
 export const MISSION_URI: string = 'api/v1/mission';
 export const JACKPOT_URI: string = 'api/v1/jackpot';
+export const HAS_ORDER_WAIT: string = 'api/v1/user/has_order_wait';
 
 export const buildDataUrl = (url: string, param: {[key: string]: string|number}): string => {
   for (const key in param) {

@@ -16,14 +16,33 @@ import {Text} from "@/components/ui/Text";
 import {useStore} from "@/hooks/useStore";
 import {useUser} from "@/hooks/useUser";
 import {getGameOpen} from "@/stores/slices/game";
-import {useEffect, useMemo, useRef} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
+import {useHasOrderWaitQuery} from "@/queries/hasOrderWait";
+import {AlertEnterBank} from "@/components/modals/AlertEnterBank";
 
 export default function Home() {
+  const [hasOrderWait, setHasOrderWait] = useState<boolean>(false);
   const gameRef = useRef<HTMLDivElement>(null);
   const bankRef = useRef<HTMLDivElement>(null);
   const store = useStore();
   const gameOpen = store.get(getGameOpen);
   const {isLogined} = useUser();
+  const hasOrderWaitQuery = useHasOrderWaitQuery();
+
+  useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let timeoutSetHasOrderWait: any = null;
+
+    if (hasOrderWaitQuery) {
+      timeoutSetHasOrderWait = setTimeout(() => {
+        setHasOrderWait(hasOrderWaitQuery.data.has_order_wait)
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timeoutSetHasOrderWait);
+    }
+  }, [hasOrderWaitQuery]);
 
   useEffect(() => {
     if (!gameRef.current || !bankRef.current) return;
@@ -78,6 +97,7 @@ export default function Home() {
       <Box className="mb-3">
         <TopWeekAndRule />
       </Box>
+      <AlertEnterBank isOpen={hasOrderWait} onClose={() => setHasOrderWait(false)} />
     </GlobalLayout>
   )
 }
