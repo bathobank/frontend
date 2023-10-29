@@ -2,7 +2,6 @@ import {Button} from "@/components/ui/Button";
 import {Flex} from "@/components/ui/Flex";
 import {Modal} from "@/components/ui/Modal";
 import {Text} from "@/components/ui/Text";
-import {LinkUI} from "@/components/ui/Link";
 import {useRouter} from "next/router";
 
 type Props = {
