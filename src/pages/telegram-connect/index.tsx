@@ -4,7 +4,6 @@ import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import {useUser} from "@/hooks/useUser";
-import {useEffect} from "react";
 import {LinkUI} from "@/components/ui/Link";
 import {Button} from "@/components/ui/Button";
 
