@@ -3,6 +3,7 @@ export type TUser = {
   uuid: string;
   nickname: string;
   created_at: string;
+  telegram_id?: string;
 };
 
 export type TUserQuery = {
