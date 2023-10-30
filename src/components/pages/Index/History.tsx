@@ -10,9 +10,9 @@ import {cn} from "@/utils/ui";
 import {formatMoney} from "@/utils/helper";
 import {useUser} from "@/hooks/useUser";
 
-export const History = () => {
+export const History = ({isFull = false}: { isFull?: boolean}) => {
   const [histories, setHistories] = useState<THistories>([]);
-  const historyQuery = useUserHistories();
+  const historyQuery = useUserHistories(isFull ? -1 : 5);
   const {isLogined} = useUser();
 
   useEffect(() => {
@@ -23,10 +23,12 @@ export const History = () => {
 
   return (
     <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
-      <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
-        <AccessTimeIcon className="text-[#ff55a5]" />
-        <Text custom={true} className="ml-2 text-white">LỊCH SỬ CHƠI GẦN ĐÂY</Text>
-      </Flex>
+      {!isFull && (
+        <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
+          <AccessTimeIcon className="text-[#ff55a5]" />
+          <Text custom={true} className="ml-2 text-white">LỊCH SỬ CHƠI GẦN ĐÂY</Text>
+        </Flex>
+      )}
       <Box className="px-3 py-5">
         {isLogined ? (
           <Box className="p-3">

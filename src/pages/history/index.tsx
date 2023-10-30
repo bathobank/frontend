@@ -3,8 +3,9 @@ import {Box} from "@/components/ui/Box";
 import {Flex} from "@/components/ui/Flex";
 import {Text} from "@/components/ui/Text";
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
+import {History} from "@/components/pages/Index/History";
 
-export default function History(){
+export default function HistoryPage(){
   return (
     <GlobalLayout showHeader={false} title="Lịch sử chơi">
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
@@ -13,7 +14,7 @@ export default function History(){
           <Text custom={true}>LỊCH SỬ CHƠI CỦA BẠN</Text>
         </Flex>
         <Box className="py-3">
-          <Text align="center">Chức năng đang được phát triển</Text>
+          <History isFull={true} />
         </Box>
       </Box>
     </GlobalLayout>
