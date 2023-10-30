@@ -3,7 +3,6 @@ import {useAuthGetUser} from "@/queries/auth/user";
 import {setFontClassName} from "@/stores/slices/font";
 import {setUser} from "@/stores/slices/user";
 import {ReactNode, useEffect} from "react";
-import {useDispatch} from "react-redux";
 import {setOpenNavbar} from "@/stores/slices/navbar";
 
 export const InitComponentData = ({children, fontClass}: {children: ReactNode, fontClass: string}) => {
