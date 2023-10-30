@@ -36,7 +36,7 @@ export default function Home() {
     if (hasOrderWaitQuery) {
       timeoutSetHasOrderWait = setTimeout(() => {
         setHasOrderWait(hasOrderWaitQuery.data.has_order_wait)
-      }, 1000);
+      }, 10);
     }
 
     return () => {

@@ -52,7 +52,7 @@ const MenuNotLogin: TMenu[] = [
 ];
 
 export const Navbar = () => {
-  const [menu, setMenu] = useState<TMenu[]>(MenuNotLogin);
+  const [menu, setMenu] = useState<TMenu[]>([]);
   const [menuHeight, setMenuHeight] = useState<string>('calc(100vh - 158px)');
   const logoRef = useRef<HTMLDivElement>(null);
   const copyrightRef = useRef<HTMLDivElement>(null);
@@ -60,12 +60,21 @@ export const Navbar = () => {
   const {isLogined, user, logout} = useUser();
 
   useEffect(() => {
-    if (isLogined) {
-      setMenu(MenuLogin);
-      setMenuHeight('calc(100vh - 233px)');
-    } else {
-      setMenu(MenuNotLogin);
-      setMenuHeight('calc(100vh - 158px)');
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+    let timeoutSetMenu: any = null;
+
+    timeoutSetMenu = setTimeout(() => {
+      if (isLogined) {
+        setMenu(MenuLogin);
+        setMenuHeight('calc(100vh - 233px)');
+      } else {
+        setMenu(MenuNotLogin);
+        setMenuHeight('calc(100vh - 158px)');
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutSetMenu);
     }
   }, [isLogined]);
 
