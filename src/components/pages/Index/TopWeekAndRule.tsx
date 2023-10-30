@@ -14,6 +14,8 @@ export const TopWeekAndRule = () => {
     topWeekRef.current.style.height = '';
     gameRuleRef.current.style.height = '';
 
+    if (window.innerWidth < 1024) return;
+
     const topWeekHeight = topWeekRef.current.offsetHeight;
     const gameRuleHeight = gameRuleRef.current.offsetHeight;
     const height = topWeekHeight > gameRuleHeight
@@ -25,11 +27,11 @@ export const TopWeekAndRule = () => {
   }, [topWeekRef, gameRuleRef]);
 
   return (
-    <Flex justify='between' items="start">
-      <Box ref={topWeekRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+    <Flex justify='between' items="start" wrap="wrap">
+      <Box ref={topWeekRef} className='w-full lg:w-[49.5%] mb-3 lg:mb-0 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
         <TopWeek />
       </Box>
-      <Box ref={gameRuleRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+      <Box ref={gameRuleRef} className='w-full lg:w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
         <GameRule />
       </Box>
     </Flex>

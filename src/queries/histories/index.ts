@@ -13,7 +13,8 @@ export const userHistories = (limit: number = 5): Promise<THistoriesQuery> => {
 export const useUserHistories = (limit: number = 5): THistoriesQuery | undefined => {
   const {data} = useQuery({
     queryKey: [USER_HISTORIES_QK],
-    queryFn: () => userHistories(limit)
+    queryFn: () => userHistories(limit),
+    retry: 0
   });
   return data;
 }

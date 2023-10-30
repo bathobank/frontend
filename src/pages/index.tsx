@@ -48,6 +48,9 @@ export default function Home() {
     if (!gameRef.current || !bankRef.current) return;
     gameRef.current.style.height = '';
     bankRef.current.style.height = '';
+
+    if (window.innerWidth < 1024) return;
+
     const gameHeight: number = gameRef.current!.offsetHeight;
     const bankHeight: number = bankRef.current!.offsetHeight;
     const height = bankHeight > gameHeight ? bankHeight : gameHeight;
@@ -68,8 +71,8 @@ export default function Home() {
 
   return (
     <GlobalLayout title={title}>
-      <Flex justify='between' items="start" className="mb-3">
-        <Box ref={gameRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+      <Flex justify='between' items="start" wrap="wrap" className="mb-3">
+        <Box ref={gameRef} className='w-full lg:w-[49.5%] mb-3 lg:mb-0 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
           {gameOpen === 'cltx' && <GameCltx />}
           {gameOpen === 'cltx2' && <GameCltx2 />}
           {gameOpen === 'gap3' && <GameGap3 />}
@@ -78,7 +81,7 @@ export default function Home() {
           {gameOpen === 'xien' && <GameXien />}
           {gameOpen === 'doanso' && <GameDoanSo />}
         </Box>
-        <Box ref={bankRef} className='w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+        <Box ref={bankRef} className='w-full lg:w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
           {isLogined ? (
             <BankList />
           ) : (
