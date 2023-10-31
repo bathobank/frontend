@@ -84,9 +84,12 @@ export default function BankSetup() {
           <Box className="w-full max-w-[450px] m-auto mb-6">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <Box>
-                <label className="block mb-2 text-sm font-medium text-white" htmlFor="bank_receive">
-                  Ngân hàng nhận tiền
-                </label>
+                <Box className="mb-2">
+                  <label className="block text-sm font-medium text-white" htmlFor="bank_receive">
+                    Ngân hàng nhận tiền
+                  </label>
+                  <Text size="xs" className="italic text-green-400">Tip: Gõ tên ngân hàng vào ô để tìm kiếm</Text>
+                </Box>
                 <ReactSelect
                   className="text-sm"
                   classNamePrefix="select"

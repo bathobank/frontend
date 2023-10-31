@@ -68,7 +68,7 @@ export const BankList = () => {
                   <Text size="sm">Mã NH: {bank.code}</Text>
                   <Text size="sm">{bank.title}</Text>
                 </td>
-                <td className="py-3 w-[150px]">
+                <td className="py-3 w-[100px] sm:w-[150px]">
                   <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(bank.number)}>
                     <Text size="sm" custom={true} className="mr-1">{bank.number}</Text>
                     <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
