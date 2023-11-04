@@ -7,4 +7,5 @@ export type TOrder = {
     message: string;
     status: 'wait' | 'error' | 'success';
     user_game_id: number;
+    transaction_receipt?: string;
 }

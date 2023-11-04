@@ -9,9 +9,12 @@ import {THistories} from "@/@types/history";
 import {cn} from "@/utils/ui";
 import {formatMoney} from "@/utils/helper";
 import {useUser} from "@/hooks/useUser";
+import { SaoKeModal } from "@/components/modals/SaoKe";
 
 export const History = ({isFull = false}: { isFull?: boolean}) => {
   const [histories, setHistories] = useState<THistories>([]);
+  const [isOpenModalSaoKe, setOpenModalSaoKe] = useState<boolean>(false);
+  const [imgSaoke, setImgSaoke] = useState<string|null>(null);
   const historyQuery = useUserHistories(isFull ? -1 : 5);
   const {isLogined} = useUser();
 
@@ -20,6 +23,11 @@ export const History = ({isFull = false}: { isFull?: boolean}) => {
       setHistories(historyQuery.data.histories);
     }
   }, [historyQuery]);
+
+  const openModalSaoKe = (img: string) => {
+    setImgSaoke(img);
+    setOpenModalSaoKe(true);
+  }
 
   return (
     <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
@@ -52,6 +60,9 @@ export const History = ({isFull = false}: { isFull?: boolean}) => {
                   </th>
                   <th scope="col" className="py-3 text-center">
                     <Text className="text-[#c7c7c7]">Trả thưởng</Text>
+                  </th>
+                  <th scope="col" className="py-3 text-center">
+                    <Text className="text-[#c7c7c7]">Sao kê</Text>
                   </th>
                   <th scope="col" className="py-3 text-center">
                     <Text className="text-[#c7c7c7]">Thời gian</Text>
@@ -92,6 +103,13 @@ export const History = ({isFull = false}: { isFull?: boolean}) => {
                       <Text size="sm">{history.order?.status.toUpperCase() ?? ''}</Text>
                     </td>
                     <td className="py-3 text-center">
+                      {history.order?.transaction_receipt && (
+                        <Text size="sm" className="hover:underline text-green-500 hover:text-green-700" onClick={() => openModalSaoKe(history.order?.transaction_receipt ?? '')}>
+                          Xem sao kê
+                        </Text>
+                      )}
+                    </td>
+                    <td className="py-3 text-center">
                       <Text size="sm">{history.game_time}</Text>
                     </td>
                   </tr>
@@ -108,6 +126,11 @@ export const History = ({isFull = false}: { isFull?: boolean}) => {
           <Text align="center" size="sm">ĐỂ XEM LỊCH SỬ, VUI LÒNG <LinkUI href='/auth/login' className="text-[#ff55a5]">ĐĂNG NHẬP</LinkUI> HOẶC <LinkUI href="/auth/register" className="text-[#ff55a5]">ĐĂNG KÝ NHANH</LinkUI></Text>
         )}
       </Box>
+      <SaoKeModal
+        isOpen={isOpenModalSaoKe}
+        onClose={() => setOpenModalSaoKe(false)}
+        img={imgSaoke}
+      />
     </Box>
   );
 }
