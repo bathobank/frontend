@@ -104,7 +104,7 @@ export const History = ({isFull = false}: { isFull?: boolean}) => {
                     </td>
                     <td className="py-3 text-center">
                       {history.order?.transaction_receipt && (
-                        <Text size="sm" className="hover:underline text-green-500 hover:text-green-700" onClick={() => openModalSaoKe(history.order?.transaction_receipt ?? '')}>
+                        <Text size="sm" className="hover:underline text-green-500 hover:text-green-700 cursor-pointer" onClick={() => openModalSaoKe(history.order?.transaction_receipt ?? '')}>
                           Xem sao kê
                         </Text>
                       )}
