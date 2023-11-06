@@ -7,6 +7,7 @@ import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import {TStartGame} from "@/@types/game";
 
 const ConfigGame: {key: string; calculation: string; end: string; ratio: string}[] = [
   {key: 'G3', calculation: '2 số cuối', end: '02,13,17,19,21,29,35,37,47,49,51,54,57,63,64,74,83,91,95,96', ratio: 'x3'},
@@ -14,7 +15,7 @@ const ConfigGame: {key: string; calculation: string; end: string; ratio: string}
   {key: 'G3', calculation: '3 số cuối', end: '123,234,456,678,789', ratio: 'x5'}
 ]
 
-export const GameGap3 = () => {
+export const GameGap3 = ({startGame}: {startGame: TStartGame}) => {
   const toast = useToast();
   const {user} = useUser();
 
@@ -46,6 +47,7 @@ export const GameGap3 = () => {
               <th scope="col" className="py-3">
                 <Text className="text-[#c7c7c7]">Tỉ lệ</Text>
               </th>
+              <th scope="col" className="py-3"></th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +75,9 @@ export const GameGap3 = () => {
                 </td>
                 <td className="min-w-[50px] text-center">
                   <Text>{config.ratio}</Text>
+                </td>
+                <td className="min-w-[50px] text-center">
+                  <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('gap3', config.key)}>Chơi</Text>
                 </td>
               </tr>
             ))}

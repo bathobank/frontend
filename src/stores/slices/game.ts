@@ -20,6 +20,6 @@ export const gameSlice = createSlice({
 });
 export const {setGameOpen} = gameSlice.actions;
 
-export const getGameOpen = (state: AppState) => state.game_slice.game_open;
+export const getGameOpen = (state: AppState): string => state.game_slice.game_open;
 
 export default gameSlice.reducer;

@@ -7,6 +7,7 @@ import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import {TStartGame} from "@/@types/game";
 
 const ConfigGame: {key: string; end: string; ratio: string}[] = [
   {key: 'TC', end: '0,2,4,6,8', ratio: 'x1.9'},
@@ -15,7 +16,7 @@ const ConfigGame: {key: string; end: string; ratio: string}[] = [
   {key: 'TX', end: '0,1,2,3,4', ratio: 'x1.9'}
 ]
 
-export const GameCltx2 = () => {
+export const GameCltx2 = ({startGame}: {startGame: TStartGame}) => {
   const toast = useToast();
   const {user} = useUser();
 
@@ -44,6 +45,7 @@ export const GameCltx2 = () => {
               <th scope="col" className="py-3">
                 <Text className="text-[#c7c7c7]">Tỉ lệ</Text>
               </th>
+              <th scope="col" className="py-3"></th>
             </tr>
           </thead>
           <tbody>
@@ -68,6 +70,9 @@ export const GameCltx2 = () => {
                 </td>
                 <td className="min-w-[50px] text-center">
                   <Text>{config.ratio}</Text>
+                </td>
+                <td className="min-w-[50px] text-center">
+                  <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('cltx+2', config.key)}>Chơi</Text>
                 </td>
               </tr>
             ))}

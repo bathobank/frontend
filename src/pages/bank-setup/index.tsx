@@ -120,8 +120,9 @@ export default function BankSetup() {
               <Button variant="theme" fullWidth={true} type="submit">Cập nhật</Button>
             </form>
           </Box>
-          <Box className="text-center">
-            <Text size="sm"><span className="text-[#ff55a5]">LƯU Ý:</span> Tài khoản bank của bạn sẽ tự động chuyển sang
+          <Box className="text-left">
+            <Text size="sm"><span className="text-[#ff55a5]">LƯU Ý 1:</span> Chúng tôi <span className="text-[#ff55a5]">từ chối trách nhiệm</span> nếu số tài khoản bạn đã nhập <span className="text-[#ff55a5]">không chính xác</span>. Vì vậy hãy kiểm tra kỹ số tài khoản trước khi cập nhật!</Text>
+            <Text size="sm"><span className="text-[#ff55a5]">LƯU Ý 2:</span> Tài khoản bank của bạn sẽ tự động chuyển sang
               chế độ <span className="text-[#ff55a5]">bảo vệ</span> sau lần trả thưởng thành công <span
               className="text-[#ff55a5]">đầu tiên</span>!</Text>
           </Box>

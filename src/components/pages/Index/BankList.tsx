@@ -94,7 +94,7 @@ export const BankList = () => {
       <BankQRModal
         isOpen={isOpenBankQrModal}
         onClose={() => setOpenBankQrModal(false)}
-        bank={bankInfoOpen}
+        bank_qr={bankInfoOpen?.bank_qr ?? ''}
       />
     </Box>
   );
