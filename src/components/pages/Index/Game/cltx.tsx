@@ -45,7 +45,9 @@ export const GameCltx = ({startGame}: {startGame: TStartGame}) => {
               <th scope="col" className="py-3">
                 <Text className="text-[#c7c7c7]">Tỉ lệ</Text>
               </th>
-              <th scope="col" className="py-3"></th>
+              {user && (
+                <th scope="col" className="py-3"></th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -71,9 +73,11 @@ export const GameCltx = ({startGame}: {startGame: TStartGame}) => {
                 <td className="min-w-[50px] text-center">
                   <Text>{config.ratio}</Text>
                 </td>
-                <td className="min-w-[50px] text-center">
-                  <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('cltx', config.key)}>Chơi</Text>
-                </td>
+                {user && (
+                  <td className="min-w-[50px] text-center">
+                    <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('cltx', config.key)}>Chơi</Text>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
