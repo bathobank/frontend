@@ -13,6 +13,7 @@ import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
+import {useLoading} from "@/hooks/useLoading";
 
 type TOption = {
   value: string;
@@ -23,6 +24,7 @@ export default function BankSetup() {
   const [banks, setBanks] = useState<TOption[]>([]);
   const [bankSelected, setBankSelected] = useState<TOption | null>(null);
   const {push} = useRouter();
+  const loading = useLoading();
   const bankQuery = useBankAllQuery();
   const userBankReceive = useUserBankReceive();
   const userBankReceiveMutation = useUserBankReceiveMutation();
@@ -33,6 +35,19 @@ export default function BankSetup() {
     setValue,
     reset
   } = useForm<TBankUserForm>();
+
+  useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let timeoutClearLoading: any = null;
+    timeoutClearLoading = setTimeout(loading.hide, 500);
+
+    return () => {
+      clearTimeout(timeoutClearLoading);
+    }
+  },
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  []
+  );
 
   useEffect(() => {
     if (!bankQuery) return;

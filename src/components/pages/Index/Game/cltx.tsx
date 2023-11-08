@@ -84,7 +84,7 @@ export const GameCltx = ({startGame}: {startGame: TStartGame}) => {
         </table>
         <Box className="py-5">
           <Text className="italic text-[12px] text-center">
-            KẾT QUẢ TÍNH BẰNG SỐ CUỐI CỦA <span className="text-[#ff55a5]">MÃ GIAO DỊCH BANK</span> KHI CHUYỂN KHOẢN VÀO BANK NHẬN CỦA WEB
+            KẾT QUẢ TÍNH BẰNG <span className="text-[#ff55a5]">SỐ CUỐI</span> CỦA <span className="text-[#ff55a5]">MÃ GIAO DỊCH BANK</span> KHI CHUYỂN KHOẢN VÀO BANK NHẬN CỦA WEB
           </Text>
         </Box>
       </Box>

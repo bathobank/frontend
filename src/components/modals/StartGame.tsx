@@ -139,9 +139,9 @@ export const StartGameModal = ({
       onClose={onClose}>
       <Box className="p-5">
         <Box>
-          <Flex wrap="wrap" justify="between" className="mb-3">
+          <Flex wrap="wrap" justify="between">
             <ReactSelect
-              className="text-sm w-full lg:w-[49%]"
+              className="text-sm w-full lg:w-[49%] mb-3"
               classNamePrefix="select"
               isDisabled={false}
               isClearable={false}
@@ -157,8 +157,8 @@ export const StartGameModal = ({
               // @ts-ignore
               onChange={setBankSelected}
             />
-            <Box className="w-full lg:w-[49%]">
-              <Input placeholder="Nhập số tiền chơi" ref={inputAmount} />
+            <Box className="w-full lg:w-[49%] mb-3">
+              <Input placeholder="Nhập số tiền chơi" ref={inputAmount} id='input_amount' />
             </Box>
           </Flex>
           <Box className="text-center">

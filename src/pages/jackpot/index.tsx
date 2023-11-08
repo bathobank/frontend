@@ -6,10 +6,25 @@ import {Text} from "@/components/ui/Text";
 import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
 import {useEffect, useState} from "react";
 import {useJackpotQuery} from "@/queries/jackpot";
+import {useLoading} from "@/hooks/useLoading";
 
 export default function Jackpot(){
   const [jackpot, setJackpot] = useState<string>('0000000');
   const jackpotQuery = useJackpotQuery();
+  const loading = useLoading();
+
+  useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let timeoutClearLoading: any = null;
+    timeoutClearLoading = setTimeout(loading.hide, 500);
+
+    return () => {
+      clearTimeout(timeoutClearLoading);
+    }
+  },
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  []
+  );
 
   useEffect(() => {
     if (!jackpotQuery) return;

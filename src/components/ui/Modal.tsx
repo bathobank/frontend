@@ -2,16 +2,18 @@ import {Modal as ModalFlowbite} from 'flowbite'
 import type {ModalOptions, ModalInterface} from 'flowbite'
 import {ReactNode, useCallback, useEffect, useState} from "react";
 import {Flex} from "@/components/ui/Flex";
+import {cn} from "@/utils/ui";
 
 type Props = {
   id: string;
   children: ReactNode;
   title?: string;
   isOpen?: boolean;
+  isDark?: boolean;
   onClose?: () => void;
   onOpen?: () => void;
 };
-export const Modal = ({id, children, title, onClose, onOpen, isOpen = false}: Props) => {
+export const Modal = ({id, children, title, onClose, onOpen, isOpen = false, isDark = false}: Props) => {
   const [modal, setModal] = useState<ModalInterface | null>(null);
 
   const openModal = useCallback(() => {
@@ -61,8 +63,8 @@ export const Modal = ({id, children, title, onClose, onOpen, isOpen = false}: Pr
       <div className="relative w-full max-w-2xl max-h-full">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           {title && (
-            <Flex items="center" justify="center" className="p-5 border-b rounded-t dark:border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">{title}</h3>
+            <Flex items="center" justify="center" className={cn('p-5 border-b rounded-t dark:border-gray-600', isDark ? 'bg-[#28282d] border-b-[#4a4d5194] border-b-2' : '')}>
+              <h3 className={cn('text-xl font-semibold text-gray-900 lg:text-2xl', isDark ? 'text-gray-300' : '')}>{title}</h3>
               <button
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 onClick={closeModal}

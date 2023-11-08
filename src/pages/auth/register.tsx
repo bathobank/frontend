@@ -10,14 +10,16 @@ import {useToast} from "@/hooks/useToast";
 import {useAuthRegisterMutation} from "@/queries/auth/register";
 import {buildErrorParam} from "@/utils/helper";
 import {useRouter} from "next/router";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
+import {useLoading} from "@/hooks/useLoading";
 
 export default function AuthRegister() {
   const [isRequesting, setRequesting] = useState<boolean>(false);
   const authRegisterMutate = useAuthRegisterMutation();
   const toast = useToast();
   const router = useRouter();
+  const loading = useLoading();
 
   const {
     register,
@@ -25,6 +27,19 @@ export default function AuthRegister() {
     reset,
     formState: {errors}
   } = useForm<TUserCreate>();
+
+  useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let timeoutClearLoading: any = null;
+    timeoutClearLoading = setTimeout(loading.hide, 500);
+
+    return () => {
+      clearTimeout(timeoutClearLoading);
+    }
+  },
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  []
+  );
 
   const onSubmit = (data: TUserCreate) => {
     setRequesting(true);

@@ -13,7 +13,7 @@ export const useBankReceiveQuery = (): TBankDataResponse<TBank>|undefined => {
   const { data } = useQuery({
     queryKey: [BANK_RECEIVE_GET_QK],
     queryFn: () => bankReceiveQuery(),
-    staleTime: Infinity
+    staleTime: 5000
   });
   return data;
 };

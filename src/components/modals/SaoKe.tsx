@@ -1,30 +1,46 @@
 import {Button} from "@/components/ui/Button";
 import {Flex} from "@/components/ui/Flex";
-import {Img} from "@/components/ui/Img";
 import {Modal} from "@/components/ui/Modal";
+import {Box} from "@/components/ui/Box";
 
 type Props = {
   isOpen: boolean;
-  img: string|null;
   onClose?: () => void;
+  content: Record<string, string|object>;
 };
 
 export const SaoKeModal = ({
   isOpen,
   onClose,
-  img
+  content
 }: Props) => {
 
   return (
     <Modal
-      id='bank-qr-modal'
+      id='sao-ke-modal'
       isOpen={isOpen}
+      isDark={true}
       title='Sao Kê'
       onClose={onClose}>
-      <Flex justify="center" className="py-5">
-        {img && <Img src={img} className="w-[450px] max-w-full" />}
-      </Flex>
-      <Flex items="center" justify="center" className="p-6 border-t border-gray-200 rounded-b dark:border-gray-600 gap-[10px]">
+      <Box className="max-h-[calc(100vh-250px)] overflow-y-auto p-5 bg-[#28282d] text-gray-300">
+        {Object.keys(content).map((key: string, index: number) => (
+          <Flex className="mb-2" items="start" key={`hoa-don-${index}`}>
+            <Box className="w-[30%]">{key}</Box>
+            <Box className="w-[70%]">
+              {typeof content[key] !== 'string' ? (
+                <>
+                  {JSON.stringify(content[key])}
+                </>
+              ) : (
+                <>
+                  {content[key]}
+                </>
+              )}
+            </Box>
+          </Flex>
+        ))}
+      </Box>
+      <Flex items="center" justify="center" className="p-6 bg-[#28282d] border-t-[#4a4d5194] border-t-2 rounded-b gap-[10px]">
         <Button variant='light' onClick={onClose}>
           Close
         </Button>

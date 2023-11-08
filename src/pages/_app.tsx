@@ -11,6 +11,7 @@ import {QueryClient, QueryClientProvider} from "react-query";
 import {Provider} from "react-redux";
 import {CacheProvider} from "@emotion/react";
 import {ToastContainer} from "react-toastify";
+import Loading from "@/components/layouts/Loading";
 
 const opensans = Open_Sans({
   weight: '400',
@@ -36,6 +37,7 @@ const App: FC<AppProps> = ({Component, ...rest}: AppProps) => {
               </Head>
               <Component {...pageProps} />
               <ToastContainer />
+              <Loading />
             </InitComponentData>
           </CacheProvider>
         </QueryClientProvider>

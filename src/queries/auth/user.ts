@@ -14,6 +14,7 @@ export const useAuthGetUser = (): UseQueryResult<TApiSuccessResponse<TUserQuery>
   return useQuery({
     queryKey: [AUTH_GET_USER_QK],
     queryFn: authGetUser,
-    retry: 0
+    retry: 0,
+    staleTime: 3000
   });
 }

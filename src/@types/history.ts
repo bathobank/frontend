@@ -18,6 +18,7 @@ export type THistory = {
   transaction_code: string;
   user: TUser;
   order?: TOrder;
+  content: Record<string, string|object>;
 }
 
 export type THistories = THistory[];

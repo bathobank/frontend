@@ -13,6 +13,8 @@ import {useHasOrderWaitQuery} from "@/queries/hasOrderWait";
 import {AlertEnterBank} from "@/components/modals/AlertEnterBank";
 import {GameGroup} from "@/components/pages/Index/GameGroup";
 import {useSelector} from "react-redux";
+import {useHistoryWin} from "@/queries/histories/win";
+import {useLoading} from "@/hooks/useLoading";
 
 export default function Home() {
   const [hasOrderWait, setHasOrderWait] = useState<boolean>(false);
@@ -21,6 +23,21 @@ export default function Home() {
   const gameOpen: string = useSelector(getGameOpen);
   const {isLogined} = useUser();
   const hasOrderWaitQuery = useHasOrderWaitQuery();
+  const historyWin = useHistoryWin();
+  const loading = useLoading();
+
+  useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let timeoutClearLoading: any = null;
+    timeoutClearLoading = setTimeout(loading.hide, 500);
+
+    return () => {
+      clearTimeout(timeoutClearLoading);
+    }
+  },
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  []
+  );
 
   useEffect(() => {
     /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -79,7 +96,7 @@ export default function Home() {
         </Box>
       </Flex>
       <Box className="mb-3">
-        <History />
+        <History historyQuery={historyWin} title="LỊCH SỬ CHƠI GẦN ĐÂY" />
       </Box>
       {/*<Box className="mb-3">*/}
       {/*  <HistoryWinGame />*/}

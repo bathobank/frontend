@@ -12,10 +12,13 @@ import {defaultOptionReactQueryResponse} from "@/utils/helper";
 import {useRouter} from "next/router";
 import {useQueryClient} from "react-query";
 import {AUTH_GET_USER_QK} from "@/queries/auth/user";
+import {useEffect} from "react";
+import {useLoading} from "@/hooks/useLoading";
 
 export default function ChangePassword(){
   const changePasswordMutation = useChangePasswordMutation();
   const {push} = useRouter();
+  const loading = useLoading();
   const queryClient = useQueryClient();
 
   const {
@@ -23,6 +26,19 @@ export default function ChangePassword(){
     register,
     reset
   } = useForm<TChangePwForm>();
+
+  useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let timeoutClearLoading: any = null;
+    timeoutClearLoading = setTimeout(loading.hide, 500);
+
+    return () => {
+      clearTimeout(timeoutClearLoading);
+    }
+  },
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  []
+  );
 
   const onSubmit = (data: TChangePwForm) => {
     changePasswordMutation.mutate(data, defaultOptionReactQueryResponse(() => {
