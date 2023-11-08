@@ -3,7 +3,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import InitComponentData from "@/components/Init";
 import type {AppProps} from 'next/app';
 import {Open_Sans} from "next/font/google";
-import Head from 'next/head';
 import {wrapper} from "@/stores/store";
 import {FC} from "react";
 import createEmotionCache from '@emotion/cache';
