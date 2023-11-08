@@ -13,6 +13,7 @@ import {useToast} from "@/hooks/useToast";
 
 type TBankOption = {
   value: string;
+  code: string;
   label: string;
   name: string;
   number: string;
@@ -53,6 +54,7 @@ export const StartGameModal = ({
       for (const bank of bankReceiveData) {
         bankSelectData.push({
           label: bank.bank.code,
+          code: bank.bank.code,
           value: bank.bank.bin,
           name: bank.name,
           number: bank.number
@@ -122,8 +124,20 @@ export const StartGameModal = ({
       toast.error('Hãy chọn ngân hàng và nhập số tiền!');
       return;
     }
+    let qrFormat = '';
+    if (formData.bank.code === 'TCB') {
+      qrFormat = 'ElYgubG';
+    } else if (formData.bank.code === 'VCB') {
+      qrFormat = 'lvejI6J';
+    } else if (formData.bank.code === 'MB') {
+      qrFormat = 'MuJWKcH';
+    }
+    if (qrFormat === '') {
+      toast.error('Ngân hàng không được hỗ trợ!');
+      return;
+    }
     const mgs = `${user.nickname} ${gameType}`;
-    const url = `https://api.vietqr.io/image/${formData.bank.value}-${formData.bank.number}-MuJWKcH.jpg?accountName=${formData.bank.name}&amount=${formData.money}&addInfo=${mgs}`;
+    const url = `https://api.vietqr.io/image/${formData.bank.value}-${formData.bank.number}-${qrFormat}.png?accountName=${formData.bank.name}&amount=${formData.money}&addInfo=${mgs}`;
     setUrlQr(url);
     setDisableBtnGenQr(true);
     setTimeout(() => {
