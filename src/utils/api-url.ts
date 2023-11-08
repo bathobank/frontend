@@ -12,7 +12,7 @@ export const HISTORY_WIN: string = 'api/v1/history-win';
 export const USER_USE_GIFT_CODE: string = 'api/v1/user/gift-code';
 export const MISSION_URI: string = 'api/v1/mission';
 export const JACKPOT_URI: string = 'api/v1/jackpot';
-export const SYSTEM_SETTING: string = 'http://172.18.0.1/api/v1/system-setting';
+export const SYSTEM_SETTING: string = 'api/v1/system-setting';
 export const HAS_ORDER_WAIT: string = 'api/v1/user/has_order_wait';
 
 export const buildDataUrl = (url: string, param: {[key: string]: string|number}): string => {
