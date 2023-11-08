@@ -8,8 +8,10 @@ import {useUser} from "@/hooks/useUser";
 import CardGiftcardRoundedIcon from '@mui/icons-material/CardGiftcardRounded';
 import {useEffect} from "react";
 import {useLoading} from "@/hooks/useLoading";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
+import {TSystemSetting} from "@/@types/system-setting";
 
-export default function GiftCode(){
+export default function GiftCode({systemSettings}: {systemSettings: TSystemSetting}){
   const {isLogined} = useUser();
   const loading = useLoading();
 
@@ -27,7 +29,7 @@ export default function GiftCode(){
   );
 
   return (
-    <GlobalLayout showHeader={false} title="Giftcode">
+    <GlobalLayout showHeader={false} title="Giftcode" systemSettings={systemSettings}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <CardGiftcardRoundedIcon className="text-[#ff55a5] mr-3" />
@@ -44,3 +46,5 @@ export default function GiftCode(){
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

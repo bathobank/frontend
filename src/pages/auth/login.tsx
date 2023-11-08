@@ -13,8 +13,10 @@ import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useQueryClient} from "react-query";
 import {useLoading} from "@/hooks/useLoading";
+import {TSystemSetting} from "@/@types/system-setting";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 
-export default function AuthLogin() {
+export default function AuthLogin({systemSettings}: {systemSettings: TSystemSetting}) {
   const [isRequesting, setRequesting] = useState<boolean>(false);
   const authLoginMutation = useAuthLoginMutation();
   const {push} = useRouter();
@@ -58,7 +60,7 @@ export default function AuthLogin() {
   }
 
   return (
-    <GlobalLayout showHeader={false} title="Đăng nhập">
+    <GlobalLayout showHeader={false} title="Đăng nhập" systemSettings={systemSettings}>
       <Box className='w-full lg:w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
         <Box className="w-full rounded-lg shadow">
           <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -99,3 +101,5 @@ export default function AuthLogin() {
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

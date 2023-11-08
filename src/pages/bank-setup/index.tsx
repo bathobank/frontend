@@ -14,13 +14,15 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useLoading} from "@/hooks/useLoading";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
+import {TSystemSetting} from "@/@types/system-setting";
 
 type TOption = {
   value: string;
   label: string;
 };
 
-export default function BankSetup() {
+export default function BankSetup({systemSettings}: {systemSettings: TSystemSetting}) {
   const [banks, setBanks] = useState<TOption[]>([]);
   const [bankSelected, setBankSelected] = useState<TOption | null>(null);
   const {push} = useRouter();
@@ -89,7 +91,7 @@ export default function BankSetup() {
   }
 
   return (
-    <GlobalLayout showHeader={false} title="Cài đặt Bank">
+    <GlobalLayout showHeader={false} title="Cài đặt Bank" systemSettings={systemSettings}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <AccountBalanceRoundedIcon className="text-[#ff55a5] mr-3"/>
@@ -146,3 +148,5 @@ export default function BankSetup() {
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

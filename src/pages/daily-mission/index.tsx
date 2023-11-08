@@ -11,8 +11,10 @@ import {cn} from "@/utils/ui";
 import ConfirmationNumberRoundedIcon from '@mui/icons-material/ConfirmationNumberRounded';
 import {useEffect, useState} from "react";
 import {useLoading} from "@/hooks/useLoading";
+import {TSystemSetting} from "@/@types/system-setting";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 
-export default function DailyMission(){
+export default function DailyMission({systemSettings}: {systemSettings: TSystemSetting}){
   const [missions, setMissions] = useState<TMission[]>([]);
   const missionQuery = useMissionQuery();
   const {isLogined} = useUser();
@@ -38,7 +40,7 @@ export default function DailyMission(){
   }, [missionQuery]);
 
   return (
-    <GlobalLayout showHeader={false} title="Nhiệm vụ ngày">
+    <GlobalLayout showHeader={false} title="Nhiệm vụ ngày" systemSettings={systemSettings}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <ConfirmationNumberRoundedIcon className="text-[#ff55a5] mr-3" />
@@ -103,3 +105,5 @@ export default function DailyMission(){
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

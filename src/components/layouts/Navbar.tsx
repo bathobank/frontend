@@ -6,7 +6,7 @@ import {Text} from "@/components/ui/Text";
 import {useUser} from "@/hooks/useUser";
 import {cn} from "@/utils/ui";
 import {useRouter} from "next/router";
-import {ReactNode, useEffect, useRef, useState} from "react";
+import {ReactNode, useCallback, useEffect, useRef, useState} from "react";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import CardGiftcardRoundedIcon from '@mui/icons-material/CardGiftcardRounded';
@@ -51,7 +51,7 @@ const MenuNotLogin: TMenu[] = [
   createMenu('Box chat', '#', <QuestionAnswerRoundedIcon className="!text-[1.25rem]" />)
 ];
 
-export const Navbar = () => {
+export const Navbar = ({logo, author}: {logo: string, author: string}) => {
   const [menu, setMenu] = useState<TMenu[]>([]);
   const [menuHeight, setMenuHeight] = useState<string>('calc(100vh - 158px)');
   const logoRef = useRef<HTMLDivElement>(null);
@@ -64,19 +64,17 @@ export const Navbar = () => {
     let timeoutSetMenu: any = null;
 
     timeoutSetMenu = setTimeout(() => {
-      if (isLogined) {
-        setMenu(MenuLogin);
-        setMenuHeight('calc(100vh - 233px)');
-      } else {
-        setMenu(MenuNotLogin);
-        setMenuHeight('calc(100vh - 158px)');
-      }
-    }, 500);
+      setMenu(isLogined ? MenuLogin : MenuNotLogin);
+      updateMenuHeigth();
+    }, 300);
 
     return () => {
       clearTimeout(timeoutSetMenu);
     }
-  }, [isLogined]);
+  },
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  [isLogined]
+  );
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const actions: {[key: string]: any} = {
@@ -93,12 +91,18 @@ export const Navbar = () => {
     }
   }
 
+  const updateMenuHeigth = useCallback(() => {
+    const logoHeight = logoRef.current ? logoRef.current.offsetHeight : 0;
+    const copyrightHeight = copyrightRef.current ? copyrightRef.current.offsetHeight : 0;
+    setMenuHeight(`calc(100vh - ${logoHeight + copyrightHeight}px)`);
+  }, [logoRef]);
+
   return (
     <Box className='bg-[#28282d] min-h-[100vh]'>
       <Box ref={logoRef}>
         <Flex justify='center' className="py-6 border-b-2 border-b-[#ff55a5]">
           <LinkUI className='w-[180px]' href="/">
-            <Img src="/images/logo/logo.png" className='w-[180px]'/>
+            <Img src={logo} className='w-[180px]'/>
           </LinkUI>
         </Flex>
         {isLogined && (
@@ -145,8 +149,8 @@ export const Navbar = () => {
         })}
       </Box>
       <Box className="pl-6 py-4 border-t-2 border-t-[#ff55a5]" ref={copyrightRef}>
-        <Text col='white' size='sm'>© KuBank, 2018—2023.</Text>
-        <Text col='white' size='sm'>Create by KuBank Ltd.</Text>
+        <Text col='white' size='sm'>©{author}, 2018—2023.</Text>
+        <Text col='white' size='sm'>Create by {author} Ltd.</Text>
       </Box>
     </Box>
   );

@@ -13,8 +13,10 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useLoading} from "@/hooks/useLoading";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
+import {TSystemSetting} from "@/@types/system-setting";
 
-export default function AuthRegister() {
+export default function AuthRegister({systemSettings}: {systemSettings: TSystemSetting}) {
   const [isRequesting, setRequesting] = useState<boolean>(false);
   const authRegisterMutate = useAuthRegisterMutation();
   const toast = useToast();
@@ -66,7 +68,7 @@ export default function AuthRegister() {
   }
 
   return (
-    <GlobalLayout showHeader={false} title="Đăng ký">
+    <GlobalLayout showHeader={false} title="Đăng ký" systemSettings={systemSettings}>
       <Box className='w-full lg:w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
         <Box className="w-full rounded-lg shadow">
           <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -116,3 +118,5 @@ export default function AuthRegister() {
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

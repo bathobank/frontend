@@ -14,8 +14,10 @@ import {useQueryClient} from "react-query";
 import {AUTH_GET_USER_QK} from "@/queries/auth/user";
 import {useEffect} from "react";
 import {useLoading} from "@/hooks/useLoading";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
+import {TSystemSetting} from "@/@types/system-setting";
 
-export default function ChangePassword(){
+export default function ChangePassword({systemSettings}: {systemSettings: TSystemSetting}){
   const changePasswordMutation = useChangePasswordMutation();
   const {push} = useRouter();
   const loading = useLoading();
@@ -49,7 +51,7 @@ export default function ChangePassword(){
   }
 
   return (
-    <GlobalLayout showHeader={false} title="Đổi mật khẩu">
+    <GlobalLayout showHeader={false} title="Đổi mật khẩu" systemSettings={systemSettings}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <ManageAccountsRoundedIcon className="text-[#ff55a5] mr-3" />
@@ -69,3 +71,5 @@ export default function ChangePassword(){
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

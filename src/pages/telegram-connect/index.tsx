@@ -8,8 +8,10 @@ import {LinkUI} from "@/components/ui/Link";
 import {Button} from "@/components/ui/Button";
 import {useEffect} from "react";
 import {useLoading} from "@/hooks/useLoading";
+import {TSystemSetting} from "@/@types/system-setting";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 
-export default function TelegramConnect() {
+export default function TelegramConnect({systemSettings}: {systemSettings: TSystemSetting}) {
   const {user} = useUser();
   const loading = useLoading();
 
@@ -27,7 +29,7 @@ export default function TelegramConnect() {
   );
 
   return (
-    <GlobalLayout showHeader={false} title="Liên kết">
+    <GlobalLayout showHeader={false} title="Liên kết" systemSettings={systemSettings}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <SendRoundedIcon className="text-[#ff55a5] mr-3"/>
@@ -55,3 +57,5 @@ export default function TelegramConnect() {
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

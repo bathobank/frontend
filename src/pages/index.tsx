@@ -9,14 +9,16 @@ import {Text} from "@/components/ui/Text";
 import {useUser} from "@/hooks/useUser";
 import {getGameOpen} from "@/stores/slices/game";
 import {useEffect, useMemo, useRef, useState} from "react";
-import {useHasOrderWaitQuery} from "@/queries/hasOrderWait";
+import {useHasOrderWaitQuery} from "@/queries/has-order-wait";
 import {AlertEnterBank} from "@/components/modals/AlertEnterBank";
 import {GameGroup} from "@/components/pages/Index/GameGroup";
 import {useSelector} from "react-redux";
 import {useHistoryWin} from "@/queries/histories/win";
 import {useLoading} from "@/hooks/useLoading";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
+import {TSystemSetting} from "@/@types/system-setting";
 
-export default function Home() {
+export default function Home({systemSettings}: {systemSettings: TSystemSetting}) {
   const [hasOrderWait, setHasOrderWait] = useState<boolean>(false);
   const gameRef = useRef<HTMLDivElement>(null);
   const bankRef = useRef<HTMLDivElement>(null);
@@ -80,7 +82,7 @@ export default function Home() {
   }, [gameOpen]);
 
   return (
-    <GlobalLayout title={title}>
+    <GlobalLayout title={title} systemSettings={systemSettings}>
       <Flex justify='between' items="start" wrap="wrap" className="mb-3">
         <Box ref={gameRef} className="w-full lg:w-[49.5%] mb-3 lg:mb-0 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal">
           <GameGroup gameOpen={gameOpen}  />
@@ -108,3 +110,5 @@ export default function Home() {
     </GlobalLayout>
   )
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

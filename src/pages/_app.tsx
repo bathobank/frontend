@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import {InitComponentData} from "@/components/Init";
+import InitComponentData from "@/components/Init";
 import type {AppProps} from 'next/app';
 import {Open_Sans} from "next/font/google";
 import Head from 'next/head';
@@ -30,11 +30,7 @@ const App: FC<AppProps> = ({Component, ...rest}: AppProps) => {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <CacheProvider value={emotionCache}>
-            <InitComponentData fontClass={opensans.className}>
-              <Head>
-                <title>Bát Họ Bank</title>
-                <link rel="shortcut icon" href="/images/logo/favicon.ico"/>
-              </Head>
+            <InitComponentData>
               <Component {...pageProps} />
               <ToastContainer />
               <Loading />

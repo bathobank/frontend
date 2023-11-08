@@ -7,8 +7,10 @@ import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
 import {useEffect, useState} from "react";
 import {useJackpotQuery} from "@/queries/jackpot";
 import {useLoading} from "@/hooks/useLoading";
+import {TSystemSetting} from "@/@types/system-setting";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 
-export default function Jackpot(){
+export default function Jackpot({systemSettings}: {systemSettings: TSystemSetting}){
   const [jackpot, setJackpot] = useState<string>('0000000');
   const jackpotQuery = useJackpotQuery();
   const loading = useLoading();
@@ -38,7 +40,7 @@ export default function Jackpot(){
   }, [jackpotQuery]);
 
   return (
-    <GlobalLayout showHeader={false} title="Nổ hũ">
+    <GlobalLayout showHeader={false} title="Nổ hũ" systemSettings={systemSettings}>
       <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3'>
         <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
           <EmojiEventsRoundedIcon className="text-[#ff55a5] mr-3" />
@@ -71,3 +73,5 @@ export default function Jackpot(){
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;

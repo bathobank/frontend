@@ -3,8 +3,10 @@ import {History} from "@/components/pages/Index/History";
 import {useUserHistories} from "@/queries/histories";
 import {useEffect} from "react";
 import {useLoading} from "@/hooks/useLoading";
+import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
+import {TSystemSetting} from "@/@types/system-setting";
 
-export default function HistoryPage(){
+export default function HistoryPage({systemSettings}: {systemSettings: TSystemSetting}){
   const historyQuery = useUserHistories(20);
   const loading = useLoading();
 
@@ -22,8 +24,10 @@ export default function HistoryPage(){
   );
 
   return (
-    <GlobalLayout showHeader={false} title="Lịch sử chơi">
+    <GlobalLayout showHeader={false} title="Lịch sử chơi" systemSettings={systemSettings}>
       <History historyQuery={historyQuery} title="LỊCH SỬ CHƠI CỦA BẠN" />
     </GlobalLayout>
   );
 }
+
+export const getServerSideProps = serverSideGetSystemSetting;
