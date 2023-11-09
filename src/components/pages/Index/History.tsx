@@ -9,7 +9,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import {HoaDonModal} from "@/components/modals/HoaDon";
 import {SaoKeModal} from "@/components/modals/SaoKe";
 
-export const History = ({historyQuery, title}: { historyQuery: THistoriesQuery|undefined, title: string}) => {
+export const History = ({historyQuery, title, showContent = true}: { historyQuery: THistoriesQuery|undefined, title: string, showContent?: boolean}) => {
   const [histories, setHistories] = useState<THistories>([]);
   const [isOpenModalHoaDon, setOpenModalHoaDon] = useState<boolean>(false);
   const [isOpenModalSaoKe, setOpenModalSaoKe] = useState<boolean>(false);
@@ -62,12 +62,16 @@ export const History = ({historyQuery, title}: { historyQuery: THistoriesQuery|u
               <th scope="col" className="py-3 text-center">
                 <Text className="text-[#c7c7c7]">Trả thưởng</Text>
               </th>
-              <th scope="col" className="py-3 text-center">
-                <Text className="text-[#c7c7c7]">Sao kê</Text>
-              </th>
-              <th scope="col" className="py-3 text-center">
-                <Text className="text-[#c7c7c7]">Hóa đơn</Text>
-              </th>
+              {showContent && (
+                <>
+                  <th scope="col" className="py-3 text-center">
+                    <Text className="text-[#c7c7c7]">Sao kê</Text>
+                  </th>
+                  <th scope="col" className="py-3 text-center">
+                    <Text className="text-[#c7c7c7]">Hóa đơn</Text>
+                  </th>
+                </>
+              )}
               <th scope="col" className="py-3 text-center">
                 <Text className="text-[#c7c7c7]">Thời gian</Text>
               </th>
@@ -120,18 +124,22 @@ export const History = ({historyQuery, title}: { historyQuery: THistoriesQuery|u
                     </Text>
                   )}
                 </td>
-                <td className="py-3 text-center">
-                  <Text size="sm" className="hover:underline text-green-500 hover:text-green-700 cursor-pointer" onClick={() => openModalSaoKe(history.content)}>
-                    Xem sao kê
-                  </Text>
-                </td>
-                <td className="py-3 text-center">
-                  {history.order?.transaction_receipt && (
-                    <Text size="sm" className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => openModalHoaDon(history.order?.transaction_receipt ?? '')}>
-                      Xem hóa đơn
-                    </Text>
-                  )}
-                </td>
+                {showContent && (
+                  <>
+                    <td className="py-3 text-center">
+                      <Text size="sm" className="hover:underline text-green-500 hover:text-green-700 cursor-pointer" onClick={() => openModalSaoKe(history.content)}>
+                        Xem sao kê
+                      </Text>
+                    </td>
+                    <td className="py-3 text-center">
+                      {history.order?.transaction_receipt && (
+                        <Text size="sm" className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => openModalHoaDon(history.order?.transaction_receipt ?? '')}>
+                          Xem hóa đơn
+                        </Text>
+                      )}
+                    </td>
+                  </>
+                )}
                 <td className="py-3 text-center">
                   <Text size="sm">{history.game_time}</Text>
                 </td>

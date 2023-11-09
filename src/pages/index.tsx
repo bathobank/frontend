@@ -98,7 +98,7 @@ export default function Home({systemSettings}: {systemSettings: TSystemSetting})
         </Box>
       </Flex>
       <Box className="mb-3">
-        <History historyQuery={historyWin} title="LỊCH SỬ CHƠI GẦN ĐÂY" />
+        <History historyQuery={historyWin} title="LỊCH SỬ CHƠI GẦN ĐÂY" showContent={false} />
       </Box>
       {/*<Box className="mb-3">*/}
       {/*  <HistoryWinGame />*/}
