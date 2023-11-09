@@ -50,7 +50,7 @@ export const GlobalLayout = ({children, title, systemSettings, showHeader = true
           <Navbar logo={systemSettings.logo} author={systemSettings.author_name}/>
         </Box>
         <Box className="w-full lg:w-[calc(100%-280px)] bg-[#2b2b31]">
-          <BodyContent showHeader={showHeader}>
+          <BodyContent showHeader={showHeader} logo={systemSettings.logo}>
             {children}
           </BodyContent>
         </Box>

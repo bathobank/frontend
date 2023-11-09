@@ -20,7 +20,7 @@ const MENU: Array<{slug: string; title: string;}> = [
   {slug: 'doanso', title: 'Đoán số'},
 ]
 
-export const Header = ({showHeader = true}: {showHeader?: boolean}) => {
+export const Header = ({logo, showHeader = true}: {logo: string, showHeader?: boolean}) => {
   const dispatch = useDispatch();
   const gameOpen = useSelector(getGameOpen);
   const openNavbar = useSelector(getOpenNavbar);
@@ -47,7 +47,7 @@ export const Header = ({showHeader = true}: {showHeader?: boolean}) => {
     <Box className="px-3 py-3">
       <Flex wrap="wrap" justify="between" className={cn('bg-[#2b2b31] px-3 lg:hidden', showHeader ? 'mb-3' : '')}>
         <LinkUI className='h-[24px]' href="/">
-          <Img src="/images/logo/logo.png" className='h-[24px]'/>
+          <Img src={logo} className='h-[24px]'/>
         </LinkUI>
         <Box
           onClick={toggleMenuNavbar}
