@@ -16,6 +16,7 @@ import {useForm} from "react-hook-form";
 import {useLoading} from "@/hooks/useLoading";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 import {TSystemSetting} from "@/@types/system-setting";
+import {cn} from "@/utils/ui";
 
 type TOption = {
   value: string;
@@ -122,6 +123,12 @@ export default function BankSetup({systemSettings}: {systemSettings: TSystemSett
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   onChange={setBankSelected}
+                  styles={{
+                    option: (provided) => ({
+                      ...provided,
+                      color: '#28282d'
+                    }),
+                  }}
                 />
               </Box>
               <Input

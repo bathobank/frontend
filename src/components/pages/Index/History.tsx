@@ -40,39 +40,39 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
         <AccessTimeIcon className="text-[#ff55a5]" />
         <Text custom={true} className="ml-2 text-white">{title}</Text>
       </Flex>
-      <Box className="p-3">
+      <Box className="p-3 overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="border-b border-b-[#ffffff0d]">
-              <th scope="col" className="py-3 text-center">
+              <th scope="col" className="py-3 px-1 text-center">
                 <Text className="text-[#c7c7c7]">Trò chơi</Text>
               </th>
-              <th scope="col" className="py-3 text-center">
+              <th scope="col" className="py-3 px-1 text-center">
                 <Text className="text-[#c7c7c7]">Đã chọn</Text>
               </th>
-              <th scope="col" className="py-3 text-center">
+              <th scope="col" className="py-3 px-1 text-center">
                 <Text className="text-[#c7c7c7]">Mã giao dịch</Text>
               </th>
-              <th scope="col" className="py-3 text-center">
+              <th scope="col" className="py-3 px-1 text-center">
                 <Text className="text-[#c7c7c7]">Số tiền</Text>
               </th>
-              <th scope="col" className="py-3 text-center">
+              <th scope="col" className="py-3 px-1 text-center">
                 <Text className="text-[#c7c7c7]">Kết quả</Text>
               </th>
-              <th scope="col" className="py-3 text-center">
+              <th scope="col" className="py-3 px-1 text-center">
                 <Text className="text-[#c7c7c7]">Trả thưởng</Text>
               </th>
               {showContent && (
                 <>
-                  <th scope="col" className="py-3 text-center">
+                  <th scope="col" className="py-3 px-1 text-center">
                     <Text className="text-[#c7c7c7]">Sao kê</Text>
                   </th>
-                  <th scope="col" className="py-3 text-center">
+                  <th scope="col" className="py-3 px-1 text-center">
                     <Text className="text-[#c7c7c7]">Hóa đơn</Text>
                   </th>
                 </>
               )}
-              <th scope="col" className="py-3 text-center">
+              <th scope="col" className="py-3 px-1 text-center">
                 <Text className="text-[#c7c7c7]">Thời gian</Text>
               </th>
             </tr>
@@ -80,23 +80,23 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
           <tbody>
             {histories.map((history, index) => (
               <tr key={`tr-history-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
-                <td className="py-3 text-center">
+                <td className="py-3 px-1 text-center">
                   <Text size="sm">{history.game_group.toUpperCase()}</Text>
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-3 px-1 text-center">
                   <Flex justify="center">
                     <Text size="sm" className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none">
                       {history.game_type.toUpperCase()}
                     </Text>
                   </Flex>
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-3 px-1 text-center">
                   <Text size="sm">{history.transaction_code}</Text>
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-3 px-1 text-center">
                   <Text size="sm">{formatMoney(history.money_coming)}</Text>
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-3 px-1 text-center">
                   {history.status === 'L' ? (
                     <Text as="span" className="text-[12px] px-2 py-1 bg-[#d9534f99] rounded select-none">
                       LOST
@@ -107,7 +107,7 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
                     </Text>
                   )}
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-3 px-1 text-center">
                   {history.order?.status === 'done' && (
                     <Text as="span" className="text-[12px] px-2 py-1 bg-[#5bceae99] rounded select-none">
                       DONE
@@ -126,12 +126,12 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
                 </td>
                 {showContent && (
                   <>
-                    <td className="py-3 text-center">
+                    <td className="py-3 px-1 text-center">
                       <Text size="sm" className="hover:underline text-green-500 hover:text-green-700 cursor-pointer" onClick={() => openModalSaoKe(history.content)}>
                         Xem sao kê
                       </Text>
                     </td>
-                    <td className="py-3 text-center">
+                    <td className="py-3 px-1 text-center">
                       {history.order?.transaction_receipt && (
                         <Text size="sm" className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => openModalHoaDon(history.order?.transaction_receipt ?? '')}>
                           Xem hóa đơn
@@ -140,7 +140,7 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
                     </td>
                   </>
                 )}
-                <td className="py-3 text-center">
+                <td className="py-3 px-1 text-center">
                   <Text size="sm">{history.game_time}</Text>
                 </td>
               </tr>
