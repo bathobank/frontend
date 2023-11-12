@@ -8,7 +8,7 @@ import {LinkUI} from "@/components/ui/Link";
 import {Text} from "@/components/ui/Text";
 import {useUser} from "@/hooks/useUser";
 import {getGameOpen} from "@/stores/slices/game";
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useHasOrderWaitQuery} from "@/queries/has-order-wait";
 import {AlertEnterBank} from "@/components/modals/AlertEnterBank";
 import {GameGroup} from "@/components/pages/Index/GameGroup";
@@ -17,9 +17,11 @@ import {useHistoryWin} from "@/queries/histories/win";
 import {useLoading} from "@/hooks/useLoading";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 import {TSystemSetting} from "@/@types/system-setting";
+import {AlertNotification} from "@/components/modals/AlertNotification";
 
 export default function Home({systemSettings}: {systemSettings: TSystemSetting}) {
   const [hasOrderWait, setHasOrderWait] = useState<boolean>(false);
+  const [isOpenModalNotif, setOpenModalNotif] = useState<boolean>(false);
   const gameRef = useRef<HTMLDivElement>(null);
   const bankRef = useRef<HTMLDivElement>(null);
   const gameOpen: string = useSelector(getGameOpen);
@@ -41,20 +43,32 @@ export default function Home({systemSettings}: {systemSettings: TSystemSetting})
   []
   );
 
-  useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    let timeoutSetHasOrderWait: any = null;
-
+  const openModalEnterBank = useCallback(() => {
     if (hasOrderWaitQuery) {
-      timeoutSetHasOrderWait = setTimeout(() => {
+      setTimeout(() => {
         setHasOrderWait(hasOrderWaitQuery.data.has_order_wait)
       }, 10);
     }
+  }, [hasOrderWaitQuery])
 
-    return () => {
-      clearTimeout(timeoutSetHasOrderWait);
+  const openModalNotification = useCallback(() => {
+    if (systemSettings.notification !== '') {
+      setTimeout(() => {
+        setOpenModalNotif(true);
+      }, 10);
     }
-  }, [hasOrderWaitQuery]);
+  }, [systemSettings.notification])
+
+  useEffect(() => {
+    if (systemSettings.notification === '') {
+      openModalEnterBank();
+    } else {
+      openModalNotification();
+    }
+  },
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  [systemSettings.notification, hasOrderWaitQuery]
+  );
 
   useEffect(() => {
     if (!gameRef.current || !bankRef.current) return;
@@ -107,6 +121,16 @@ export default function Home({systemSettings}: {systemSettings: TSystemSetting})
         <TopWeekAndRule />
       </Box>
       <AlertEnterBank isOpen={hasOrderWait} onClose={() => setHasOrderWait(false)} />
+      {systemSettings.notification !== '' && (
+        <AlertNotification
+          isOpen={isOpenModalNotif}
+          onClose={() => {
+            setOpenModalNotif(false);
+            openModalEnterBank();
+          }}
+          notification={systemSettings.notification}
+        />
+      )}
     </GlobalLayout>
   )
 }
