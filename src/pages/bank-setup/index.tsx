@@ -16,7 +16,6 @@ import {useForm} from "react-hook-form";
 import {useLoading} from "@/hooks/useLoading";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 import {TSystemSetting} from "@/@types/system-setting";
-import {cn} from "@/utils/ui";
 
 type TOption = {
   value: string;
