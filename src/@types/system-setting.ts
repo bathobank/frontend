@@ -7,7 +7,8 @@ export type TSystemSetting = {
   icon: string;
   logo: string;
   notification: string;
-  games: TGame
+  'box-chat-link': string;
+  games: TGame;
 }
 
 export type TSystemSettingResponse = TApiSuccessResponse<{settings: TSystemSetting}>;

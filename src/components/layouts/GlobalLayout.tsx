@@ -47,7 +47,7 @@ export const GlobalLayout = ({children, title, systemSettings, showHeader = true
             openNavbar ? 'translate-x-0 top-0' : 'translate-x-[-100%] lg:translate-x-0'
           )
         }>
-          <Navbar logo={systemSettings.logo} author={systemSettings.author_name}/>
+          <Navbar logo={systemSettings.logo} author={systemSettings.author_name} boxChatLink={systemSettings['box-chat-link']}/>
         </Box>
         <Box className="w-full lg:w-[calc(100%-280px)] bg-[#2b2b31]">
           <BodyContent showHeader={showHeader} logo={systemSettings.logo}>

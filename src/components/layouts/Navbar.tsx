@@ -22,36 +22,14 @@ type TMenu = {
   title: string;
   icon: ReactNode;
   href: string;
+  target: string;
 };
 
-const createMenu = (title: string, href: string, icon: ReactNode): TMenu => {
-  return {title, href, icon}
+const createMenu = (title: string, href: string, icon: ReactNode, target = '_self'): TMenu => {
+  return {title, href, icon, target}
 }
 
-const MenuLogin: TMenu[] = [
-  createMenu('Trang chủ', '/', <HomeRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Cài đặt bank', '/bank-setup', <AccountBalanceRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Giftcode', '/gift-code', <CardGiftcardRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Nhiệm vụ ngày', '/daily-mission', <ConfirmationNumberRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Nổ hũ', '/jackpot', <EmojiEventsRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Lịch sử chơi', '/history', <HistoryRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Liên kết telegram', '/telegram-connect', <SendRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Đổi mật khẩu', '/change-password', <ManageAccountsRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Đăng xuất', 'action:logout', <ExitToAppRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Box chat', '#', <QuestionAnswerRoundedIcon className="!text-[1.25rem]" />)
-];
-
-const MenuNotLogin: TMenu[] = [
-  createMenu('Trang chủ', '/', <HomeRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Giftcode', '/gift-code', <CardGiftcardRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Nhiệm vụ ngày', '/daily-mission', <ConfirmationNumberRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Nổ hũ', '/jackpot', <EmojiEventsRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Đăng nhập', '/auth/login', <HistoryRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Đăng ký', '/auth/register', <SendRoundedIcon className="!text-[1.25rem]" />),
-  createMenu('Box chat', '#', <QuestionAnswerRoundedIcon className="!text-[1.25rem]" />)
-];
-
-export const Navbar = ({logo, author}: {logo: string, author: string}) => {
+export const Navbar = ({logo, author, boxChatLink}: {logo: string, author: string, boxChatLink: string}) => {
   const [menu, setMenu] = useState<TMenu[]>([]);
   const [menuHeight, setMenuHeight] = useState<string>('calc(100vh - 158px)');
   const logoRef = useRef<HTMLDivElement>(null);
@@ -64,7 +42,30 @@ export const Navbar = ({logo, author}: {logo: string, author: string}) => {
     let timeoutSetMenu: any = null;
 
     timeoutSetMenu = setTimeout(() => {
-      setMenu(isLogined ? MenuLogin : MenuNotLogin);
+      if (isLogined) {
+        setMenu([
+          createMenu('Trang chủ', '/', <HomeRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Cài đặt bank', '/bank-setup', <AccountBalanceRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Giftcode', '/gift-code', <CardGiftcardRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Nhiệm vụ ngày', '/daily-mission', <ConfirmationNumberRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Nổ hũ', '/jackpot', <EmojiEventsRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Lịch sử chơi', '/history', <HistoryRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Liên kết telegram', '/telegram-connect', <SendRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Đổi mật khẩu', '/change-password', <ManageAccountsRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Đăng xuất', 'action:logout', <ExitToAppRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Box chat', boxChatLink === '' ? '#' : boxChatLink, <QuestionAnswerRoundedIcon className="!text-[1.25rem]" />, '_blank')
+        ]);
+      } else {
+        setMenu([
+          createMenu('Trang chủ', '/', <HomeRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Giftcode', '/gift-code', <CardGiftcardRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Nhiệm vụ ngày', '/daily-mission', <ConfirmationNumberRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Nổ hũ', '/jackpot', <EmojiEventsRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Đăng nhập', '/auth/login', <HistoryRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Đăng ký', '/auth/register', <SendRoundedIcon className="!text-[1.25rem]" />),
+          createMenu('Box chat', boxChatLink === '' ? '#' : boxChatLink, <QuestionAnswerRoundedIcon className="!text-[1.25rem]" />, '_blank')
+        ]);
+      }
       updateMenuHeigth();
     }, 300);
 
@@ -139,7 +140,7 @@ export const Navbar = ({logo, author}: {logo: string, author: string}) => {
               </Flex>
             </Box>
           ) : (
-            <LinkUI key={`box-menu-${index}`} href={menu.href} underline={false} className={cn("text-white transition-all", pathname === menu.href ? 'text-[#ff55a5]' : 'hover:text-[#ff55a5]')}>
+            <LinkUI key={`box-menu-${index}`} href={menu.href} target={menu.target} underline={false} className={cn("text-white transition-all", pathname === menu.href ? 'text-[#ff55a5]' : 'hover:text-[#ff55a5]')}>
               <Flex className='py-3 pl-6 gap-[10px]'>
                 {menu.icon}
                 <span className="uppercase text-[13px] relative top-[2px]">{menu.title}</span>
