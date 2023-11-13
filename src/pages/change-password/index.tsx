@@ -12,15 +12,12 @@ import {defaultOptionReactQueryResponse} from "@/utils/helper";
 import {useRouter} from "next/router";
 import {useQueryClient} from "react-query";
 import {AUTH_GET_USER_QK} from "@/queries/auth/user";
-import {useEffect} from "react";
-import {useLoading} from "@/hooks/useLoading";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 import {TSystemSetting} from "@/@types/system-setting";
 
 export default function ChangePassword({systemSettings}: {systemSettings: TSystemSetting}){
   const changePasswordMutation = useChangePasswordMutation();
   const {push} = useRouter();
-  const loading = useLoading();
   const queryClient = useQueryClient();
 
   const {
@@ -28,19 +25,6 @@ export default function ChangePassword({systemSettings}: {systemSettings: TSyste
     register,
     reset
   } = useForm<TChangePwForm>();
-
-  useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    let timeoutClearLoading: any = null;
-    timeoutClearLoading = setTimeout(loading.hide, 500);
-
-    return () => {
-      clearTimeout(timeoutClearLoading);
-    }
-  },
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  []
-  );
 
   const onSubmit = (data: TChangePwForm) => {
     changePasswordMutation.mutate(data, defaultOptionReactQueryResponse(() => {

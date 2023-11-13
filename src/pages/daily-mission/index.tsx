@@ -10,7 +10,6 @@ import {formatMoney} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import ConfirmationNumberRoundedIcon from '@mui/icons-material/ConfirmationNumberRounded';
 import {useEffect, useState} from "react";
-import {useLoading} from "@/hooks/useLoading";
 import {TSystemSetting} from "@/@types/system-setting";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 
@@ -18,20 +17,6 @@ export default function DailyMission({systemSettings}: {systemSettings: TSystemS
   const [missions, setMissions] = useState<TMission[]>([]);
   const missionQuery = useMissionQuery();
   const {isLogined} = useUser();
-  const loading = useLoading();
-
-  useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    let timeoutClearLoading: any = null;
-    timeoutClearLoading = setTimeout(loading.hide, 500);
-
-    return () => {
-      clearTimeout(timeoutClearLoading);
-    }
-  },
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  []
-  );
 
   useEffect(() => {
     if (missionQuery) {

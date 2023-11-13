@@ -7,15 +7,9 @@ import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
-import {TStartGame} from "@/@types/game";
+import {TGame, TStartGame} from "@/@types/game";
 
-const ConfigGame: {key: string; calculation: string; end: string; ratio: string}[] = [
-  {key: 'G3', calculation: '2 số cuối', end: '02,13,17,19,21,29,35,37,47,49,51,54,57,63,64,74,83,91,95,96', ratio: 'x3'},
-  {key: 'G3', calculation: '2 số cuối', end: '66,99', ratio: 'x4'},
-  {key: 'G3', calculation: '3 số cuối', end: '123,234,456,678,789', ratio: 'x5'}
-]
-
-export const GameGap3 = ({startGame}: {startGame: TStartGame}) => {
+export const GameGap3 = ({startGame, gameData}: {startGame: TStartGame, gameData: TGame['gap3']}) => {
   const toast = useToast();
   const {user} = useUser();
 
@@ -53,38 +47,43 @@ export const GameGap3 = ({startGame}: {startGame: TStartGame}) => {
             </tr>
           </thead>
           <tbody>
-            {ConfigGame.map((config, index) => (
-              <tr key={`tr-game-cltx-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
-                <td className="py-3 w-[100px] sm:w-[150px]">
-                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} ${config.key}`)}>
-                    <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} {config.key}</Text>
-                    <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
-                  </Flex>
-                </td>
-                <td className="py-3 w-[80px]">
-                  <Text>{config.calculation}</Text>
-                </td>
-                <td className="py-3">
-                  <Flex wrap="wrap" justify="center" className="gap-2">
-                    {config.end.split(',').map((end, i) => (
-                      <Text
-                        key={`td-key-cltx-${i}`}
-                        className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none">
-                        {end}
-                      </Text>
-                    ))}
-                  </Flex>
-                </td>
-                <td className="min-w-[50px] text-center">
-                  <Text>{config.ratio}</Text>
-                </td>
-                {user && (
-                  <td className="min-w-[50px] text-center">
-                    <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('gap3', config.key)}>Chơi</Text>
+            {Object.keys(gameData.G3).map((key, index) => {
+              const game = gameData.G3[key];
+              const type = key.split('so')[0];
+
+              return (
+                <tr key={`tr-game-cltx-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
+                  <td className="py-3 w-[100px] sm:w-[150px]">
+                    <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} G3`)}>
+                      <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} G3</Text>
+                      <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
+                    </Flex>
                   </td>
-                )}
-              </tr>
-            ))}
+                  <td className="py-3 w-[80px]">
+                    <Text>{type} số cuối</Text>
+                  </td>
+                  <td className="py-3">
+                    <Flex wrap="wrap" justify="center" className="gap-2">
+                      {game.end.map((end, i) => (
+                        <Text
+                          key={`td-key-cltx-${i}`}
+                          className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none">
+                          {end}
+                        </Text>
+                      ))}
+                    </Flex>
+                  </td>
+                  <td className="min-w-[50px] text-center">
+                    <Text>x{game.ratio}</Text>
+                  </td>
+                  {user && (
+                    <td className="min-w-[50px] text-center">
+                      <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('gap3', 'G3')}>Chơi</Text>
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         <Box className="py-5">

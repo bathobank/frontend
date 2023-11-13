@@ -8,8 +8,9 @@ import {GameDoanSo} from "@/components/pages/Index/Game/doanso";
 import {Box} from "@/components/ui/Box";
 import {useState} from "react";
 import {StartGameModal} from "@/components/modals/StartGame";
+import {TGame} from "@/@types/game";
 
-export const GameGroup = ({gameOpen}: {gameOpen: string}) => {
+export const GameGroup = ({gameOpen, gameData}: {gameOpen: string, gameData: TGame}) => {
   const [openModalStartGame, setOpenModalStartGame] = useState<boolean>(false);
   const [gameTypeSelected, setGameTypeSelected] = useState<string>('');
   const [gameGroupSelected, setGameGroupSelected] = useState<string>('');
@@ -28,13 +29,13 @@ export const GameGroup = ({gameOpen}: {gameOpen: string}) => {
   return (
     <Box>
       <Box>
-        {gameOpen === 'cltx' && <GameCltx startGame={startGame} />}
-        {gameOpen === 'cltx2' && <GameCltx2 startGame={startGame} />}
-        {gameOpen === 'gap3' && <GameGap3 startGame={startGame} />}
-        {gameOpen === 'tong3so' && <GameTong3So startGame={startGame} />}
-        {gameOpen === '1phan3' && <Game1Phan3 startGame={startGame} />}
-        {gameOpen === 'xien' && <GameXien startGame={startGame} />}
-        {gameOpen === 'doanso' && <GameDoanSo startGame={startGame} />}
+        {gameOpen === 'cltx' && <GameCltx startGame={startGame} gameData={gameData.cltx} />}
+        {gameOpen === 'cltx2' && <GameCltx2 startGame={startGame} gameData={gameData.cltx2} />}
+        {gameOpen === 'gap3' && <GameGap3 startGame={startGame} gameData={gameData.gap3} />}
+        {gameOpen === 'tong3so' && <GameTong3So startGame={startGame} gameData={gameData.tong3so} />}
+        {gameOpen === '1phan3' && <Game1Phan3 startGame={startGame} gameData={gameData["1phan3"]} />}
+        {gameOpen === 'xien' && <GameXien startGame={startGame} gameData={gameData.xien} />}
+        {gameOpen === 'doanso' && <GameDoanSo startGame={startGame} gameData={gameData.doanso} />}
       </Box>
       <StartGameModal
         isOpen={openModalStartGame}

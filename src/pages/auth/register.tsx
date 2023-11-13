@@ -10,9 +10,8 @@ import {useToast} from "@/hooks/useToast";
 import {useAuthRegisterMutation} from "@/queries/auth/register";
 import {buildErrorParam} from "@/utils/helper";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useForm} from "react-hook-form";
-import {useLoading} from "@/hooks/useLoading";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 import {TSystemSetting} from "@/@types/system-setting";
 
@@ -21,7 +20,6 @@ export default function AuthRegister({systemSettings}: {systemSettings: TSystemS
   const authRegisterMutate = useAuthRegisterMutation();
   const toast = useToast();
   const router = useRouter();
-  const loading = useLoading();
 
   const {
     register,
@@ -29,19 +27,6 @@ export default function AuthRegister({systemSettings}: {systemSettings: TSystemS
     reset,
     formState: {errors}
   } = useForm<TUserCreate>();
-
-  useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    let timeoutClearLoading: any = null;
-    timeoutClearLoading = setTimeout(loading.hide, 500);
-
-    return () => {
-      clearTimeout(timeoutClearLoading);
-    }
-  },
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  []
-  );
 
   const onSubmit = (data: TUserCreate) => {
     setRequesting(true);

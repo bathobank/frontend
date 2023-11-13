@@ -14,7 +14,6 @@ import {AlertEnterBank} from "@/components/modals/AlertEnterBank";
 import {GameGroup} from "@/components/pages/Index/GameGroup";
 import {useSelector} from "react-redux";
 import {useHistoryWin} from "@/queries/histories/win";
-import {useLoading} from "@/hooks/useLoading";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 import {TSystemSetting} from "@/@types/system-setting";
 import {AlertNotification} from "@/components/modals/AlertNotification";
@@ -28,20 +27,6 @@ export default function Home({systemSettings}: {systemSettings: TSystemSetting})
   const {isLogined} = useUser();
   const hasOrderWaitQuery = useHasOrderWaitQuery();
   const historyWin = useHistoryWin();
-  const loading = useLoading();
-
-  useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    let timeoutClearLoading: any = null;
-    timeoutClearLoading = setTimeout(loading.hide, 500);
-
-    return () => {
-      clearTimeout(timeoutClearLoading);
-    }
-  },
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  []
-  );
 
   const openModalEnterBank = useCallback(() => {
     if (hasOrderWaitQuery) {
@@ -92,14 +77,14 @@ export default function Home({systemSettings}: {systemSettings: TSystemSetting})
     if (gameOpen === '1phan3') return 'Một phần 3';
     if (gameOpen === 'xien') return 'Xiên số';
     if (gameOpen === 'doanso') return 'Đoán số';
-    return undefined;
+    return gameOpen;
   }, [gameOpen]);
 
   return (
     <GlobalLayout title={title} systemSettings={systemSettings}>
       <Flex justify='between' items="start" wrap="wrap" className="mb-3">
         <Box ref={gameRef} className="w-full lg:w-[49.5%] mb-3 lg:mb-0 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal">
-          <GameGroup gameOpen={gameOpen}  />
+          <GameGroup gameOpen={gameOpen} gameData={systemSettings.games} />
         </Box>
         <Box ref={bankRef} className='w-full lg:w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
           {isLogined ? (

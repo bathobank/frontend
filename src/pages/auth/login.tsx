@@ -9,10 +9,9 @@ import {useAuthLoginMutation} from "@/queries/auth/login";
 import {AUTH_GET_USER_QK} from "@/queries/auth/user";
 import {defaultOptionReactQueryResponse} from "@/utils/helper";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {useQueryClient} from "react-query";
-import {useLoading} from "@/hooks/useLoading";
 import {TSystemSetting} from "@/@types/system-setting";
 import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 
@@ -20,7 +19,6 @@ export default function AuthLogin({systemSettings}: {systemSettings: TSystemSett
   const [isRequesting, setRequesting] = useState<boolean>(false);
   const authLoginMutation = useAuthLoginMutation();
   const {push} = useRouter();
-  const loading = useLoading();
   const queryClient = useQueryClient();
 
   const {
@@ -29,19 +27,6 @@ export default function AuthLogin({systemSettings}: {systemSettings: TSystemSett
     reset,
     formState: {errors}
   } = useForm<TUserLogin>();
-
-  useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    let timeoutClearLoading: any = null;
-    timeoutClearLoading = setTimeout(loading.hide, 500);
-
-    return () => {
-      clearTimeout(timeoutClearLoading);
-    }
-  },
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  []
-  );
 
   const onSubmit = (data: TUserLogin) => {
     const mutateOption = defaultOptionReactQueryResponse<{ token: string }>((result) => {

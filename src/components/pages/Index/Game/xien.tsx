@@ -7,16 +7,9 @@ import {copyContent} from "@/utils/helper";
 import {cn} from "@/utils/ui";
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
-import {TStartGame} from "@/@types/game";
+import {TGame, TStartGame} from "@/@types/game";
 
-const ConfigGame: {key: string; end: string; ratio: string}[] = [
-  {key: 'CX', end: '2,4', ratio: 'x3.3'},
-  {key: 'LT', end: '5,7', ratio: 'x3.3'},
-  {key: 'CT', end: '6,8', ratio: 'x3.3'},
-  {key: 'LX', end: '1,3', ratio: 'x3.3'}
-]
-
-export const GameXien = ({startGame}: {startGame: TStartGame}) => {
+export const GameXien = ({startGame, gameData}: {startGame: TStartGame, gameData: TGame['xien']}) => {
   const toast = useToast();
   const {user} = useUser();
 
@@ -51,35 +44,39 @@ export const GameXien = ({startGame}: {startGame: TStartGame}) => {
             </tr>
           </thead>
           <tbody>
-            {ConfigGame.map((config, index) => (
-              <tr key={`tr-game-cltx-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
-                <td className="py-3 w-[100px] sm:w-[150px]">
-                  <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} ${config.key}`)}>
-                    <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} {config.key}</Text>
-                    <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
-                  </Flex>
-                </td>
-                <td className="py-3">
-                  <Flex wrap="wrap" justify="center" className="gap-2">
-                    {config.end.split(',').map((end, i) => (
-                      <Text
-                        key={`td-key-cltx-${i}`}
-                        className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none">
-                        {end}
-                      </Text>
-                    ))}
-                  </Flex>
-                </td>
-                <td className="min-w-[50px] text-center">
-                  <Text>{config.ratio}</Text>
-                </td>
-                {user && (
-                  <td className="min-w-[50px] text-center">
-                    <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('xien', config.key)}>Chơi</Text>
+            {Object.keys(gameData).map((key, index) => {
+              const game = gameData[key];
+
+              return (
+                <tr key={`tr-game-cltx-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
+                  <td className="py-3 w-[100px] sm:w-[150px]">
+                    <Flex className="cursor-pointer select-none" onClick={() => triggerCopyContent(`${user?.nickname ?? 'nickname'} ${key}`)}>
+                      <Text custom={true} className="mr-1">{user?.nickname ?? 'nickname'} {key}</Text>
+                      <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
+                    </Flex>
                   </td>
-                )}
-              </tr>
-            ))}
+                  <td className="py-3">
+                    <Flex wrap="wrap" justify="center" className="gap-2">
+                      {game.sum2end.map((end, i) => (
+                        <Text
+                          key={`td-key-cltx-${i}`}
+                          className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none">
+                          {end}
+                        </Text>
+                      ))}
+                    </Flex>
+                  </td>
+                  <td className="min-w-[50px] text-center">
+                    <Text>x{game.ratio}</Text>
+                  </td>
+                  {user && (
+                    <td className="min-w-[50px] text-center">
+                      <Text className="cursor-pointer hover:underline text-[#ff55a5] select-none" onClick={() => startGame('xien', key)}>Chơi</Text>
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         <Box className="py-5">

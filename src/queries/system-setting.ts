@@ -14,7 +14,7 @@ export const useSystemSettingQuery = (): TSystemSettingResponse | undefined => {
     queryKey: [SYSTEM_SETTING_QK],
     queryFn: () => systemSettingQuery(),
     retry: 0,
-    staleTime: Infinity
+    staleTime: 10000
   });
   return data;
 };

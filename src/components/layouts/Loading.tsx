@@ -1,30 +1,45 @@
 import {Flex} from "@/components/ui/Flex";
-import {useDispatch, useSelector} from "react-redux";
-import {getIsLoading, setIsLoading} from "@/stores/slices/loading";
-import {useEffect} from "react";
-import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
 import {Img} from "@/components/ui/Img";
+import {useRouter} from "next/router";
 
 export default function Loading() {
-  const loading = useSelector(getIsLoading);
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [firstLoading, setFirstLoading] = useState<boolean>(true);
   const router = useRouter();
 
-  const handleStart = (url: string) => {
-    if (url !== router.asPath) {
-      dispatch(setIsLoading(true));
-    }
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+      setFirstLoading(false);
+    }, 1000);
+  }, []);
 
   useEffect(() => {
+    const handleStart = (url: string) => {
+      if (url !== router.asPath && !firstLoading) {
+        document.querySelector('body')!.style.overflow = 'hidden';
+        setLoading(true);
+      }
+    };
+    const handleComplete = () => {
+      if (firstLoading) return;
+      setTimeout(() => {
+        document.querySelector('body')!.style.overflow = '';
+        setLoading(false)
+      }, 300);
+    };
+
     router.events.on('routeChangeStart', handleStart)
+    router.events.on('routeChangeComplete', handleComplete)
+    router.events.on('routeChangeError', handleComplete)
+
     return () => {
       router.events.off('routeChangeStart', handleStart)
+      router.events.off('routeChangeComplete', handleComplete)
+      router.events.off('routeChangeError', handleComplete)
     }
-  },
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  []
-  );
+  })
 
   if (!loading) return <></>;
 
