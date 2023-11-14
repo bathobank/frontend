@@ -14,6 +14,7 @@ export const MISSION_URI: string = 'api/v1/mission';
 export const JACKPOT_URI: string = 'api/v1/jackpot';
 export const SYSTEM_SETTING: string = 'api/v1/system-setting';
 export const HAS_ORDER_WAIT: string = 'api/v1/user/has_order_wait';
+export const TOP_WEEK: string = 'api/v1/top-week';
 
 export const buildDataUrl = (url: string, param: {[key: string]: string|number}): string => {
   for (const key in param) {

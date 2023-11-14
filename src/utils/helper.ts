@@ -76,3 +76,10 @@ export const formatMoney = (amount: number|string, decimalCount: number = 0, dec
     return "";
   }
 }
+
+export const hiddenText = (text: string, lengthShow: number = 4) => {
+  const lengthText: number = text.length;
+  const textShow = text.substring(0, lengthShow);
+  return textShow + '*'.repeat(lengthText - lengthShow);
+}
+
