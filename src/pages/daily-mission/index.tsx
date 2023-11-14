@@ -16,7 +16,7 @@ import {serverSideGetSystemSetting} from "@/hooks/serverSideGetSystemSetting";
 export default function DailyMission({systemSettings}: {systemSettings: TSystemSetting}){
   const [missions, setMissions] = useState<TMission[]>([]);
   const missionQuery = useMissionQuery();
-  const {isLogined} = useUser();
+  const {isLogined, user} = useUser();
 
   useEffect(() => {
     if (missionQuery) {
@@ -34,7 +34,7 @@ export default function DailyMission({systemSettings}: {systemSettings: TSystemS
         <Box className="py-5">
           <Box className="text-center">
             {isLogined ? (
-              <Text>Tổng chơi trong ngày: <span className="text-[#ff55a5]">0</span></Text>
+              <Text>Tổng chơi trong ngày: <span className="text-[#ff55a5]">{formatMoney(user?.money_daily ?? 0)}</span></Text>
             ) : (
               <Text size="sm">VUI LÒNG <LinkUI href='/auth/login' className="text-[#ff55a5]">ĐĂNG NHẬP</LinkUI> HOẶC <LinkUI href="/auth/register" className="text-[#ff55a5]">ĐĂNG KÝ NHANH</LinkUI> ĐỂ NHẬN THƯỞNG</Text>
             )}

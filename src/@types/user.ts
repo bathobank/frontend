@@ -4,6 +4,7 @@ export type TUser = {
   nickname: string;
   created_at: string;
   telegram_id?: string;
+  money_daily: number;
 };
 
 export type TUserQuery = {
