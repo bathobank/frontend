@@ -20,15 +20,16 @@ export const AlertNotification = ({
       id='alert-notification-modal'
       isOpen={isOpen}
       onClose={onClose}
+      isDark={true}
       title='Thông báo'>
-      <Box className="py-5 px-3">
+      <Box className="py-5 px-3 bg-[#28282d] no-apply-css-base">
         <div dangerouslySetInnerHTML={{
           __html: notification
         }} />
       </Box>
-      <Flex items="center" justify="center" className="p-6 border-t border-gray-200 rounded-b dark:border-gray-600 gap-[10px]">
+      <Flex items="center" justify="center" className="p-6 border-t bg-[#28282d] border-t-[#4a4d5194] rounded-b dark:border-gray-600 gap-[10px]">
         <Button variant='light' onClick={onClose}>
-          Close
+          Đóng
         </Button>
       </Flex>
     </Modal>

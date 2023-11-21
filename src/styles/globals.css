@@ -2,6 +2,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer base {
+  .no-apply-css-base * {
+    font-size: revert;
+    font-weight: revert;
+    margin: revert;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
 }
