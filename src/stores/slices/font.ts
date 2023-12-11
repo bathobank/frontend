@@ -1,12 +1,12 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {AppState} from "@/stores/store";
+import { createSlice } from "@reduxjs/toolkit";
+import { AppState } from "@/stores/store";
 
 export type TFont = {
-    className: string;
-}
+  className: string;
+};
 
 const initialState: TFont = {
-  className: ''
+  className: "",
 };
 
 export const fontSlice = createSlice({
@@ -15,10 +15,10 @@ export const fontSlice = createSlice({
   reducers: {
     setFontClassName(state, action) {
       state.className = action.payload;
-    }
-  }
+    },
+  },
 });
-export const {setFontClassName} = fontSlice.actions;
+export const { setFontClassName } = fontSlice.actions;
 
 export const getFontClassName = (state: AppState) => state.font_slice.className;
 

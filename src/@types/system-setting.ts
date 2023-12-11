@@ -1,5 +1,5 @@
-import {TApiSuccessResponse} from "@/@types/axios";
-import {TGame} from "@/@types/game";
+import { TApiSuccessResponse } from "@/@types/axios";
+import { TGame } from "@/@types/game";
 
 export type TSystemSetting = {
   suffix_title: string;
@@ -7,8 +7,10 @@ export type TSystemSetting = {
   icon: string;
   logo: string;
   notification: string;
-  'box-chat-link': string;
+  "box-chat-link": string;
   games: TGame;
-}
+};
 
-export type TSystemSettingResponse = TApiSuccessResponse<{settings: TSystemSetting}>;
+export type TSystemSettingResponse = TApiSuccessResponse<{
+  settings: TSystemSetting;
+}>;

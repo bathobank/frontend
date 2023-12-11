@@ -23,5 +23,5 @@ export type TBankData = {
 export type TBankDataResponse<T> = {
   success: boolean;
   message: string;
-  data: { banks: T[] }
+  data: { banks: T[] };
 };

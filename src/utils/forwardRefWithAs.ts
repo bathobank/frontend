@@ -5,7 +5,7 @@ import React, {
   type ReactElement,
   type ReactNode,
   type Ref,
-} from 'react';
+} from "react";
 
 /*
   forwardRefWithAs lets us forward refs while keeping the correct component type,
@@ -13,7 +13,10 @@ import React, {
 */
 
 export type ElementTagNameMap = HTMLElementTagNameMap &
-  Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, keyof HTMLElementTagNameMap>>;
+  Pick<
+    SVGElementTagNameMap,
+    Exclude<keyof SVGElementTagNameMap, keyof HTMLElementTagNameMap>
+  >;
 
 export type AsProp<Comp extends ElementType, Props> = {
   as?: Comp;
@@ -24,19 +27,24 @@ export type AsProp<Comp extends ElementType, Props> = {
         ? InstanceType<Comp>
         : undefined
   >;
-} & Omit<ComponentPropsWithoutRef<Comp>, 'as' | keyof Props>;
+} & Omit<ComponentPropsWithoutRef<Comp>, "as" | keyof Props>;
 
 export type CompWithAsProp<Props, DefaultElementType extends ElementType> = <
-  Comp extends ElementType = DefaultElementType
+  Comp extends ElementType = DefaultElementType,
 >(
-  props: AsProp<Comp, Props> & Props
+  props: AsProp<Comp, Props> & Props,
 ) => ReactElement;
 
-export const forwardRefWithAs = <DefaultElementType extends ElementType, BaseProps>(
-  render: (
-    props: BaseProps & { as?: ElementType },
-    ref: React.Ref<never>
-  ) => Exclude<ReactNode, undefined>
+type TTypeRefRender<T> = (
+  props: T & { as?: ElementType },
+  ref: React.Ref<never>,
+) => Exclude<ReactNode, undefined>;
+
+export const forwardRefWithAs = <
+  DefaultElementType extends ElementType,
+  BaseProps,
+>(
+  render: TTypeRefRender<BaseProps>,
 ): CompWithAsProp<BaseProps, DefaultElementType> => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

@@ -1,12 +1,12 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {AppState} from "@/stores/store";
+import { createSlice } from "@reduxjs/toolkit";
+import { AppState } from "@/stores/store";
 
 export type TNavbarStore = {
-    isOpen: boolean;
-}
+  isOpen: boolean;
+};
 
 const initialState: TNavbarStore = {
-  isOpen: false
+  isOpen: false,
 };
 
 export const navbarSlice = createSlice({
@@ -15,11 +15,11 @@ export const navbarSlice = createSlice({
   reducers: {
     setOpenNavbar(state, action) {
       state.isOpen = action.payload;
-    }
-  }
+    },
+  },
 });
 
-export const {setOpenNavbar} = navbarSlice.actions;
+export const { setOpenNavbar } = navbarSlice.actions;
 
 export const getOpenNavbar = (state: AppState) => state.navbar_slice.isOpen;
 

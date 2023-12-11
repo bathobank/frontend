@@ -1,12 +1,20 @@
-import {Header} from "@/components/layouts/Header";
-import {Box} from "@/components/ui/Box";
-import {ReactNode, useEffect, useRef, useState} from "react";
-import {getOpenNavbar} from "@/stores/slices/navbar";
-import {useSelector} from "react-redux";
-import {getGameOpen} from "@/stores/slices/game";
+import { Header } from "@/components/layouts/Header";
+import { Box } from "@/components/ui/Box";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { getOpenNavbar } from "@/stores/slices/navbar";
+import { useSelector } from "react-redux";
+import { getGameOpen } from "@/stores/slices/game";
 
-export const BodyContent = ({children, logo, showHeader = true,}: { children: ReactNode, logo: string, showHeader?: boolean }) => {
-  const [bodyHeight, setBodyHeight] = useState<string>('100%');
+export const BodyContent = ({
+  children,
+  logo,
+  showHeader = true,
+}: {
+  children: ReactNode;
+  logo: string;
+  showHeader?: boolean;
+}) => {
+  const [bodyHeight, setBodyHeight] = useState<string>("100%");
   const headerRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const openNavbar = useSelector(getOpenNavbar);
@@ -19,17 +27,21 @@ export const BodyContent = ({children, logo, showHeader = true,}: { children: Re
 
   useEffect(() => {
     if (!bodyRef.current) return;
-    bodyRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    bodyRef.current.scrollTo({ top: 0, behavior: "smooth" });
   }, [bodyRef, gameOpen]);
 
   return (
     <Box className="min-h-[100vh]">
       <Box ref={headerRef}>
-        <Header showHeader={showHeader} logo={logo}/>
+        <Header showHeader={showHeader} logo={logo} />
       </Box>
-      <Box ref={bodyRef} className="overflow-auto px-3" style={{height: bodyHeight, maxHeight: bodyHeight}}>
+      <Box
+        ref={bodyRef}
+        className="overflow-auto px-3"
+        style={{ height: bodyHeight, maxHeight: bodyHeight }}
+      >
         {children}
       </Box>
     </Box>
   );
-}
+};

@@ -1,20 +1,30 @@
-import {Box} from "@/components/ui/Box";
-import {Flex} from "@/components/ui/Flex";
-import {Text} from "@/components/ui/Text";
-import {useEffect, useState} from "react";
-import {THistories, THistoriesQuery} from "@/@types/history";
-import {cn} from "@/utils/ui";
-import {formatMoney} from "@/utils/helper";
+import { Box } from "@/components/ui/Box";
+import { Flex } from "@/components/ui/Flex";
+import { Text } from "@/components/ui/Text";
+import { useEffect, useState } from "react";
+import { THistories, THistoriesQuery } from "@/@types/history";
+import { cn } from "@/utils/ui";
+import { formatMoney } from "@/utils/helper";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import {HoaDonModal} from "@/components/modals/HoaDon";
-import {SaoKeModal} from "@/components/modals/SaoKe";
+import { HoaDonModal } from "@/components/modals/HoaDon";
+import { SaoKeModal } from "@/components/modals/SaoKe";
 
-export const History = ({historyQuery, title, showContent = true}: { historyQuery: THistoriesQuery|undefined, title: string, showContent?: boolean}) => {
+export const History = ({
+  historyQuery,
+  title,
+  showContent = true,
+}: {
+  historyQuery: THistoriesQuery | undefined;
+  title: string;
+  showContent?: boolean;
+}) => {
   const [histories, setHistories] = useState<THistories>([]);
   const [isOpenModalHoaDon, setOpenModalHoaDon] = useState<boolean>(false);
   const [isOpenModalSaoKe, setOpenModalSaoKe] = useState<boolean>(false);
-  const [contentSaoKe, setContentSaoKe] = useState<Record<string, string|object>>({});
-  const [imgSaoke, setImgSaoke] = useState<string|null>(null);
+  const [contentSaoKe, setContentSaoKe] = useState<
+    Record<string, string | object>
+  >({});
+  const [imgSaoke, setImgSaoke] = useState<string | null>(null);
 
   useEffect(() => {
     if (historyQuery) {
@@ -27,18 +37,20 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
   const openModalHoaDon = (img: string) => {
     setImgSaoke(img);
     setOpenModalHoaDon(true);
-  }
+  };
 
-  const openModalSaoKe = (content: Record<string, string|object>) => {
+  const openModalSaoKe = (content: Record<string, string | object>) => {
     setContentSaoKe(content);
     setOpenModalSaoKe(true);
-  }
+  };
 
   return (
-    <Box className='rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal'>
+    <Box className="rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal">
       <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
         <AccessTimeIcon className="text-[#ff55a5]" />
-        <Text custom={true} className="ml-2 text-white">{title}</Text>
+        <Text custom={true} className="ml-2 text-white">
+          {title}
+        </Text>
       </Flex>
       <Box className="p-3 overflow-x-auto">
         <table className="w-full">
@@ -79,13 +91,19 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
           </thead>
           <tbody>
             {histories.map((history, index) => (
-              <tr key={`tr-history-${index}`} className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : '')}>
+              <tr
+                key={`tr-history-${index}`}
+                className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : "")}
+              >
                 <td className="py-3 px-1 text-center">
                   <Text size="sm">{history.game_group.toUpperCase()}</Text>
                 </td>
                 <td className="py-3 px-1 text-center">
                   <Flex justify="center">
-                    <Text size="sm" className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none">
+                    <Text
+                      size="sm"
+                      className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none"
+                    >
                       {history.game_type.toUpperCase()}
                     </Text>
                   </Flex>
@@ -97,29 +115,44 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
                   <Text size="sm">{formatMoney(history.money_coming)}</Text>
                 </td>
                 <td className="py-3 px-1 text-center">
-                  {history.status === 'L' ? (
-                    <Text as="span" className="text-[12px] px-2 py-1 bg-[#d9534f99] rounded select-none">
+                  {history.status === "L" ? (
+                    <Text
+                      as="span"
+                      className="text-[12px] px-2 py-1 bg-[#d9534f99] rounded select-none"
+                    >
                       LOST
                     </Text>
                   ) : (
-                    <Text as="span" className="text-[12px] px-2 py-1 bg-[#5bceae99] rounded select-none">
+                    <Text
+                      as="span"
+                      className="text-[12px] px-2 py-1 bg-[#5bceae99] rounded select-none"
+                    >
                       WIN
                     </Text>
                   )}
                 </td>
                 <td className="py-3 px-1 text-center">
-                  {history.order?.status === 'done' && (
-                    <Text as="span" className="text-[12px] px-2 py-1 bg-[#5bceae99] rounded select-none">
+                  {history.order?.status === "done" && (
+                    <Text
+                      as="span"
+                      className="text-[12px] px-2 py-1 bg-[#5bceae99] rounded select-none"
+                    >
                       DONE
                     </Text>
                   )}
-                  {history.order?.status === 'wait' && (
-                    <Text as="span" className="text-[12px] px-2 py-1 bg-yellow-300 text-gray-900 rounded select-none">
+                  {history.order?.status === "wait" && (
+                    <Text
+                      as="span"
+                      className="text-[12px] px-2 py-1 bg-yellow-300 text-gray-900 rounded select-none"
+                    >
                       WAIT
                     </Text>
                   )}
-                  {history.order?.status === 'error' && (
-                    <Text as="span" className="text-[12px] px-2 py-1 bg-[#d9534f99] rounded select-none">
+                  {history.order?.status === "error" && (
+                    <Text
+                      as="span"
+                      className="text-[12px] px-2 py-1 bg-[#d9534f99] rounded select-none"
+                    >
                       ERROR
                     </Text>
                   )}
@@ -127,13 +160,25 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
                 {showContent && (
                   <>
                     <td className="py-3 px-1 text-center">
-                      <Text size="sm" className="hover:underline text-green-500 hover:text-green-700 cursor-pointer" onClick={() => openModalSaoKe(history.content)}>
+                      <Text
+                        size="sm"
+                        className="hover:underline text-green-500 hover:text-green-700 cursor-pointer"
+                        onClick={() => openModalSaoKe(history.content)}
+                      >
                         Xem sao kê
                       </Text>
                     </td>
                     <td className="py-3 px-1 text-center">
                       {history.order?.transaction_receipt && (
-                        <Text size="sm" className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => openModalHoaDon(history.order?.transaction_receipt ?? '')}>
+                        <Text
+                          size="sm"
+                          className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer"
+                          onClick={() =>
+                            openModalHoaDon(
+                              history.order?.transaction_receipt ?? "",
+                            )
+                          }
+                        >
                           Xem hóa đơn
                         </Text>
                       )}
@@ -160,4 +205,4 @@ export const History = ({historyQuery, title, showContent = true}: { historyQuer
       />
     </Box>
   );
-}
+};

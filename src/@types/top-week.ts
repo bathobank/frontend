@@ -1,4 +1,4 @@
-import {TApiSuccessResponse} from "@/@types/axios";
+import { TApiSuccessResponse } from "@/@types/axios";
 
 export type TTopWeek = {
   money: number;
@@ -6,4 +6,4 @@ export type TTopWeek = {
   reward: number;
 };
 
-export type TTopWeekResponse = TApiSuccessResponse<{ top_week: TTopWeek[] }>
+export type TTopWeekResponse = TApiSuccessResponse<{ top_week: TTopWeek[] }>;

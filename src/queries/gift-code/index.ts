@@ -1,16 +1,16 @@
-import {USER_USE_GIFT_CODE} from "@/utils/api-url";
+import { USER_USE_GIFT_CODE } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import {useMutation} from "react-query";
+import { useMutation } from "react-query";
 
-const USER_USE_GIFT_CODE_MUTATION_QK = 'user_use_gift_code_mutation_query_key';
+const USER_USE_GIFT_CODE_MUTATION_QK = "user_use_gift_code_mutation_query_key";
 
-export const userUseGiftCode = ({giftcode}: {giftcode: string}) => {
-  return axiosInstance.post(USER_USE_GIFT_CODE, {giftcode});
-}
+export const userUseGiftCode = ({ giftcode }: { giftcode: string }) => {
+  return axiosInstance.post(USER_USE_GIFT_CODE, { giftcode });
+};
 
 export const useUserUseGiftCode = () => {
   return useMutation({
     mutationKey: [USER_USE_GIFT_CODE_MUTATION_QK],
-    mutationFn: userUseGiftCode
+    mutationFn: userUseGiftCode,
   });
-}
+};

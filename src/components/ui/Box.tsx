@@ -1,12 +1,12 @@
-import { forwardRefWithAs } from '@/utils/forwardRefWithAs';
+import { forwardRefWithAs } from "@/utils/forwardRefWithAs";
 import React from "react";
 
 export interface BoxProps {
   children?: React.ReactNode;
 }
 
-export const Box = forwardRefWithAs<'div', BoxProps>((props, ref) => {
-  const { as: Tag = 'div', children, ...rest } = props;
+export const Box = forwardRefWithAs<"div", BoxProps>((props, ref) => {
+  const { as: Tag = "div", children, ...rest } = props;
 
   return (
     <Tag ref={ref} {...rest}>

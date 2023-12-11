@@ -10,4 +10,4 @@ export type TApiErrorResponse<T> = TApiSuccessResponse<T> & {
 
 export type TParamError = {
   [key: string]: string[];
-}
+};

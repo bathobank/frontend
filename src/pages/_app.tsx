@@ -1,28 +1,28 @@
-import '@/styles/globals.css';
-import 'react-toastify/dist/ReactToastify.css';
+import "@/styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import InitComponentData from "@/components/Init";
-import type {AppProps} from 'next/app';
-import {Open_Sans} from "next/font/google";
-import {wrapper} from "@/stores/store";
-import {FC} from "react";
-import createEmotionCache from '@emotion/cache';
-import {QueryClient, QueryClientProvider} from "react-query";
-import {Provider} from "react-redux";
-import {CacheProvider} from "@emotion/react";
-import {ToastContainer} from "react-toastify";
+import type { AppProps } from "next/app";
+import { Open_Sans } from "next/font/google";
+import { wrapper } from "@/stores/store";
+import { FC } from "react";
+import createEmotionCache from "@emotion/cache";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Provider } from "react-redux";
+import { CacheProvider } from "@emotion/react";
+import { ToastContainer } from "react-toastify";
 import Loading from "@/components/layouts/Loading";
 
 const opensans = Open_Sans({
-  weight: '400',
-  subsets: ['vietnamese']
+  weight: "400",
+  subsets: ["vietnamese"],
 });
 
-const clientSideEmotionCache = createEmotionCache({key: 'app-cached'});
+const clientSideEmotionCache = createEmotionCache({ key: "app-cached" });
 const queryClient = new QueryClient();
 
-const App: FC<AppProps> = ({Component, ...rest}: AppProps) => {
-  const {store, props} = wrapper.useWrappedStore(rest);
-  const {emotionCache = clientSideEmotionCache, pageProps} = props;
+const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { emotionCache = clientSideEmotionCache, pageProps } = props;
 
   return (
     <div id="root_app" className={opensans.className}>
@@ -39,6 +39,6 @@ const App: FC<AppProps> = ({Component, ...rest}: AppProps) => {
       </Provider>
     </div>
   );
-}
+};
 
 export default App;

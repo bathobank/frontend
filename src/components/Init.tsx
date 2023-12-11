@@ -1,19 +1,23 @@
-import {useStore} from "@/hooks/useStore";
-import {useAuthGetUser} from "@/queries/auth/user";
-import {setUser} from "@/stores/slices/user";
-import {ReactNode, useEffect} from "react";
-import {setOpenNavbar} from "@/stores/slices/navbar";
+import { useStore } from "@/hooks/useStore";
+import { useAuthGetUser } from "@/queries/auth/user";
+import { setUser } from "@/stores/slices/user";
+import { ReactNode, useEffect } from "react";
+import { setOpenNavbar } from "@/stores/slices/navbar";
 
-export default function InitComponentData ({children}: {children: ReactNode}) {
-  const {status, data} = useAuthGetUser();
-  const {set} = useStore();
+export default function InitComponentData({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const { status, data } = useAuthGetUser();
+  const { set } = useStore();
 
   useEffect(
     () => {
-      set(setUser(status === 'error' ? null : data?.data.user));
+      set(setUser(status === "error" ? null : data?.data.user));
     },
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    [status]
+    [status],
   );
 
   useEffect(() => {
@@ -26,8 +30,8 @@ export default function InitComponentData ({children}: {children: ReactNode}) {
     window.addEventListener("resize", updateWindowDimensions);
 
     return () => {
-      window.removeEventListener("resize", updateWindowDimensions)
-    }
+      window.removeEventListener("resize", updateWindowDimensions);
+    };
   }, [set]);
 
   return children;

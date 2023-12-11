@@ -1,11 +1,11 @@
-import {Box} from "@/components/ui/Box";
-import {Flex} from "@/components/ui/Flex";
-import {Text} from "@/components/ui/Text";
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import {useEffect, useState} from "react";
-import {TTopWeek} from "@/@types/top-week";
-import {useTopWeekQuery} from "@/queries/top-week";
-import {formatMoney, hiddenText} from "@/utils/helper";
+import { Box } from "@/components/ui/Box";
+import { Flex } from "@/components/ui/Flex";
+import { Text } from "@/components/ui/Text";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { useEffect, useState } from "react";
+import { TTopWeek } from "@/@types/top-week";
+import { useTopWeekQuery } from "@/queries/top-week";
+import { formatMoney, hiddenText } from "@/utils/helper";
 
 export const TopWeek = () => {
   const [topWeek, setTopWeek] = useState<TTopWeek[]>([]);
@@ -21,23 +21,33 @@ export const TopWeek = () => {
     <Box>
       <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
         <AttachMoneyIcon className="text-[#ff55a5]" />
-        <Text custom={true} className="ml-2 text-white">ĐẠI GIA TUẦN</Text>
+        <Text custom={true} className="ml-2 text-white">
+          ĐẠI GIA TUẦN
+        </Text>
       </Flex>
       <Box>
         <table className="w-full">
           <thead>
             <tr className="border-b border-b-[#ffffff0d]">
               <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">HẠNG</Text>
+                <Text size="xs" className="text-[#c7c7c7]">
+                  HẠNG
+                </Text>
               </th>
               <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">NICKNAME</Text>
+                <Text size="xs" className="text-[#c7c7c7]">
+                  NICKNAME
+                </Text>
               </th>
               <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">TỔNG CƯỢC</Text>
+                <Text size="xs" className="text-[#c7c7c7]">
+                  TỔNG CƯỢC
+                </Text>
               </th>
               <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">PHẦN THƯỞNG</Text>
+                <Text size="xs" className="text-[#c7c7c7]">
+                  PHẦN THƯỞNG
+                </Text>
               </th>
             </tr>
           </thead>
@@ -63,7 +73,9 @@ export const TopWeek = () => {
       </Box>
       <Box className="py-5">
         <Text className="italic text-[12px] text-center mb-3">
-          PHẦN THƯỞNG TOP SẼ ĐƯỢC TRAO VÀO <span className="text-[#ff55a5]">00:00</span> THỨ <span className="text-[#ff55a5]">2</span> TUẦN TIẾP THEO.
+          PHẦN THƯỞNG TOP SẼ ĐƯỢC TRAO VÀO{" "}
+          <span className="text-[#ff55a5]">00:00</span> THỨ{" "}
+          <span className="text-[#ff55a5]">2</span> TUẦN TIẾP THEO.
         </Text>
         {/*<Text className="italic text-[12px] text-center">*/}
         {/*  VUI LÒNG KIỂM TRA LỊCH SỬ GIAO DỊCH <span className="text-[#ff55a5]">THUONGTOP</span> ĐỂ TRẢ THƯỞNG*/}
@@ -71,4 +83,4 @@ export const TopWeek = () => {
       </Box>
     </Box>
   );
-}
+};
