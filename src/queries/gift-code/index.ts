@@ -1,6 +1,7 @@
+import { useMutation } from "react-query";
+
 import { USER_USE_GIFT_CODE } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useMutation } from "react-query";
 
 const USER_USE_GIFT_CODE_MUTATION_QK = "user_use_gift_code_mutation_query_key";
 

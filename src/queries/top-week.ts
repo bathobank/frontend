@@ -1,7 +1,8 @@
+import { useQuery } from "react-query";
+
+import { TTopWeekResponse } from "@/@types/top-week";
 import { TOP_WEEK } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useQuery } from "react-query";
-import { TTopWeekResponse } from "@/@types/top-week";
 
 export const TOP_WEEK_QK: string = "top_week_query_key";
 

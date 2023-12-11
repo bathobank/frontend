@@ -1,13 +1,14 @@
+import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
+import { useEffect, useState } from "react";
+
+import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
 import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
-import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
-import { useEffect, useState } from "react";
-import { useJackpotQuery } from "@/queries/jackpot";
-import { TSystemSetting } from "@/@types/system-setting";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useJackpotQuery } from "@/queries/jackpot";
 
 export default function Jackpot({
   systemSettings,

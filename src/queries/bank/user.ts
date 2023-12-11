@@ -1,10 +1,11 @@
+import { useMutation, useQuery } from "react-query";
+
 import { TBankUserForm, TBankUserResponse } from "@/@types/bank-user";
 import {
-  USER_BANK_RECEIVE_UPDATE,
   USER_BANK_RECEIVE_GET,
+  USER_BANK_RECEIVE_UPDATE,
 } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useMutation, useQuery } from "react-query";
 
 const USER_BANK_RECEIVE_MUTATION_QK = "user_bank_receive_mutation_query_key";
 const USER_BANK_RECEIVE_QK = "user_bank_receive_query_key";

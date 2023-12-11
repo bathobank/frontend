@@ -1,7 +1,8 @@
+import { useQuery } from "react-query";
+
 import { TJackpotResponse } from "@/@types/jackpot";
 import { JACKPOT_URI } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useQuery } from "react-query";
 
 export const JACKPOT_GET_ALL_QK: string = "jackpot_get_all_query_key";
 

@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body style={{ backgroundColor: "#2b2b31" }}>
+      <body>
         <Main />
         <NextScript />
       </body>

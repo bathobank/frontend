@@ -1,23 +1,24 @@
+import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import ReactSelect from "react-select";
+
 import { TBankUserForm } from "@/@types/bank-user";
+import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
 import { Flex } from "@/components/ui/Flex";
 import { Input } from "@/components/ui/Input";
 import { Text } from "@/components/ui/Text";
-import ReactSelect from "react-select";
+import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useBankAllQuery } from "@/queries/bank/all";
 import {
   useUserBankReceive,
   useUserBankReceiveMutation,
 } from "@/queries/bank/user";
 import { defaultOptionReactQueryResponse } from "@/utils/helper";
-import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
-import { TSystemSetting } from "@/@types/system-setting";
 
 type TOption = {
   value: string;

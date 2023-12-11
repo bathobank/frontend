@@ -1,16 +1,18 @@
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import InitComponentData from "@/components/Init";
+
+import createEmotionCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import { Open_Sans } from "next/font/google";
-import { wrapper } from "@/stores/store";
 import { FC } from "react";
-import createEmotionCache from "@emotion/cache";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
-import { CacheProvider } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
+
+import InitComponentData from "@/components/Init";
 import Loading from "@/components/layouts/Loading";
+import { wrapper } from "@/stores/store";
 
 const opensans = Open_Sans({
   weight: "400",

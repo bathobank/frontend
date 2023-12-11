@@ -1,6 +1,6 @@
-import { TUser } from "@/@types/user";
 import { TApiSuccessResponse } from "@/@types/axios";
 import { TOrder } from "@/@types/order";
+import { TUser } from "@/@types/user";
 
 export type THistory = {
   bank_code: string;

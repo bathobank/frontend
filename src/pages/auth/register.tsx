@@ -1,23 +1,24 @@
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
 import {
   TApiErrorResponse,
   TApiSuccessResponse,
   TParamError,
 } from "@/@types/axios";
+import { TSystemSetting } from "@/@types/system-setting";
 import { TUserCreate } from "@/@types/user";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Button } from "@/components/ui/Button";
 import { Box } from "@/components/ui/Box";
+import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Text } from "@/components/ui/Text";
 import { LinkUI } from "@/components/ui/Link";
+import { Text } from "@/components/ui/Text";
+import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useToast } from "@/hooks/useToast";
 import { useAuthRegisterMutation } from "@/queries/auth/register";
 import { buildErrorParam } from "@/utils/helper";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
-import { TSystemSetting } from "@/@types/system-setting";
 
 export default function AuthRegister({
   systemSettings,

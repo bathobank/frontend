@@ -1,19 +1,20 @@
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { useQueryClient } from "react-query";
+
+import { TChangePwForm } from "@/@types/password";
+import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { Text } from "@/components/ui/Text";
-import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
-import { useForm } from "react-hook-form";
-import { TChangePwForm } from "@/@types/password";
-import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { useChangePasswordMutation } from "@/queries/auth/change-password";
-import { defaultOptionReactQueryResponse } from "@/utils/helper";
-import { useRouter } from "next/router";
-import { useQueryClient } from "react-query";
-import { AUTH_GET_USER_QK } from "@/queries/auth/user";
+import { Flex } from "@/components/ui/Flex";
+import { Input } from "@/components/ui/Input";
+import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
-import { TSystemSetting } from "@/@types/system-setting";
+import { useChangePasswordMutation } from "@/queries/auth/change-password";
+import { AUTH_GET_USER_QK } from "@/queries/auth/user";
+import { defaultOptionReactQueryResponse } from "@/utils/helper";
 
 export default function ChangePassword({
   systemSettings,

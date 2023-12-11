@@ -1,10 +1,11 @@
+import { useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+
 import { TUser } from "@/@types/user";
 import { useToast } from "@/hooks/useToast";
 import { useAuthLogoutMutation } from "@/queries/auth/logout";
 import { AUTH_GET_USER_QK } from "@/queries/auth/user";
 import { getLogined, getUser } from "@/stores/slices/user";
-import { useQueryClient } from "react-query";
-import { useSelector } from "react-redux";
 
 export const useUser = () => {
   const user: TUser | null = useSelector(getUser);

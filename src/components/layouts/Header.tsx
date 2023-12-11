@@ -1,14 +1,15 @@
-import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { Text } from "@/components/ui/Text";
-import { getGameOpen, setGameOpen } from "@/stores/slices/game";
-import { cn } from "@/utils/ui";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MenuIcon from "@mui/icons-material/Menu";
-import { getOpenNavbar, setOpenNavbar } from "@/stores/slices/navbar";
+
+import { Box } from "@/components/ui/Box";
+import { Flex } from "@/components/ui/Flex";
 import { Img } from "@/components/ui/Img";
 import { LinkUI } from "@/components/ui/Link";
+import { Text } from "@/components/ui/Text";
+import { getGameOpen, setGameOpen } from "@/stores/slices/game";
+import { getOpenNavbar, setOpenNavbar } from "@/stores/slices/navbar";
+import { cn } from "@/utils/ui";
 
 const MENU: Array<{ slug: string; title: string }> = [
   { slug: "cltx", title: "CLTX" },

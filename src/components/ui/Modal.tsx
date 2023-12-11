@@ -1,6 +1,7 @@
+import type { ModalInterface, ModalOptions } from "flowbite";
 import { Modal as ModalFlowbite } from "flowbite";
-import type { ModalOptions, ModalInterface } from "flowbite";
 import { ReactNode, useCallback, useEffect, useState } from "react";
+
 import { Flex } from "@/components/ui/Flex";
 import { cn } from "@/utils/ui";
 

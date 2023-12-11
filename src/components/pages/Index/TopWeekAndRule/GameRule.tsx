@@ -1,7 +1,8 @@
+import EngineeringIcon from "@mui/icons-material/Engineering";
+
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
-import EngineeringIcon from "@mui/icons-material/Engineering";
 
 export const GameRule = () => {
   return (

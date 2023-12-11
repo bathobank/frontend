@@ -1,22 +1,23 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+
+import { TSystemSetting } from "@/@types/system-setting";
+import { GlobalLayout } from "@/components/layouts/GlobalLayout";
+import { AlertEnterBank } from "@/components/modals/AlertEnterBank";
+import { AlertNotification } from "@/components/modals/AlertNotification";
 import { BankList } from "@/components/pages/Index/BankList";
+import { GameGroup } from "@/components/pages/Index/GameGroup";
 import { History } from "@/components/pages/Index/History";
 import { TopWeekAndRule } from "@/components/pages/Index/TopWeekAndRule";
 import { Box } from "@/components/ui/Box";
-import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { Flex } from "@/components/ui/Flex";
 import { LinkUI } from "@/components/ui/Link";
 import { Text } from "@/components/ui/Text";
-import { useUser } from "@/hooks/useUser";
-import { getGameOpen } from "@/stores/slices/game";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useHasOrderWaitQuery } from "@/queries/has-order-wait";
-import { AlertEnterBank } from "@/components/modals/AlertEnterBank";
-import { GameGroup } from "@/components/pages/Index/GameGroup";
-import { useSelector } from "react-redux";
-import { useHistoryWin } from "@/queries/histories/win";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
-import { TSystemSetting } from "@/@types/system-setting";
-import { AlertNotification } from "@/components/modals/AlertNotification";
+import { useUser } from "@/hooks/useUser";
+import { useHasOrderWaitQuery } from "@/queries/has-order-wait";
+import { useHistoryWin } from "@/queries/histories/win";
+import { getGameOpen } from "@/stores/slices/game";
 
 export default function Home({
   systemSettings,

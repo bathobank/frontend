@@ -1,7 +1,8 @@
+import { useQuery } from "react-query";
+
 import { TBank, TBankDataResponse } from "@/@types/bank";
 import { BANK_RECEIVE_URI } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useQuery } from "react-query";
 
 export const BANK_RECEIVE_GET_QK: string = "bank_receive_get_query_key";
 

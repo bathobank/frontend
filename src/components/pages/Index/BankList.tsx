@@ -1,3 +1,8 @@
+import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
+import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import QrCode2RoundedIcon from "@mui/icons-material/QrCode2Rounded";
+import { useEffect, useState } from "react";
+
 import { TBank } from "@/@types/bank";
 import { BankQRModal } from "@/components/modals/BankQR";
 import { Box } from "@/components/ui/Box";
@@ -7,10 +12,6 @@ import { useToast } from "@/hooks/useToast";
 import { useBankReceiveQuery } from "@/queries/bank/receive";
 import { copyContent, formatMoney } from "@/utils/helper";
 import { cn } from "@/utils/ui";
-import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
-import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
-import QrCode2RoundedIcon from "@mui/icons-material/QrCode2Rounded";
-import { useEffect, useState } from "react";
 
 export const BankList = () => {
   const [isOpenBankQrModal, setOpenBankQrModal] = useState<boolean>(false);

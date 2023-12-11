@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -5,7 +7,6 @@ import { Text } from "@/components/ui/Text";
 import { useToast } from "@/hooks/useToast";
 import { useUserUseGiftCode } from "@/queries/gift-code";
 import { defaultOptionReactQueryResponse } from "@/utils/helper";
-import { useEffect, useRef } from "react";
 
 export const GiftCodeUser = () => {
   const inputRef = useRef<HTMLInputElement>(null);

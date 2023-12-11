@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/named
+import { v4 } from "uuid";
+
 import {
   TApiErrorResponse,
   TApiSuccessResponse,
@@ -5,8 +8,6 @@ import {
 } from "@/@types/axios";
 import { TCallable } from "@/@types/util";
 import { useToast } from "@/hooks/useToast";
-// eslint-disable-next-line import/named
-import { v4 } from "uuid";
 
 export const uuidv4 = (): string => {
   return v4();

@@ -1,9 +1,10 @@
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+
 import { Header } from "@/components/layouts/Header";
 import { Box } from "@/components/ui/Box";
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { getOpenNavbar } from "@/stores/slices/navbar";
-import { useSelector } from "react-redux";
 import { getGameOpen } from "@/stores/slices/game";
+import { getOpenNavbar } from "@/stores/slices/navbar";
 
 export const BodyContent = ({
   children,

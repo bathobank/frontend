@@ -1,7 +1,8 @@
+import { useMutation } from "react-query";
+
 import { TUserCreate } from "@/@types/user";
 import { AUTH_REGISTER_URI } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useMutation } from "react-query";
 
 const AUTH_REGISTER_MUTATION_QK = "auth_register_mutation_query_key";
 

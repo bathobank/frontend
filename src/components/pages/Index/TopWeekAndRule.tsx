@@ -1,8 +1,9 @@
-import { TopWeek } from "@/components/pages/Index/TopWeekAndRule/TopWeek";
+import { useEffect, useRef } from "react";
+
 import { GameRule } from "@/components/pages/Index/TopWeekAndRule/GameRule";
+import { TopWeek } from "@/components/pages/Index/TopWeekAndRule/TopWeek";
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
-import { useEffect, useRef } from "react";
 
 export const TopWeekAndRule = () => {
   const topWeekRef = useRef<HTMLDivElement>(null);

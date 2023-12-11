@@ -1,9 +1,8 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef, HTMLAttributes } from "react";
 
-import { cva, type VariantProps } from "class-variance-authority";
-
-import { cn } from "@/utils/ui";
 import { Box } from "@/components/ui/Box";
+import { cn } from "@/utils/ui";
 
 const flexVariants = cva("flex", {
   variants: {

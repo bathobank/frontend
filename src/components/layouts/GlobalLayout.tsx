@@ -1,13 +1,14 @@
+import Head from "next/head";
+import { ReactNode, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { TSystemSetting } from "@/@types/system-setting";
 import { BodyContent } from "@/components/layouts/BodyContent";
 import { Navbar } from "@/components/layouts/Navbar";
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
-import { ReactNode, useMemo } from "react";
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
 import { getOpenNavbar, setOpenNavbar } from "@/stores/slices/navbar";
 import { cn } from "@/utils/ui";
-import { TSystemSetting } from "@/@types/system-setting";
 
 type Props = {
   children: ReactNode;

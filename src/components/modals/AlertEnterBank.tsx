@@ -1,8 +1,9 @@
+import { useRouter } from "next/router";
+
 import { Button } from "@/components/ui/Button";
 import { Flex } from "@/components/ui/Flex";
 import { Modal } from "@/components/ui/Modal";
 import { Text } from "@/components/ui/Text";
-import { useRouter } from "next/router";
 
 type Props = {
   isOpen: boolean;

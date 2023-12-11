@@ -1,8 +1,8 @@
+import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { History } from "@/components/pages/Index/History";
-import { useUserHistories } from "@/queries/histories";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
-import { TSystemSetting } from "@/@types/system-setting";
+import { useUserHistories } from "@/queries/histories";
 
 export default function HistoryPage({
   systemSettings,

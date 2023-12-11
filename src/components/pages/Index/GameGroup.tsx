@@ -1,14 +1,15 @@
+import { useState } from "react";
+
+import { TGame } from "@/@types/game";
+import { StartGameModal } from "@/components/modals/StartGame";
+import { Game1Phan3 } from "@/components/pages/Index/Game/1phan3";
 import { GameCltx } from "@/components/pages/Index/Game/cltx";
 import { GameCltx2 } from "@/components/pages/Index/Game/cltx2";
+import { GameDoanSo } from "@/components/pages/Index/Game/doanso";
 import { GameGap3 } from "@/components/pages/Index/Game/gap3";
 import { GameTong3So } from "@/components/pages/Index/Game/tong3so";
-import { Game1Phan3 } from "@/components/pages/Index/Game/1phan3";
 import { GameXien } from "@/components/pages/Index/Game/xien";
-import { GameDoanSo } from "@/components/pages/Index/Game/doanso";
 import { Box } from "@/components/ui/Box";
-import { useState } from "react";
-import { StartGameModal } from "@/components/modals/StartGame";
-import { TGame } from "@/@types/game";
 
 export const GameGroup = ({
   gameOpen,

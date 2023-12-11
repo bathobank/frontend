@@ -1,5 +1,6 @@
-import { TUser } from "@/@types/user";
 import { createSlice } from "@reduxjs/toolkit";
+
+import { TUser } from "@/@types/user";
 import { AppState } from "@/stores/store";
 
 export type TUserState = {

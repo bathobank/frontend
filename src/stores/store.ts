@@ -1,10 +1,11 @@
-import { fontSlice } from "@/stores/slices/font";
-import { userSlice } from "@/stores/slices/user";
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import { cartSlice } from "@/stores/slices/store";
+
+import { fontSlice } from "@/stores/slices/font";
 import { gameSlice } from "@/stores/slices/game";
 import { navbarSlice } from "@/stores/slices/navbar";
+import { cartSlice } from "@/stores/slices/store";
+import { userSlice } from "@/stores/slices/user";
 
 const makeStore = () =>
   configureStore({

@@ -1,8 +1,8 @@
+import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
 import { Flex } from "@/components/ui/Flex";
 import { Img } from "@/components/ui/Img";
 import { Modal } from "@/components/ui/Modal";
-import { Box } from "@/components/ui/Box";
 
 type Props = {
   isOpen: boolean;

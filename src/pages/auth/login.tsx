@@ -1,20 +1,21 @@
-import { TUserLogin } from "@/@types/user";
-import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Button } from "@/components/ui/Button";
-import { Box } from "@/components/ui/Box";
-import { Input } from "@/components/ui/Input";
-import { Text } from "@/components/ui/Text";
-import { LinkUI } from "@/components/ui/Link";
-import { useAuthLoginMutation } from "@/queries/auth/login";
-import { AUTH_GET_USER_QK } from "@/queries/auth/user";
-import { defaultOptionReactQueryResponse } from "@/utils/helper";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
+
 import { TSystemSetting } from "@/@types/system-setting";
+import { TUserLogin } from "@/@types/user";
+import { GlobalLayout } from "@/components/layouts/GlobalLayout";
+import { Box } from "@/components/ui/Box";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { LinkUI } from "@/components/ui/Link";
+import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
-import { setCookie } from "cookies-next";
+import { useAuthLoginMutation } from "@/queries/auth/login";
+import { AUTH_GET_USER_QK } from "@/queries/auth/user";
+import { defaultOptionReactQueryResponse } from "@/utils/helper";
 
 export default function AuthLogin({
   systemSettings,

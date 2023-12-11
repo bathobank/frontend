@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { AppState } from "@/stores/store";
 
 export type TNavbarStore = {

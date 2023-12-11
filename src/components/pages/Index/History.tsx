@@ -1,13 +1,14 @@
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useEffect, useState } from "react";
+
+import { THistories, THistoriesQuery } from "@/@types/history";
+import { HoaDonModal } from "@/components/modals/HoaDon";
+import { SaoKeModal } from "@/components/modals/SaoKe";
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
-import { useEffect, useState } from "react";
-import { THistories, THistoriesQuery } from "@/@types/history";
-import { cn } from "@/utils/ui";
 import { formatMoney } from "@/utils/helper";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { HoaDonModal } from "@/components/modals/HoaDon";
-import { SaoKeModal } from "@/components/modals/SaoKe";
+import { cn } from "@/utils/ui";
 
 export const History = ({
   historyQuery,

@@ -1,13 +1,14 @@
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
+
+import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { Text } from "@/components/ui/Text";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import { useUser } from "@/hooks/useUser";
-import { LinkUI } from "@/components/ui/Link";
 import { Button } from "@/components/ui/Button";
-import { TSystemSetting } from "@/@types/system-setting";
+import { Flex } from "@/components/ui/Flex";
+import { LinkUI } from "@/components/ui/Link";
+import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useUser } from "@/hooks/useUser";
 
 export default function TelegramConnect({
   systemSettings,

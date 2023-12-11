@@ -1,13 +1,14 @@
+import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
+
+import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { GiftCodeGuest } from "@/components/pages/GiftCode/Guest";
 import { GiftCodeUser } from "@/components/pages/GiftCode/User";
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
-import { useUser } from "@/hooks/useUser";
-import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
-import { TSystemSetting } from "@/@types/system-setting";
+import { useUser } from "@/hooks/useUser";
 
 export default function GiftCode({
   systemSettings,

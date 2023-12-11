@@ -1,7 +1,8 @@
+import { useQuery } from "react-query";
+
 import { TMissionResponse } from "@/@types/mission";
 import { MISSION_URI } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useQuery } from "react-query";
 
 export const MISSION_GET_ALL_QK: string = "mission_get_all_query_key";
 

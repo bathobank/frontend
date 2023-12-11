@@ -1,7 +1,8 @@
-import { Flex } from "@/components/ui/Flex";
-import { useEffect, useState } from "react";
-import { Img } from "@/components/ui/Img";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+import { Flex } from "@/components/ui/Flex";
+import { Img } from "@/components/ui/Img";
 
 export default function Loading() {
   const [loading, setLoading] = useState<boolean>(true);

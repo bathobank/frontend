@@ -1,8 +1,9 @@
+import { ReactNode, useEffect } from "react";
+
 import { useStore } from "@/hooks/useStore";
 import { useAuthGetUser } from "@/queries/auth/user";
-import { setUser } from "@/stores/slices/user";
-import { ReactNode, useEffect } from "react";
 import { setOpenNavbar } from "@/stores/slices/navbar";
+import { setUser } from "@/stores/slices/user";
 
 export default function InitComponentData({
   children,

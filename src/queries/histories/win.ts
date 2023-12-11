@@ -1,7 +1,8 @@
+import { useQuery } from "react-query";
+
+import { THistoriesQuery } from "@/@types/history";
 import { HISTORY_WIN } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
-import { useQuery } from "react-query";
-import { THistoriesQuery } from "@/@types/history";
 
 const HISTORY_WIN_QK: string = "history_win_query_key";
 

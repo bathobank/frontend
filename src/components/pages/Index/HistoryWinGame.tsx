@@ -1,7 +1,8 @@
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 export const HistoryWinGame = () => {
   return (

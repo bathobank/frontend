@@ -1,15 +1,16 @@
+import { useEffect, useRef, useState } from "react";
+import ReactSelect from "react-select";
+
+import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
 import { Flex } from "@/components/ui/Flex";
 import { Img } from "@/components/ui/Img";
-import { Modal } from "@/components/ui/Modal";
-import { Box } from "@/components/ui/Box";
-import ReactSelect from "react-select";
-import { useEffect, useRef, useState } from "react";
-import { useBankReceiveQuery } from "@/queries/bank/receive";
-import { useUser } from "@/hooks/useUser";
 import { Input } from "@/components/ui/Input";
-import { formatMoney } from "@/utils/helper";
+import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/hooks/useToast";
+import { useUser } from "@/hooks/useUser";
+import { useBankReceiveQuery } from "@/queries/bank/receive";
+import { formatMoney } from "@/utils/helper";
 
 type TBankOption = {
   value: string;

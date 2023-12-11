@@ -1,9 +1,10 @@
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { useEffect, useState } from "react";
+
+import { TTopWeek } from "@/@types/top-week";
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { useEffect, useState } from "react";
-import { TTopWeek } from "@/@types/top-week";
 import { useTopWeekQuery } from "@/queries/top-week";
 import { formatMoney, hiddenText } from "@/utils/helper";
 

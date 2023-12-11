@@ -1,17 +1,18 @@
+import ConfirmationNumberRoundedIcon from "@mui/icons-material/ConfirmationNumberRounded";
+import { useEffect, useState } from "react";
+
 import { TMission } from "@/@types/mission";
+import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
 import { LinkUI } from "@/components/ui/Link";
 import { Text } from "@/components/ui/Text";
+import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useUser } from "@/hooks/useUser";
 import { useMissionQuery } from "@/queries/mission/all";
 import { formatMoney } from "@/utils/helper";
 import { cn } from "@/utils/ui";
-import ConfirmationNumberRoundedIcon from "@mui/icons-material/ConfirmationNumberRounded";
-import { useEffect, useState } from "react";
-import { TSystemSetting } from "@/@types/system-setting";
-import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 
 export default function DailyMission({
   systemSettings,

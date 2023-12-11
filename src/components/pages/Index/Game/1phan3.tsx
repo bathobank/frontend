@@ -1,3 +1,7 @@
+import CasinoRoundedIcon from "@mui/icons-material/CasinoRounded";
+import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+
+import { TGame, TStartGame } from "@/@types/game";
 import { Box } from "@/components/ui/Box";
 import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
@@ -5,9 +9,6 @@ import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import { copyContent } from "@/utils/helper";
 import { cn } from "@/utils/ui";
-import CasinoRoundedIcon from "@mui/icons-material/CasinoRounded";
-import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
-import { TGame, TStartGame } from "@/@types/game";
 
 export const Game1Phan3 = ({
   startGame,
