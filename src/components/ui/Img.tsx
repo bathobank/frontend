@@ -1,4 +1,4 @@
-import { cn } from "@/utils/ui";
+import { useMemo } from "react";
 
 type Props = {
   src: string;
@@ -10,17 +10,25 @@ type Props = {
 };
 
 export const Img = ({ src, alt, size, circle, className, ...props }: Props) => {
+  const newClassName = useMemo(() => {
+    let cls = "";
+    if (size) {
+      cls += " max-w-full max-h-full ";
+    } else {
+      cls += " w-auto h-auto ";
+    }
+    if (circle) {
+      cls += " rounded ";
+    }
+    return cls + className;
+  }, [circle, className, size]);
+
   return (
     <picture>
       <img
         src={src}
         alt={alt ?? "Image"}
-        className={cn(
-          size ? "" : "w-auto h-auto",
-          size ? `max-w-full max-h-full` : "",
-          circle ? "rounded-[50%]" : "",
-          className ?? "",
-        )}
+        className={newClassName}
         style={{
           width: size ? size + "px" : undefined,
           height: size ? size + "px" : undefined,

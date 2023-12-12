@@ -3,8 +3,6 @@ import "../_metronic/plugins/global/plugins.bundle.css";
 import "../_metronic/css/style.css";
 import "../_metronic/css/custom.css";
 
-import createEmotionCache, { EmotionCache } from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import { NextFont } from "next/dist/compiled/@next/font";
 import { Open_Sans } from "next/font/google";
@@ -29,15 +27,11 @@ const openSansFont: NextFont = Open_Sans({
   subsets: ["vietnamese"],
 });
 
-const clientSideEmotionCache: EmotionCache = createEmotionCache({
-  key: "app-cached",
-});
-
 const queryClient: QueryClient = new QueryClient();
 
 const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { emotionCache = clientSideEmotionCache, pageProps } = props;
+  const { pageProps } = props;
 
   useEffect(() => {
     document.querySelector("body")!.classList.add(openSansFont.className);
@@ -47,13 +41,11 @@ const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
     <div id="root_app">
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          <CacheProvider value={emotionCache}>
-            <InitComponentData>
-              <Component {...pageProps} />
-              <ToastContainer />
-              <Loading />
-            </InitComponentData>
-          </CacheProvider>
+          <InitComponentData>
+            <Component {...pageProps} />
+            <ToastContainer />
+            <Loading />
+          </InitComponentData>
         </QueryClientProvider>
       </Provider>
     </div>
