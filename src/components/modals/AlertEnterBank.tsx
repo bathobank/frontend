@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
 
 import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
 import { Modal } from "@/components/ui/Modal";
-import { Text } from "@/components/ui/Text";
 
 type Props = {
   isOpen: boolean;
@@ -27,30 +25,27 @@ export const AlertEnterBank = ({ isOpen, onClose }: Props) => {
       onClose={onClose}
       title="Thông báo"
     >
-      <Flex wrap="wrap" justify="center" className="py-5">
-        <Text col="black">
-          Bạn có trò chơi chiến thắng nhưng chưa nhập thông tin ngân hàng.
-        </Text>
-        <Text col="black">
+      <div className="d-flex justify-content-center flex-wrap py-5 fs-lg">
+        <p>Bạn có trò chơi chiến thắng nhưng chưa nhập thông tin ngân hàng.</p>
+        <p>
           Vui lòng vào{" "}
           <span
             onClick={gotoBankSetup}
-            className="font-bold cursor-pointer hover:underline text-primary-600"
+            className="hl-text fw-bold cursor-pointer"
           >
             Cài đặt bank
           </span>{" "}
           để nhập tài khoản nhận tiền!
-        </Text>
-      </Flex>
-      <Flex
-        items="center"
-        justify="center"
-        className="p-6 border-t border-gray-200 rounded-b dark:border-gray-600 gap-[10px]"
+        </p>
+      </div>
+      <div
+        style={{ borderTop: "1px solid #ffffff0d", textAlign: "right" }}
+        className="mt-5 pt-5"
       >
-        <Button variant="light" onClick={onClose}>
+        <Button variant="light-info" onClick={onClose}>
           Close
         </Button>
-      </Flex>
+      </div>
     </Modal>
   );
 };

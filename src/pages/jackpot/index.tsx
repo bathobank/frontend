@@ -1,21 +1,25 @@
-import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
 import { useEffect, useState } from "react";
 
 import { TSystemSetting } from "@/@types/system-setting";
+import { TUser } from "@/@types/user";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
-import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useSystemSetting } from "@/hooks/useSystemSetting";
+import { useUser } from "@/hooks/useUser";
 import { useJackpotQuery } from "@/queries/jackpot";
 
 export default function Jackpot({
   systemSettings,
+  user: userDefault,
 }: {
   systemSettings: TSystemSetting;
+  user?: TUser;
 }) {
-  const [jackpot, setJackpot] = useState<string>("0000000");
+  useSystemSetting(systemSettings);
+  useUser(userDefault);
+
+  const [jackpot, setJackpot] = useState<string>("00000000");
   const jackpotQuery = useJackpotQuery();
 
   useEffect(() => {
@@ -25,65 +29,62 @@ export default function Jackpot({
       setJackpot(String(jackpotData));
       return;
     }
-    const prefix = Array(7 - String(jackpotData).length)
+    const prefix = Array(8 - String(jackpotData).length)
       .fill("0")
       .join("");
     setJackpot(prefix + jackpotData);
   }, [jackpotQuery]);
 
   return (
-    <GlobalLayout
-      showHeader={false}
-      title="Nổ hũ"
-      systemSettings={systemSettings}
-    >
-      <Box className="rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3">
-        <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
-          <EmojiEventsRoundedIcon className="text-[#ff55a5] mr-3" />
-          <Text custom={true}>NỔ HŨ - JACKPOT</Text>
-        </Flex>
-        <Box className="py-5">
-          <Box className="mb-5">
-            <Text align="center" size="xs">
-              SỐ TIỀN HIỆN TẠI TRONG HŨ ĐANG CHỜ BẠN!
-            </Text>
-          </Box>
-          <Flex justify="center" className="space-x-3 mb-5">
-            {jackpot.split("").map((str, index) => (
-              <Text
-                key={`td-jackpot-money-${index}`}
-                className="text-[14px] px-3 py-1 bg-[#ff55a51a] rounded select-none"
-              >
-                {str}
-              </Text>
-            ))}
-          </Flex>
-          <Box className="text-center mb-5">
-            <Button variant="theme">QUAY MIỄN PHÍ NGAY</Button>
-          </Box>
-          <Box className="space-y-3 text-center">
-            <Text size="sm">
-              <span className="text-[#ff55a5]">JACKPOT</span> là phần quà dành
-              cho những người chơi{" "}
-              <span className="text-[#ff55a5]">may mắn</span>.
-            </Text>
-            <Text size="sm">
-              Bạn hoàn toàn có thể sở hữu{" "}
-              <span className="text-[#ff55a5]">MIỄN PHÍ</span> thông qua việc
-              quay Slot trên <span className="text-[#ff55a5]">Telegram</span>{" "}
-              của <span className="text-[#ff55a5]">ABC.NET</span>
-            </Text>
-            <Text size="sm">
-              Bạn có thể nhận được lượt quay{" "}
-              <span className="text-[#ff55a5]">MIỄN PHÍ</span> khi chơi game
-              trên <span className="text-[#ff55a5]">ABC.NET</span>
-            </Text>
-            <Text size="sm" className="text-[#ff55a5]">
-              CHÚC BẠN MAY MẮN!!!!
-            </Text>
-          </Box>
-        </Box>
-      </Box>
+    <GlobalLayout title="Nổ hũ">
+      <div className="app-container container-xxl">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="card">
+              <div className="card-header justify-content-center">
+                <h4 className="card-title">
+                  <i className="bi bi-joystick fs-2x !hl-text"></i>
+                  <span className="ms-2">NỔ HŨ - JACKPOT</span>
+                </h4>
+              </div>
+              <div className="card-body p-0">
+                <div className="p-5 text-center">
+                  <p className="fs-xl text-center mb-5">
+                    SỐ TIỀN HIỆN TẠI TRONG HŨ ĐANG CHỜ BẠN!
+                  </p>
+                  <div className="d-flex justify-content-center gap-3 mb-5">
+                    {jackpot.split("").map((str, index) => (
+                      <span
+                        key={`td-jackpot-money-${index}`}
+                        className="badge py-3 px-4 fs-7 badge-light-warning"
+                      >
+                        {str}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mb-5">
+                    <Button variant="light">QUAY MIỄN PHÍ NGAY</Button>
+                  </div>
+                  <div className="fs-xl">
+                    <p className="mb-2">
+                      <span className="hl-text">JACKPOT</span> là phần quà dành
+                      cho những người chơi{" "}
+                      <span className="hl-text">may mắn</span>.
+                    </p>
+                    <p className="mb-2">
+                      Bạn hoàn toàn có thể sở hữu{" "}
+                      <span className="hl-text">MIỄN PHÍ</span> thông qua việc
+                      quay Slot trên <span className="hl-text">Telegram</span>{" "}
+                      của <span className="hl-text">ABC.NET</span>
+                    </p>
+                    <p className="mb-2">CHÚC BẠN MAY MẮN!!!!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </GlobalLayout>
   );
 }

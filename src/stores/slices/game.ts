@@ -7,7 +7,7 @@ export type TGame = {
 };
 
 const initialState: TGame = {
-  game_open: "",
+  game_open: "cltx",
 };
 
 export const gameSlice = createSlice({

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import { Flex } from "@/components/ui/Flex";
 import { Img } from "@/components/ui/Img";
 
 export default function Loading() {
@@ -45,12 +44,11 @@ export default function Loading() {
   if (!loading) return <></>;
 
   return (
-    <Flex
-      justify="center"
-      items="center"
-      className="fixed top-0 left-0 w-full h-full z-[9999] bg-[#2b2b31]"
+    <div
+      style={{ zIndex: "9999", backgroundColor: "#0F1014" }}
+      className="d-flex position-fixed top-0 left-0 w-100 h-100 justify-content-center align-items-center"
     >
       <Img src="/images/loading.svg" size={200} />
-    </Flex>
+    </div>
   );
 }

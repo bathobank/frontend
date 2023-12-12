@@ -1,14 +1,9 @@
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useEffect, useState } from "react";
 
 import { THistories, THistoriesQuery } from "@/@types/history";
-import { HoaDonModal } from "@/components/modals/HoaDon";
 import { SaoKeModal } from "@/components/modals/SaoKe";
-import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { Text } from "@/components/ui/Text";
+import { Button } from "@/components/ui/Button";
 import { formatMoney } from "@/utils/helper";
-import { cn } from "@/utils/ui";
 
 export const History = ({
   historyQuery,
@@ -20,12 +15,10 @@ export const History = ({
   showContent?: boolean;
 }) => {
   const [histories, setHistories] = useState<THistories>([]);
-  const [isOpenModalHoaDon, setOpenModalHoaDon] = useState<boolean>(false);
   const [isOpenModalSaoKe, setOpenModalSaoKe] = useState<boolean>(false);
   const [contentSaoKe, setContentSaoKe] = useState<
     Record<string, string | object>
   >({});
-  const [imgSaoke, setImgSaoke] = useState<string | null>(null);
 
   useEffect(() => {
     if (historyQuery) {
@@ -35,175 +28,155 @@ export const History = ({
     }
   }, [historyQuery]);
 
-  const openModalHoaDon = (img: string) => {
-    setImgSaoke(img);
-    setOpenModalHoaDon(true);
-  };
-
   const openModalSaoKe = (content: Record<string, string | object>) => {
     setContentSaoKe(content);
     setOpenModalSaoKe(true);
   };
 
   return (
-    <Box className="rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal">
-      <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
-        <AccessTimeIcon className="text-[#ff55a5]" />
-        <Text custom={true} className="ml-2 text-white">
-          {title}
-        </Text>
-      </Flex>
-      <Box className="p-3 overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-b-[#ffffff0d]">
-              <th scope="col" className="py-3 px-1 text-center">
-                <Text className="text-[#c7c7c7]">Trò chơi</Text>
-              </th>
-              <th scope="col" className="py-3 px-1 text-center">
-                <Text className="text-[#c7c7c7]">Đã chọn</Text>
-              </th>
-              <th scope="col" className="py-3 px-1 text-center">
-                <Text className="text-[#c7c7c7]">Mã giao dịch</Text>
-              </th>
-              <th scope="col" className="py-3 px-1 text-center">
-                <Text className="text-[#c7c7c7]">Số tiền</Text>
-              </th>
-              <th scope="col" className="py-3 px-1 text-center">
-                <Text className="text-[#c7c7c7]">Kết quả</Text>
-              </th>
-              <th scope="col" className="py-3 px-1 text-center">
-                <Text className="text-[#c7c7c7]">Trả thưởng</Text>
-              </th>
-              {showContent && (
-                <>
+    <>
+      <div className="p-3">
+        <div style={{ border: "1px solid #ffffff0d" }} className="rounded-3">
+          <div className="d-flex align-items-center p-3 game-header">
+            <i className="!hl-text bi bi-clock-history fs-2x"></i>
+            <h5 className="mb-0 ms-2 text-white">{title}</h5>
+          </div>
+          <div className="p-3 overflow-x-auto">
+            <table className="w-100">
+              <thead>
+                <tr style={{ borderBottom: "1px solid #ffffff0d" }}>
                   <th scope="col" className="py-3 px-1 text-center">
-                    <Text className="text-[#c7c7c7]">Sao kê</Text>
+                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                      Trò chơi
+                    </span>
                   </th>
                   <th scope="col" className="py-3 px-1 text-center">
-                    <Text className="text-[#c7c7c7]">Hóa đơn</Text>
+                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                      Đã chọn
+                    </span>
                   </th>
-                </>
-              )}
-              <th scope="col" className="py-3 px-1 text-center">
-                <Text className="text-[#c7c7c7]">Thời gian</Text>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {histories.map((history, index) => (
-              <tr
-                key={`tr-history-${index}`}
-                className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : "")}
-              >
-                <td className="py-3 px-1 text-center">
-                  <Text size="sm">{history.game_group.toUpperCase()}</Text>
-                </td>
-                <td className="py-3 px-1 text-center">
-                  <Flex justify="center">
-                    <Text
-                      size="sm"
-                      className="text-[12px] px-2 py-1 bg-[#ff55a51a] rounded select-none"
-                    >
-                      {history.game_type.toUpperCase()}
-                    </Text>
-                  </Flex>
-                </td>
-                <td className="py-3 px-1 text-center">
-                  <Text size="sm">{history.transaction_code}</Text>
-                </td>
-                <td className="py-3 px-1 text-center">
-                  <Text size="sm">{formatMoney(history.money_coming)}</Text>
-                </td>
-                <td className="py-3 px-1 text-center">
-                  {history.status === "L" ? (
-                    <Text
-                      as="span"
-                      className="text-[12px] px-2 py-1 bg-[#d9534f99] rounded select-none"
-                    >
-                      LOST
-                    </Text>
-                  ) : (
-                    <Text
-                      as="span"
-                      className="text-[12px] px-2 py-1 bg-[#5bceae99] rounded select-none"
-                    >
-                      WIN
-                    </Text>
+                  <th scope="col" className="py-3 px-1 text-center">
+                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                      Mã giao dịch
+                    </span>
+                  </th>
+                  <th scope="col" className="py-3 px-1 text-center">
+                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                      Số tiền
+                    </span>
+                  </th>
+                  <th scope="col" className="py-3 px-1 text-center">
+                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                      Kết quả
+                    </span>
+                  </th>
+                  {showContent && (
+                    <>
+                      <th scope="col" className="py-3 px-1 text-center">
+                        <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                          Trả thưởng
+                        </span>
+                      </th>
+                      <th scope="col" className="py-3 px-1 text-center">
+                        <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                          Sao kê
+                        </span>
+                      </th>
+                    </>
                   )}
-                </td>
-                <td className="py-3 px-1 text-center">
-                  {history.order?.status === "done" && (
-                    <Text
-                      as="span"
-                      className="text-[12px] px-2 py-1 bg-[#5bceae99] rounded select-none"
-                    >
-                      DONE
-                    </Text>
-                  )}
-                  {history.order?.status === "wait" && (
-                    <Text
-                      as="span"
-                      className="text-[12px] px-2 py-1 bg-yellow-300 text-gray-900 rounded select-none"
-                    >
-                      WAIT
-                    </Text>
-                  )}
-                  {history.order?.status === "error" && (
-                    <Text
-                      as="span"
-                      className="text-[12px] px-2 py-1 bg-[#d9534f99] rounded select-none"
-                    >
-                      ERROR
-                    </Text>
-                  )}
-                </td>
-                {showContent && (
-                  <>
+                  <th scope="col" className="py-3 px-1 text-center">
+                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                      Thời gian
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {histories.map((history, index) => (
+                  <tr
+                    key={`tr-history-${index}`}
+                    style={{
+                      ...(index > 0 && {
+                        borderTop: "1px solid #ffffff0d",
+                      }),
+                    }}
+                  >
                     <td className="py-3 px-1 text-center">
-                      <Text
-                        size="sm"
-                        className="hover:underline text-green-500 hover:text-green-700 cursor-pointer"
-                        onClick={() => openModalSaoKe(history.content)}
-                      >
-                        Xem sao kê
-                      </Text>
+                      <span className="badge py-3 px-4 fs-7 badge-light-info">
+                        {history.game_group.toUpperCase()}
+                      </span>
                     </td>
                     <td className="py-3 px-1 text-center">
-                      {history.order?.transaction_receipt && (
-                        <Text
-                          size="sm"
-                          className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer"
-                          onClick={() =>
-                            openModalHoaDon(
-                              history.order?.transaction_receipt ?? "",
-                            )
-                          }
-                        >
-                          Xem hóa đơn
-                        </Text>
+                      <span className="badge py-3 px-4 fs-7 badge-light-primary">
+                        {history.game_type.toUpperCase()}
+                      </span>
+                    </td>
+                    <td className="py-3 px-1 text-center">
+                      <span>{history.transaction_code}</span>
+                    </td>
+                    <td className="py-3 px-1 text-center">
+                      <span>{formatMoney(history.money_coming)}</span>
+                    </td>
+                    <td className="py-3 px-1 text-center">
+                      {history.status === "L" ? (
+                        <span className="badge py-3 px-4 fs-7 badge-light-danger">
+                          Lost
+                        </span>
+                      ) : (
+                        <span className="badge py-3 px-4 fs-7 badge-light-success">
+                          Win
+                        </span>
                       )}
                     </td>
-                  </>
-                )}
-                <td className="py-3 px-1 text-center">
-                  <Text size="sm">{history.game_time}</Text>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Box>
-      <HoaDonModal
-        isOpen={isOpenModalHoaDon}
-        onClose={() => setOpenModalHoaDon(false)}
-        img={imgSaoke}
-      />
+                    {showContent && (
+                      <>
+                        <td className="py-3 px-1 text-center">
+                          {history.order?.status === "done" && (
+                            <span className="badge py-3 px-4 fs-7 badge-light-success">
+                              Done
+                            </span>
+                          )}
+                          {history.order?.status === "wait" && (
+                            <span className="badge py-3 px-4 fs-7 badge-light-info">
+                              Wait
+                            </span>
+                          )}
+                          {history.order?.status === "error" && (
+                            <span className="badge py-3 px-4 fs-7 badge-light-danger">
+                              Error
+                            </span>
+                          )}
+                          {history.order?.status === "doing" && (
+                            <span className="badge py-3 px-4 fs-7 badge-light-primary">
+                              Doing
+                            </span>
+                          )}
+                        </td>
+                        <td className="py-3 px-1 text-center">
+                          <Button
+                            variant="light-info"
+                            onClick={() => openModalSaoKe(history.content)}
+                          >
+                            Xem sao kê
+                          </Button>
+                        </td>
+                      </>
+                    )}
+                    <td className="py-3 px-1 text-center">
+                      <span>{history.game_time}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
       <SaoKeModal
         isOpen={isOpenModalSaoKe}
         onClose={() => setOpenModalSaoKe(false)}
         content={contentSaoKe}
       />
-    </Box>
+    </>
   );
 };

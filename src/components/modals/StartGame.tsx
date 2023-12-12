@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import ReactSelect from "react-select";
 
-import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
 import { Img } from "@/components/ui/Img";
-import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
@@ -57,7 +53,7 @@ export const StartGameModal = ({
       const bankSelectData: TBankOption[] = [];
       for (const bank of bankReceiveData) {
         bankSelectData.push({
-          label: bank.bank.code,
+          label: bank.bank.short_name,
           code: bank.bank.code,
           value: bank.bank.bin,
           name: bank.name,
@@ -120,22 +116,37 @@ export const StartGameModal = ({
     };
   }, [inputAmount, formData]);
 
-  const setBankSelected = (bank: TBankOption) => {
-    setFormData({ ...formData, bank });
-  };
-
   const generateQrGame = () => {
-    if (!user) return;
-    if (formData.money === 0 || !formData.bank) {
-      toast.error("Hãy chọn ngân hàng và nhập số tiền!");
+    if (!user || !document) return;
+
+    const bankChecked = document.querySelector('[name="bank-value"]:checked');
+    if (!bankChecked) {
+      toast.error("Hãy chọn ngân hàng nhận!");
       return;
     }
+
+    const bankIndex: number = Number(
+      bankChecked.getAttribute("data-index") ?? "0",
+    );
+
+    if (typeof bankSelects[bankIndex] === "undefined") {
+      toast.error("Ngân hàng nhận không tồn tại!");
+      return;
+    }
+
+    if (formData.money === 0) {
+      toast.error("Hãy nhập số tiền!");
+      return;
+    }
+
+    const bankData = bankSelects[bankIndex];
+
     let qrFormat = "";
-    if (formData.bank.code === "TCB") {
+    if (bankData.code === "TCB") {
       qrFormat = "ElYgubG";
-    } else if (formData.bank.code === "VCB") {
+    } else if (bankData.code === "VCB") {
       qrFormat = "lvejI6J";
-    } else if (formData.bank.code === "MB") {
+    } else if (bankData.code === "MB") {
       qrFormat = "MuJWKcH";
     }
     if (qrFormat === "") {
@@ -143,7 +154,7 @@ export const StartGameModal = ({
       return;
     }
     const mgs = `${user.nickname} ${gameType}`;
-    const url = `https://api.vietqr.io/image/${formData.bank.value}-${formData.bank.number}-${qrFormat}.png?accountName=${formData.bank.name}&amount=${formData.money}&addInfo=${mgs}`;
+    const url = `https://api.vietqr.io/image/${bankData.value}-${bankData.number}-${qrFormat}.png?accountName=${bankData.name}&amount=${formData.money}&addInfo=${mgs}`;
     setUrlQr(url);
     setDisableBtnGenQr(true);
     setTimeout(() => {
@@ -157,59 +168,75 @@ export const StartGameModal = ({
       isOpen={isOpen}
       title={`Chơi game - ${gameGroup.toUpperCase()} - ${gameType.toUpperCase()}`}
       onClose={onClose}
+      maxWidth="750px"
     >
-      <Box className="p-5">
-        <Box>
-          <Flex wrap="wrap" justify="between">
-            <ReactSelect
-              className="text-sm w-full lg:w-[49%] mb-3"
-              classNamePrefix="select"
-              isDisabled={false}
-              isClearable={false}
-              isSearchable={true}
-              id="bank_start_game"
-              noOptionsMessage={() => "Không có ngân hàng phù hợp"}
-              options={bankSelects}
-              value={formData.bank}
-              inputId="bank_start_game"
-              instanceId="instance_bank_start_game"
-              placeholder="Chọn ngân hàng nhận chuyển khoản"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              onChange={setBankSelected}
-            />
-            <Box className="w-full lg:w-[49%] mb-3">
-              <Input
-                placeholder="Nhập số tiền chơi"
-                ref={inputAmount}
-                id="input_amount"
-              />
-            </Box>
-          </Flex>
-          <Box className="text-center">
-            <Button
-              variant="theme"
-              className="w-[60%] min-w-[200px]"
-              onClick={generateQrGame}
-              disabled={disableButtonGenQr}
-            >
-              Tạo mã QR
-            </Button>
-          </Box>
-        </Box>
-        <Flex justify="center" className="py-3">
-          {urlQr !== "" && <Img src={urlQr} className="w-[400px] max-w-full" />}
-        </Flex>
-      </Box>
-      <Flex
-        items="center"
-        justify="center"
-        className="p-6 border-t border-gray-200 rounded-b dark:border-gray-600 gap-[10px]"
+      <div
+        className="d-flex flex-wrap justify-content-between gap-3 mb-5"
+        data-kt-buttons="true"
       >
-        <Button variant="light" onClick={onClose}>
+        {bankSelects.map((bank, index: number) => (
+          <label
+            key={`start-game-bank-select-${index}`}
+            htmlFor={`bank-value-${bank.value + bank.number}`}
+            style={{ width: "calc(50% - .75rem)" }}
+            className="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start px-6 py-2"
+          >
+            <div className="d-flex align-items-center me-2">
+              <div className="form-check form-check-custom form-check-solid form-check-primary me-6">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bank-value"
+                  data-index={index}
+                  id={`bank-value-${bank.value + bank.number}`}
+                  value={bank.value + bank.number}
+                />
+              </div>
+              <div className="flex-grow-1">
+                <h3 className="d-flex align-items-center fs-xl fw-bold flex-wrap">
+                  {bank.label}
+                </h3>
+                <div className="fw-semibold opacity-50 text-primary fs-xl">
+                  {bank.number}
+                </div>
+              </div>
+            </div>
+          </label>
+        ))}
+      </div>
+      <div className="form-group mb-5">
+        <label htmlFor="input_amount" className="fs-lg mb-2">
+          Nhập số tiền chơi
+        </label>
+        <input
+          type="text"
+          ref={inputAmount}
+          id="input_amount"
+          placeholder="Nhập số tiền chơi"
+          className="form-control"
+        />
+      </div>
+      <div className="text-center">
+        <Button
+          variant="theme"
+          className="w-[60%] min-w-[200px]"
+          onClick={generateQrGame}
+          disabled={disableButtonGenQr}
+        >
+          Tạo mã QR
+        </Button>
+      </div>
+      <div className="py-3 d-flex justify-content-center">
+        {urlQr !== "" && <Img src={urlQr} className="w-[400px] max-w-full" />}
+      </div>
+      <div
+        style={{ borderTop: "1px solid #ffffff0d", textAlign: "right" }}
+        className="mt-5 pt-5"
+      >
+        <Button variant="light-info" onClick={onClose}>
           Close
         </Button>
-      </Flex>
+      </div>
     </Modal>
   );
 };

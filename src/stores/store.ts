@@ -1,20 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 
-import { fontSlice } from "@/stores/slices/font";
 import { gameSlice } from "@/stores/slices/game";
-import { navbarSlice } from "@/stores/slices/navbar";
-import { cartSlice } from "@/stores/slices/store";
+import { systemSettingSlice } from "@/stores/slices/system-setting";
 import { userSlice } from "@/stores/slices/user";
 
 const makeStore = () =>
   configureStore({
     reducer: {
-      [cartSlice.name]: cartSlice.reducer,
       [gameSlice.name]: gameSlice.reducer,
       [userSlice.name]: userSlice.reducer,
-      [fontSlice.name]: fontSlice.reducer,
-      [navbarSlice.name]: navbarSlice.reducer,
+      [systemSettingSlice.name]: systemSettingSlice.reducer,
     },
     devTools: true,
   });

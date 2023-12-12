@@ -1,19 +1,19 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { TSystemSetting } from "@/@types/system-setting";
+import { TUser } from "@/@types/user";
+import { GameMenu } from "@/components/layouts/GameMenu";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { AlertEnterBank } from "@/components/modals/AlertEnterBank";
 import { AlertNotification } from "@/components/modals/AlertNotification";
 import { BankList } from "@/components/pages/Index/BankList";
 import { GameGroup } from "@/components/pages/Index/GameGroup";
 import { History } from "@/components/pages/Index/History";
-import { TopWeekAndRule } from "@/components/pages/Index/TopWeekAndRule";
-import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { LinkUI } from "@/components/ui/Link";
-import { Text } from "@/components/ui/Text";
+import { GameRule } from "@/components/pages/Index/TopWeekAndRule/GameRule";
+import { TopWeek } from "@/components/pages/Index/TopWeekAndRule/TopWeek";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";
 import { useHasOrderWaitQuery } from "@/queries/has-order-wait";
 import { useHistoryWin } from "@/queries/histories/win";
@@ -21,15 +21,17 @@ import { getGameOpen } from "@/stores/slices/game";
 
 export default function Home({
   systemSettings,
+  user: userDefault,
 }: {
   systemSettings: TSystemSetting;
+  user?: TUser;
 }) {
+  useSystemSetting(systemSettings);
+  useUser(userDefault);
+
   const [hasOrderWait, setHasOrderWait] = useState<boolean>(false);
   const [isOpenModalNotif, setOpenModalNotif] = useState<boolean>(false);
-  const gameRef = useRef<HTMLDivElement>(null);
-  const bankRef = useRef<HTMLDivElement>(null);
   const gameOpen: string = useSelector(getGameOpen);
-  const { isLogined } = useUser();
   const hasOrderWaitQuery = useHasOrderWaitQuery();
   const historyWin = useHistoryWin();
 
@@ -45,7 +47,7 @@ export default function Home({
     if (systemSettings.notification !== "") {
       setTimeout(() => {
         setOpenModalNotif(true);
-      }, 10);
+      }, 500);
     }
   }, [systemSettings.notification]);
 
@@ -61,20 +63,6 @@ export default function Home({
     [systemSettings.notification, hasOrderWaitQuery],
   );
 
-  useEffect(() => {
-    if (!gameRef.current || !bankRef.current) return;
-    gameRef.current.style.height = "";
-    bankRef.current.style.height = "";
-
-    if (window.innerWidth < 1024) return;
-
-    const gameHeight: number = gameRef.current!.offsetHeight;
-    const bankHeight: number = bankRef.current!.offsetHeight;
-    const height = bankHeight > gameHeight ? bankHeight : gameHeight;
-    gameRef.current.style.height = height + "px";
-    bankRef.current.style.height = height + "px";
-  }, [gameOpen, gameRef, bankRef, isLogined]);
-
   const title: string | undefined = useMemo(() => {
     if (gameOpen === "cltx") return "Chẵn lẻ - Tài xỉu";
     if (gameOpen === "cltx2") return "Chẵn lẻ - Tài xỉu - Cộng 2 số";
@@ -87,53 +75,81 @@ export default function Home({
   }, [gameOpen]);
 
   return (
-    <GlobalLayout title={title} systemSettings={systemSettings}>
-      <Flex justify="between" items="start" wrap="wrap" className="mb-3">
-        <Box
-          ref={gameRef}
-          className="w-full lg:w-[49.5%] mb-3 lg:mb-0 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal"
-        >
-          <GameGroup gameOpen={gameOpen} gameData={systemSettings.games} />
-        </Box>
-        <Box
-          ref={bankRef}
-          className="w-full lg:w-[49.5%] rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal"
-        >
-          {isLogined ? (
-            <BankList />
-          ) : (
-            <Box className="px-3 py-5">
-              <Text align="center">
-                ĐỂ LẤY THÔNG TIN BANK CHUYỂN KHOẢN, VUI LÒNG{" "}
-                <LinkUI href="/auth/login" className="text-[#ff55a5]">
-                  ĐĂNG NHẬP
-                </LinkUI>{" "}
-                HOẶC{" "}
-                <LinkUI href="/auth/register" className="text-[#ff55a5]">
-                  ĐĂNG KÝ NHANH
-                </LinkUI>
-              </Text>
-            </Box>
-          )}
-        </Box>
-      </Flex>
-      <Box className="mb-3">
-        <History
-          historyQuery={historyWin}
-          title="LỊCH SỬ CHƠI GẦN ĐÂY"
-          showContent={false}
-        />
-      </Box>
-      {/*<Box className="mb-3">*/}
-      {/*  <HistoryWinGame />*/}
-      {/*</Box>*/}
-      <Box className="mb-3">
-        <TopWeekAndRule />
-      </Box>
+    <GlobalLayout title={title}>
+      <div className="app-container">
+        <div className="row mb-5">
+          <div className="col-xl-6">
+            <div className="card h-100">
+              <div className="card-body p-0">
+                <div className="d-flex">
+                  <div
+                    className="menu-left d-flex flex-column p-3 gap-2"
+                    style={{
+                      width: "150px",
+                      borderRight: "1px solid #ffffff0d",
+                    }}
+                  >
+                    <GameMenu />
+                  </div>
+                  <div
+                    className="menu-right p-3"
+                    style={{
+                      width: "calc(100% - 150px)",
+                    }}
+                  >
+                    <GameGroup
+                      gameOpen={gameOpen}
+                      gameData={systemSettings.games}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-xl-6">
+            <div className="card h-100">
+              <div className="card-body p-0">
+                <BankList />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row mb-5">
+          <div className="col-xl-12">
+            <div className="card">
+              <div className="card-body p-0">
+                <History
+                  historyQuery={historyWin}
+                  title="LỊCH SỬ CHƠI GẦN ĐÂY"
+                  showContent={false}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row mb-5">
+          <div className="col-lg-6">
+            <div className="card h-100">
+              <div className="card-body p-0">
+                <TopWeek />
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="card h-100">
+              <div className="card-body p-0">
+                <GameRule />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <AlertEnterBank
         isOpen={hasOrderWait}
         onClose={() => setHasOrderWait(false)}
       />
+
       {systemSettings.notification !== "" && (
         <AlertNotification
           isOpen={isOpenModalNotif}

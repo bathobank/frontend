@@ -1,6 +1,4 @@
-import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
 import { Modal } from "@/components/ui/Modal";
 
 type Props = {
@@ -15,25 +13,21 @@ export const AlertNotification = ({ isOpen, onClose, notification }: Props) => {
       id="alert-notification-modal"
       isOpen={isOpen}
       onClose={onClose}
-      isDark={true}
       title="Thông báo"
     >
-      <Box className="py-5 px-3 bg-[#28282d] no-apply-css-base">
-        <div
-          dangerouslySetInnerHTML={{
-            __html: notification,
-          }}
-        />
-      </Box>
-      <Flex
-        items="center"
-        justify="center"
-        className="p-6 border-t bg-[#28282d] border-t-[#4a4d5194] rounded-b dark:border-gray-600 gap-[10px]"
+      <div
+        dangerouslySetInnerHTML={{
+          __html: notification,
+        }}
+      />
+      <div
+        style={{ borderTop: "1px solid #ffffff0d", textAlign: "right" }}
+        className="mt-5 pt-5"
       >
-        <Button variant="light" onClick={onClose}>
-          Đóng
+        <Button variant="light-info" onClick={onClose}>
+          Close
         </Button>
-      </Flex>
+      </div>
     </Modal>
   );
 };

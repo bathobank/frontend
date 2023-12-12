@@ -1,27 +1,28 @@
-import ConfirmationNumberRoundedIcon from "@mui/icons-material/ConfirmationNumberRounded";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { TMission } from "@/@types/mission";
 import { TSystemSetting } from "@/@types/system-setting";
+import { TUser } from "@/@types/user";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { LinkUI } from "@/components/ui/Link";
-import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";
 import { useMissionQuery } from "@/queries/mission/all";
 import { formatMoney } from "@/utils/helper";
-import { cn } from "@/utils/ui";
 
 export default function DailyMission({
   systemSettings,
+  user: userDefault,
 }: {
   systemSettings: TSystemSetting;
+  user?: TUser;
 }) {
+  useSystemSetting(systemSettings);
+  const { isLogined, user } = useUser(userDefault);
+
   const [missions, setMissions] = useState<TMission[]>([]);
   const missionQuery = useMissionQuery();
-  const { isLogined, user } = useUser();
 
   useEffect(() => {
     if (missionQuery) {
@@ -30,101 +31,106 @@ export default function DailyMission({
   }, [missionQuery]);
 
   return (
-    <GlobalLayout
-      showHeader={false}
-      title="Nhiệm vụ ngày"
-      systemSettings={systemSettings}
-    >
-      <Box className="rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3">
-        <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
-          <ConfirmationNumberRoundedIcon className="text-[#ff55a5] mr-3" />
-          <Text custom={true}>NHIỆM VỤ NGÀY</Text>
-        </Flex>
-        <Box className="py-5">
-          <Box className="text-center">
-            {isLogined ? (
-              <Text>
-                Tổng chơi trong ngày:{" "}
-                <span className="text-[#ff55a5]">
-                  {formatMoney(user?.money_daily ?? 0)}
-                </span>
-              </Text>
-            ) : (
-              <Text size="sm">
-                VUI LÒNG{" "}
-                <LinkUI href="/auth/login" className="text-[#ff55a5]">
-                  ĐĂNG NHẬP
-                </LinkUI>{" "}
-                HOẶC{" "}
-                <LinkUI href="/auth/register" className="text-[#ff55a5]">
-                  ĐĂNG KÝ NHANH
-                </LinkUI>{" "}
-                ĐỂ NHẬN THƯỞNG
-              </Text>
-            )}
-          </Box>
-          <Box className="w-full max-w-[550px] m-auto border border-[#ffffff0d] mt-7">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-b-[#ffffff0d]">
-                  <th scope="col" className="py-3">
-                    <Text size="xs" className="text-[#c7c7c7]">
-                      MỐC CHƠI
-                    </Text>
-                  </th>
-                  <th scope="col" className="py-3">
-                    <Text size="xs" className="text-[#c7c7c7]">
-                      THƯỞNG
-                    </Text>
-                  </th>
-                  <th scope="col" className="py-3">
-                    <Text size="xs" className="text-[#c7c7c7]">
-                      TRẠNG THÁI
-                    </Text>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {missions.map((mission, index) => (
-                  <tr
-                    className={cn(
-                      "text-center",
-                      index > 0 ? "border-t border-t-[#ffffff0d]" : "",
+    <GlobalLayout title="Nhiệm vụ ngày">
+      <div className="app-container container-lg">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="card">
+              <div className="card-header justify-content-center">
+                <h4 className="card-title">
+                  <i className="bi bi-ticket-detailed fs-2x !hl-text"></i>
+                  <span className="ms-2">NHIỆM VỤ NGÀY</span>
+                </h4>
+              </div>
+              <div className="card-body p-0">
+                <div className="p-5">
+                  <div className="text-center mb-5">
+                    {isLogined ? (
+                      <p className="fs-xl mb-0">
+                        Tổng chơi trong ngày:{" "}
+                        <span className="hl-text">
+                          {formatMoney(user?.money_daily ?? 0)}
+                        </span>
+                      </p>
+                    ) : (
+                      <p className="fs-lg mb-0">
+                        VUI LÒNG{" "}
+                        <Link href="/auth/login" className="hl-text">
+                          ĐĂNG NHẬP
+                        </Link>{" "}
+                        HOẶC{" "}
+                        <Link href="/auth/register" className="hl-text">
+                          ĐĂNG KÝ NHANH
+                        </Link>{" "}
+                        ĐỂ NHẬN THƯỞNG
+                      </p>
                     )}
-                    key={`mission-list-${index}`}
-                  >
-                    <td className="py-3">
-                      <Text size="sm">{formatMoney(mission.milestone)}</Text>
-                    </td>
-                    <td className="py-3">
-                      <Text size="sm">{formatMoney(mission.bonus)}</Text>
-                    </td>
-                    <td className="py-3">
-                      {mission.is_done === 0 ? (
-                        <Text
-                          as="span"
-                          size="xs"
-                          className="text-[12px] px-2 py-1 bg-[#f266271a] rounded select-none"
-                        >
-                          Chưa đạt
-                        </Text>
-                      ) : (
-                        <Text
-                          as="span"
-                          size="xs"
-                          className="text-[12px] px-2 py-1 bg-[#3ab43196] rounded select-none"
-                        >
-                          Đã đạt
-                        </Text>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Box>
-        </Box>
-      </Box>
+                  </div>
+                  <div className="text-center">
+                    <div
+                      className="w-100 mw-450px m-auto rounded-3"
+                      style={{ border: "1px solid #ffffff0d" }}
+                    >
+                      <table className="w-100">
+                        <thead>
+                          <tr style={{ borderBottom: "1px solid #ffffff0d" }}>
+                            <th scope="col" className="py-3">
+                              <span style={{ color: "#808290" }}>MỐC CHƠI</span>
+                            </th>
+                            <th scope="col" className="py-3">
+                              <span style={{ color: "#808290" }}>THƯỞNG</span>
+                            </th>
+                            <th scope="col" className="py-3">
+                              <span style={{ color: "#808290" }}>
+                                TRẠNG THÁI
+                              </span>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {missions.map((mission, index) => (
+                            <tr
+                              style={{
+                                textAlign: "center",
+                                ...(index > 0 && {
+                                  borderTop: "1px solid #ffffff0d",
+                                }),
+                              }}
+                              key={`mission-list-${index}`}
+                            >
+                              <td className="py-3">
+                                <span style={{ color: "#808290" }}>
+                                  {formatMoney(mission.milestone)}
+                                </span>
+                              </td>
+                              <td className="py-3">
+                                <span style={{ color: "#808290" }}>
+                                  {formatMoney(mission.bonus)}
+                                </span>
+                              </td>
+                              <td className="py-3">
+                                {mission.is_done === 0 ? (
+                                  <span className="badge py-3 px-4 fs-7 badge-light-warning">
+                                    Chưa đạt
+                                  </span>
+                                ) : (
+                                  <span className="badge py-3 px-4 fs-7 badge-light-success">
+                                    Đã đạt
+                                  </span>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </GlobalLayout>
   );
 }

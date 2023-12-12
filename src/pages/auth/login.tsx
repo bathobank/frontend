@@ -1,4 +1,5 @@
 import { setCookie } from "cookies-next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -6,12 +7,9 @@ import { useQueryClient } from "react-query";
 
 import { TSystemSetting } from "@/@types/system-setting";
 import { TUserLogin } from "@/@types/user";
-import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Box } from "@/components/ui/Box";
+import { AuthLayout } from "@/components/layouts/AuthLayout";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { LinkUI } from "@/components/ui/Link";
-import { Text } from "@/components/ui/Text";
+import { Img } from "@/components/ui/Img";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useAuthLoginMutation } from "@/queries/auth/login";
 import { AUTH_GET_USER_QK } from "@/queries/auth/user";
@@ -55,61 +53,69 @@ export default function AuthLogin({
   };
 
   return (
-    <GlobalLayout
-      showHeader={false}
-      title="Đăng nhập"
-      systemSettings={systemSettings}
-    >
-      <Box className="w-full lg:w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal">
-        <Box className="w-full rounded-lg shadow">
-          <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <Text align="center" className="text-xl">
-              Đăng nhập
-            </Text>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Box className="mb-3">
-                <Input
-                  id="nickname"
-                  label="Nickname"
-                  {...register("nickname", { required: true })}
-                />
-                {errors.nickname && (
-                  <Text size="sm" col="red" className="italic !mt-1">
-                    Hãy nhập Nickname
-                  </Text>
-                )}
-              </Box>
-              <Box className="mb-5">
-                <Input
-                  id="password"
-                  label="Mật khẩu"
-                  type="password"
-                  {...register("password", { required: true })}
-                />
-                {errors.password && (
-                  <Text size="sm" col="red" className="italic !mt-1">
-                    Hãy nhập mật khẩu
-                  </Text>
-                )}
-              </Box>
-              <Button
-                type="submit"
-                fullWidth={true}
-                variant="theme"
-                disabled={isRequesting}
-                className="mb-3"
-              >
-                Đăng nhập
-              </Button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-                Bạn chưa có tài khoản?{" "}
-                <LinkUI href="/auth/register">Đăng ký</LinkUI>
-              </p>
-            </form>
-          </Box>
-        </Box>
-      </Box>
-    </GlobalLayout>
+    <AuthLayout title="Đăng nhập" systemSettings={systemSettings}>
+      <div className="d-flex flex-column flex-root" id="kt_app_root">
+        <div className="d-flex flex-column flex-column-fluid flex-lg-row justify-content-center">
+          <div className="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-5 p-lg-20">
+            <div className="bg-body d-flex flex-column align-items-stretch flex-center rounded-4 w-md-600px p-lg-20 p-10 w-100">
+              <div className="d-flex flex-center flex-column flex-column-fluid px-lg-10">
+                <form className="form w-100" onSubmit={handleSubmit(onSubmit)}>
+                  <div className="mb-7 text-center">
+                    <Img alt="Logo" src={systemSettings.logo} />
+                  </div>
+                  <div className="fv-row mb-3">
+                    <input
+                      type="text"
+                      placeholder="Tên tài khoản"
+                      className="form-control bg-transparent"
+                      {...register("nickname", { required: true })}
+                    />
+                    {errors.nickname && (
+                      <p className="text-danger italic mb-0">
+                        Hãy nhập Nickname
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="fv-row mb-3">
+                    <input
+                      type="password"
+                      placeholder="Mật khẩu"
+                      className="form-control bg-transparent"
+                      {...register("password", { required: true })}
+                    />
+                    {errors.password && (
+                      <p className="text-danger italic mb-0">
+                        Hãy nhập Mật khẩu
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="fs-base fw-semibold mb-3 text-right">
+                    <Link href="#" className="link-primary">
+                      Quên mật khẩu?
+                    </Link>
+                  </div>
+
+                  <div className="d-grid mb-10">
+                    <Button type="submit" loading={isRequesting}>
+                      <span className="indicator-label">Đăng nhập</span>
+                    </Button>
+                  </div>
+
+                  <div className="text-gray-500 text-center fw-semibold fs-6">
+                    Chưa có tài khoản?&nbsp;
+                    <Link href="/auth/register" className="link-primary">
+                      Đăng ký
+                    </Link>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </AuthLayout>
   );
 }
 

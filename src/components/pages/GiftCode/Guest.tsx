@@ -1,33 +1,31 @@
-import { Box } from "@/components/ui/Box";
-import { LinkUI } from "@/components/ui/Link";
-import { Text } from "@/components/ui/Text";
+import Link from "next/link";
 
 export const GiftCodeGuest = () => {
   return (
-    <Box className="text-center">
-      <Box className="mb-3">
-        <Text>
-          <span className="text-[#ff55a5]">GIFTCODE</span> là món quà mà chúng
+    <div className="text-center">
+      <div className="mb-3">
+        <p className="fs-xl">
+          <span className="hl-text fw-bold">GIFTCODE</span> là món quà mà chúng
           tôi gửi tặng tới những người chơi để tri ân.
-        </Text>
-        <Text>
+        </p>
+        <p className="fs-xl">
           Người chơi có thể nhận được thông qua việc tham gia các sự kiện trên{" "}
-          <span className="text-[#ff55a5]">Website</span> hoặc{" "}
-          <span className="text-[#ff55a5]">Group Telegram</span> do chúng tôi tổ
-          chức.
-        </Text>
-      </Box>
-      <Text size="sm">
+          <span className="hl-text fw-bold">Website</span> hoặc{" "}
+          <span className="hl-text fw-bold">Group Telegram</span> do chúng tôi
+          tổ chức.
+        </p>
+      </div>
+      <p className="fs-xl">
         VUI LÒNG{" "}
-        <LinkUI href="/auth/login" className="text-[#ff55a5]">
+        <Link href="/auth/login" className="hl-text">
           ĐĂNG NHẬP
-        </LinkUI>{" "}
+        </Link>{" "}
         HOẶC{" "}
-        <LinkUI href="/auth/register" className="text-[#ff55a5]">
+        <Link href="/auth/register" className="hl-text">
           ĐĂNG KÝ NHANH
-        </LinkUI>{" "}
+        </Link>{" "}
         ĐỂ NHẬN THƯỞNG
-      </Text>
-    </Box>
+      </p>
+    </div>
   );
 };

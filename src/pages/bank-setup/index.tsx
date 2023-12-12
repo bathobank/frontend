@@ -1,18 +1,13 @@
-import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import ReactSelect from "react-select";
 
 import { TBankUserForm } from "@/@types/bank-user";
 import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Box } from "@/components/ui/Box";
 import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
-import { Input } from "@/components/ui/Input";
-import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useBankAllQuery } from "@/queries/bank/all";
 import {
   useUserBankReceive,
@@ -30,8 +25,10 @@ export default function BankSetup({
 }: {
   systemSettings: TSystemSetting;
 }) {
+  useSystemSetting(systemSettings);
+
   const [banks, setBanks] = useState<TOption[]>([]);
-  const [bankSelected, setBankSelected] = useState<TOption | null>(null);
+  const bankSelectRef = useRef<HTMLSelectElement>(null);
   const { push } = useRouter();
   const bankQuery = useBankAllQuery();
   const userBankReceive = useUserBankReceive();
@@ -52,119 +49,131 @@ export default function BankSetup({
   }, [bankQuery]);
 
   useEffect(() => {
-    setValue("bank", bankSelected?.value ?? "");
-  }, [bankSelected, setValue]);
-
-  useEffect(() => {
     if (!userBankReceive) return;
+
     const bankUser = userBankReceive.data.bank_user;
-    if (bankUser) {
-      setValue("bank_number", bankUser.bank_number);
-      setValue("bank_owner", bankUser.bank_owner);
+    if (!bankUser) return;
+
+    setValue("bank_number", bankUser.bank_number);
+    setValue("bank_owner", bankUser.bank_owner);
+    setValue("bank", bankUser.bank_bin);
+
+    if (bankSelectRef.current) {
+      setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        $(bankSelectRef.current).val(bankUser.bank_bin).trigger("change");
+      }, 500);
     }
   }, [setValue, userBankReceive]);
 
-  useEffect(() => {
-    if (!userBankReceive || banks.length === 0) return;
-    const bankUser = userBankReceive.data.bank_user;
-    if (!bankUser) return;
-    const binSelected = bankUser.bank_bin;
-    const bank = banks.find((b) => b.value === binSelected) ?? null;
-    setBankSelected(bank);
-  }, [banks, userBankReceive]);
-
-  const onSubmit = (data: TBankUserForm) => {
-    userBankReceiveMutation.mutate(
-      data,
-      defaultOptionReactQueryResponse(() => {
-        reset();
-        setBankSelected(null);
-        void push("/");
-      }),
-    );
-  };
+  const onSubmit = useCallback(
+    (data: TBankUserForm) => {
+      if (!bankSelectRef.current) return;
+      data.bank = bankSelectRef.current.value;
+      userBankReceiveMutation.mutate(
+        data,
+        defaultOptionReactQueryResponse(() => {
+          reset();
+          void push("/");
+        }),
+      );
+    },
+    [userBankReceiveMutation, reset, push],
+  );
 
   return (
-    <GlobalLayout
-      showHeader={false}
-      title="Cài đặt Bank"
-      systemSettings={systemSettings}
-    >
-      <Box className="rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3">
-        <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
-          <AccountBalanceRoundedIcon className="text-[#ff55a5] mr-3" />
-          <Text custom={true}>CÀI ĐẶT BANK TRẢ THƯỞNG</Text>
-        </Flex>
-        <Box className="py-5">
-          <Box className="w-full max-w-[450px] m-auto mb-6">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              <Box>
-                <Box className="mb-2">
-                  <label
-                    className="block text-sm font-medium text-white"
-                    htmlFor="bank_receive"
-                  >
-                    Ngân hàng nhận tiền
-                  </label>
-                  <Text size="xs" className="italic text-green-400">
-                    Tip: Gõ tên ngân hàng vào ô để tìm kiếm
-                  </Text>
-                </Box>
-                <ReactSelect
-                  className="text-sm"
-                  classNamePrefix="select"
-                  isDisabled={false}
-                  isClearable={false}
-                  isSearchable={true}
-                  id="bank_receive"
-                  noOptionsMessage={() => "Không có ngân hàng phù hợp"}
-                  options={banks}
-                  value={bankSelected}
-                  inputId="bank_receive"
-                  instanceId="instance_bank_receive"
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  onChange={setBankSelected}
-                  styles={{
-                    option: (provided) => ({
-                      ...provided,
-                      color: "#28282d",
-                    }),
-                  }}
-                />
-              </Box>
-              <Input
-                label="Số tài khoản"
-                id="bank_number"
-                {...register("bank_number")}
-              />
-              <Input
-                label="Tên chủ tài khoản"
-                id="bank_owner"
-                {...register("bank_owner")}
-              />
-              <Button variant="theme" fullWidth={true} type="submit">
-                Cập nhật
-              </Button>
-            </form>
-          </Box>
-          <Box className="text-left">
-            <Text size="sm">
-              <span className="text-[#ff55a5]">LƯU Ý 1:</span> Chúng tôi{" "}
-              <span className="text-[#ff55a5]">từ chối trách nhiệm</span> nếu số
-              tài khoản bạn đã nhập{" "}
-              <span className="text-[#ff55a5]">không chính xác</span>. Vì vậy
-              hãy kiểm tra kỹ số tài khoản trước khi cập nhật!
-            </Text>
-            <Text size="sm">
-              <span className="text-[#ff55a5]">LƯU Ý 2:</span> Tài khoản bank
-              của bạn sẽ tự động chuyển sang chế độ{" "}
-              <span className="text-[#ff55a5]">bảo vệ</span> sau lần trả thưởng
-              thành công <span className="text-[#ff55a5]">đầu tiên</span>!
-            </Text>
-          </Box>
-        </Box>
-      </Box>
+    <GlobalLayout title="Cài đặt Bank">
+      <div className="app-container container-lg">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="card">
+              <div className="card-header justify-content-center">
+                <h4 className="card-title">
+                  <i className="bi bi-coin fs-2x !hl-text"></i>
+                  <span className="ms-2">CÀI ĐẶT BANK TRẢ THƯỞNG</span>
+                </h4>
+              </div>
+              <div className="card-body p-0">
+                <div className="p-5">
+                  <div className="w-100 mw-450px m-auto mb-5">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div className="form-group mb-5">
+                        <label
+                          className="d-block fs-lg fw-semibold mb-2"
+                          htmlFor="bank_receive"
+                        >
+                          Ngân hàng nhận tiền
+                        </label>
+                        <select
+                          className="form-select"
+                          data-control="select2"
+                          data-placeholder="Select an option"
+                          ref={bankSelectRef}
+                        >
+                          <option></option>
+                          {banks.map((bank, index: number) => {
+                            return (
+                              <option
+                                value={bank.value}
+                                key={`bank-select-${index}`}
+                              >
+                                {bank.label}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                      <div className="form-group mb-5">
+                        <label
+                          className="d-block fs-lg fw-semibold mb-2"
+                          htmlFor="bank_number"
+                        >
+                          Số tài khoản
+                        </label>
+                        <input
+                          type="text"
+                          id="bank_number"
+                          className="form-control"
+                          {...register("bank_number")}
+                        />
+                      </div>
+                      <div className="form-group mb-5">
+                        <label
+                          className="d-block fs-lg fw-semibold mb-2"
+                          htmlFor="bank_owner"
+                        >
+                          Tên chủ tài khoản
+                        </label>
+                        <input
+                          type="text"
+                          id="bank_owner"
+                          className="form-control"
+                          {...register("bank_owner")}
+                        />
+                      </div>
+                      <div className="text-center">
+                        <Button variant="light" type="submit">
+                          Cập nhật
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="fs-lg">
+                    <p className="mb-2 w-100 mw-600px text-center m-auto">
+                      <span className="hl-text">LƯU Ý:</span> Chúng tôi{" "}
+                      <span className="hl-text">từ chối trách nhiệm</span> nếu
+                      số tài khoản bạn đã nhập{" "}
+                      <span className="hl-text">không chính xác</span>. Vì vậy
+                      hãy kiểm tra kỹ số tài khoản trước khi cập nhật!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </GlobalLayout>
   );
 }

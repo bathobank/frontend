@@ -9,7 +9,6 @@ import { GameDoanSo } from "@/components/pages/Index/Game/doanso";
 import { GameGap3 } from "@/components/pages/Index/Game/gap3";
 import { GameTong3So } from "@/components/pages/Index/Game/tong3so";
 import { GameXien } from "@/components/pages/Index/Game/xien";
-import { Box } from "@/components/ui/Box";
 
 export const GameGroup = ({
   gameOpen,
@@ -34,36 +33,34 @@ export const GameGroup = ({
   };
 
   return (
-    <Box>
-      <Box>
-        {gameOpen === "cltx" && (
-          <GameCltx startGame={startGame} gameData={gameData.cltx} />
-        )}
-        {gameOpen === "cltx2" && (
-          <GameCltx2 startGame={startGame} gameData={gameData.cltx2} />
-        )}
-        {gameOpen === "gap3" && (
-          <GameGap3 startGame={startGame} gameData={gameData.gap3} />
-        )}
-        {gameOpen === "tong3so" && (
-          <GameTong3So startGame={startGame} gameData={gameData.tong3so} />
-        )}
-        {gameOpen === "1phan3" && (
-          <Game1Phan3 startGame={startGame} gameData={gameData["1phan3"]} />
-        )}
-        {gameOpen === "xien" && (
-          <GameXien startGame={startGame} gameData={gameData.xien} />
-        )}
-        {gameOpen === "doanso" && (
-          <GameDoanSo startGame={startGame} gameData={gameData.doanso} />
-        )}
-      </Box>
+    <>
+      {gameOpen === "cltx" && (
+        <GameCltx startGame={startGame} gameData={gameData.cltx} />
+      )}
+      {gameOpen === "cltx2" && (
+        <GameCltx2 startGame={startGame} gameData={gameData.cltx2} />
+      )}
+      {gameOpen === "gap3" && (
+        <GameGap3 startGame={startGame} gameData={gameData.gap3} />
+      )}
+      {gameOpen === "tong3so" && (
+        <GameTong3So startGame={startGame} gameData={gameData.tong3so} />
+      )}
+      {gameOpen === "1phan3" && (
+        <Game1Phan3 startGame={startGame} gameData={gameData["1phan3"]} />
+      )}
+      {gameOpen === "xien" && (
+        <GameXien startGame={startGame} gameData={gameData.xien} />
+      )}
+      {gameOpen === "doanso" && (
+        <GameDoanSo startGame={startGame} gameData={gameData.doanso} />
+      )}
       <StartGameModal
         isOpen={openModalStartGame}
         gameType={gameTypeSelected}
         gameGroup={gameGroupSelected}
         onClose={endGame}
       />
-    </Box>
+    </>
   );
 };
