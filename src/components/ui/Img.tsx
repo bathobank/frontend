@@ -4,7 +4,7 @@ type Props = {
   src: string;
   alt?: string;
   className?: string;
-  size?: number;
+  size?: number | string;
   circle?: boolean;
   [index: string]: boolean | number | string | undefined;
 };
@@ -23,16 +23,29 @@ export const Img = ({ src, alt, size, circle, className, ...props }: Props) => {
     return cls + className;
   }, [circle, className, size]);
 
+  const newSize = useMemo(() => {
+    if (!size) {
+      return {};
+    }
+    if (typeof size === "string") {
+      return {
+        width: size,
+        height: size,
+      };
+    }
+    return {
+      width: size + "px",
+      height: size + "px",
+    };
+  }, [size]);
+
   return (
     <picture>
       <img
         src={src}
         alt={alt ?? "Image"}
         className={newClassName}
-        style={{
-          width: size ? size + "px" : undefined,
-          height: size ? size + "px" : undefined,
-        }}
+        style={{ ...newSize }}
         {...props}
       />
     </picture>

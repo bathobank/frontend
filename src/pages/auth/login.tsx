@@ -61,7 +61,9 @@ export default function AuthLogin({
               <div className="d-flex flex-center flex-column flex-column-fluid px-lg-10">
                 <form className="form w-100" onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-7 text-center">
-                    <Img alt="Logo" src={systemSettings.logo} />
+                    <Link href="/">
+                      <Img alt="Logo" size="100%" src={systemSettings.logo} />
+                    </Link>
                   </div>
                   <div className="fv-row mb-3">
                     <input

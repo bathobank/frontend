@@ -119,7 +119,7 @@ export const BankList = () => {
               </tbody>
             </table>
           ) : (
-            <h5 className="px-6 py-5 text-center lh-xl">
+            <h6 className="px-6 py-5 text-center lh-xl">
               ĐỂ LẤY THÔNG TIN BANK CHUYỂN KHOẢN <br />
               VUI LÒNG{" "}
               <Link href="/auth/login" className="hl-text">
@@ -130,7 +130,7 @@ export const BankList = () => {
                 ĐĂNG KÝ
               </Link>{" "}
               NHANH
-            </h5>
+            </h6>
           )}
         </div>
       </div>
