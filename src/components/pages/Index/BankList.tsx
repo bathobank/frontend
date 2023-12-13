@@ -79,13 +79,16 @@ export const BankList = () => {
                     }}
                   >
                     <td
-                      style={{ width: "130px" }}
+                      style={{ minWidth: "130px" }}
                       className="py-3 d-none d-sm-block"
                     >
                       <p className="mb-0">Mã NH: {bank.code}</p>
                       <p className="mb-0">{bank.title}</p>
                     </td>
-                    <td style={{ width: "200px" }} className="py-3">
+                    <td
+                      style={{ minWidth: "150px", width: "200px" }}
+                      className="py-3"
+                    >
                       <div className="mb-3 d-sm-none">
                         <p className="mb-0">Mã NH: {bank.code}</p>
                         <p className="mb-0">{bank.title}</p>
@@ -93,7 +96,7 @@ export const BankList = () => {
                       <HightLightNickname content={bank.number} />
                       <p className="mb-0">{bank.name}</p>
                     </td>
-                    <td style={{ width: "100px" }} className="py-3">
+                    <td style={{ minWidth: "100px" }} className="py-3">
                       <p className="mb-0">
                         Min:{" "}
                         <span className="hl-text">{formatMoney(bank.min)}</span>
