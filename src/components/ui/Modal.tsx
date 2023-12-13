@@ -38,7 +38,7 @@ export const Modal = ({
       data-bs-backdrop="static"
       data-bs-keyboard="false"
     >
-      <div className={`modal-dialog modal-dialog-centered mw-${maxWidth}`}>
+      <div className={`modal-dialog modal-dialog-centered px-3 mw-${maxWidth}`}>
         <div className="modal-content">
           <div className="modal-header p-5">
             <h2>{title}</h2>

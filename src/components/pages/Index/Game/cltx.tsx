@@ -65,13 +65,12 @@ export const GameCltx = ({
                   </td>
                   {user && (
                     <td style={{ minWidth: "50px" }} className="text-center">
-                      <span
-                        style={{ color: "#ff55a5" }}
-                        className="cursor-pointer select-none"
+                      <button
+                        className="btn btn-light-primary btn-sm cursor-pointer select-none"
                         onClick={() => startGame("cltx", key)}
                       >
                         Chơi
-                      </span>
+                      </button>
                     </td>
                   )}
                 </tr>

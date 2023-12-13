@@ -72,12 +72,12 @@ export const GameDoanSo = ({
                       style={{ minWidth: "50px" }}
                       className="min-w-[50px] text-center"
                     >
-                      <span
-                        className="cursor-pointer hover:underline text-[#ff55a5] select-none"
+                      <button
+                        className="btn btn-light-primary btn-sm cursor-pointer select-none"
                         onClick={() => startGame("doanso", key)}
                       >
                         Chơi
-                      </span>
+                      </button>
                     </td>
                   )}
                 </tr>

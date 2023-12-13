@@ -66,12 +66,12 @@ export const Game1Phan3 = ({
                   </td>
                   {user && (
                     <td style={{ minWidth: "50px" }} className="text-center">
-                      <span
-                        className="cursor-pointer hover:underline text-[#ff55a5] select-none"
+                      <button
+                        className="btn btn-light-primary btn-sm cursor-pointer select-none"
                         onClick={() => startGame("1phan3", key)}
                       >
                         Chơi
-                      </span>
+                      </button>
                     </td>
                   )}
                 </tr>

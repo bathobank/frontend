@@ -227,7 +227,7 @@ export const StartGameModal = ({
         </Button>
       </div>
       <div className="py-3 d-flex justify-content-center">
-        {urlQr !== "" && <Img src={urlQr} className="w-[400px] max-w-full" />}
+        {urlQr !== "" && <Img src={urlQr} size={400} />}
       </div>
       <div
         style={{ borderTop: "1px solid #ffffff0d", textAlign: "right" }}

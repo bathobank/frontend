@@ -35,6 +35,7 @@ export const NavbarGuest = () => {
   const { settings: setting } = useSystemSetting();
 
   const Menu: TMenu[] = [
+    { title: "Trang chủ", link: "/" },
     { title: "Giftcode", link: "/gift-code" },
     { title: "Nhiệm vụ ngày", link: "/daily-mission" },
     { title: "Nổ hũ", link: "/jackpot" },
@@ -53,6 +54,7 @@ export const NavbarAuthed = () => {
   const { settings: setting } = useSystemSetting();
 
   const Menu: TMenu[] = [
+    { title: "Trang chủ", link: "/" },
     { title: "Giftcode", link: "/gift-code" },
     { title: "Nhiệm vụ ngày", link: "/daily-mission" },
     { title: "Lịch sử chơi", link: "/history" },

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import { THistories, THistoriesQuery } from "@/@types/history";
 import { SaoKeModal } from "@/components/modals/SaoKe";
-import { Button } from "@/components/ui/Button";
 import { formatMoney } from "@/utils/helper";
 
 export const History = ({
@@ -57,11 +56,6 @@ export const History = ({
                   </th>
                   <th scope="col" className="py-3 px-1 text-center">
                     <span className="fs-xl" style={{ color: "#B5B7C8" }}>
-                      Mã giao dịch
-                    </span>
-                  </th>
-                  <th scope="col" className="py-3 px-1 text-center">
-                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
                       Số tiền
                     </span>
                   </th>
@@ -75,6 +69,11 @@ export const History = ({
                       <th scope="col" className="py-3 px-1 text-center">
                         <span className="fs-xl" style={{ color: "#B5B7C8" }}>
                           Trả thưởng
+                        </span>
+                      </th>
+                      <th scope="col" className="py-3 px-1 text-center">
+                        <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                          Mã giao dịch
                         </span>
                       </th>
                       <th scope="col" className="py-3 px-1 text-center">
@@ -101,23 +100,32 @@ export const History = ({
                       }),
                     }}
                   >
-                    <td className="py-3 px-1 text-center">
+                    <td
+                      style={{ minWidth: "70px" }}
+                      className="py-3 px-1 text-center"
+                    >
                       <span className="badge py-3 px-4 fs-7 badge-light-info">
                         {history.game_group.toUpperCase()}
                       </span>
                     </td>
-                    <td className="py-3 px-1 text-center">
+                    <td
+                      style={{ minWidth: "60px" }}
+                      className="py-3 px-1 text-center"
+                    >
                       <span className="badge py-3 px-4 fs-7 badge-light-primary">
                         {history.game_type.toUpperCase()}
                       </span>
                     </td>
-                    <td className="py-3 px-1 text-center">
-                      <span>{history.transaction_code}</span>
-                    </td>
-                    <td className="py-3 px-1 text-center">
+                    <td
+                      style={{ minWidth: "120px" }}
+                      className="py-3 px-1 text-center"
+                    >
                       <span>{formatMoney(history.money_coming)}</span>
                     </td>
-                    <td className="py-3 px-1 text-center">
+                    <td
+                      style={{ minWidth: "70px" }}
+                      className="py-3 px-1 text-center"
+                    >
                       {history.status === "L" ? (
                         <span className="badge py-3 px-4 fs-7 badge-light-danger">
                           Lost
@@ -130,7 +138,10 @@ export const History = ({
                     </td>
                     {showContent && (
                       <>
-                        <td className="py-3 px-1 text-center">
+                        <td
+                          style={{ minWidth: "80px" }}
+                          className="py-3 px-1 text-center"
+                        >
                           {history.order?.status === "done" && (
                             <span className="badge py-3 px-4 fs-7 badge-light-success">
                               Done
@@ -152,17 +163,29 @@ export const History = ({
                             </span>
                           )}
                         </td>
-                        <td className="py-3 px-1 text-center">
-                          <Button
-                            variant="light-info"
+                        <td
+                          style={{ minWidth: "150px" }}
+                          className="py-3 px-1 text-center"
+                        >
+                          <span>{history.transaction_code}</span>
+                        </td>
+                        <td
+                          style={{ minWidth: "80px" }}
+                          className="py-3 px-1 text-center"
+                        >
+                          <button
+                            className="btn btn-light-info btn-sm"
                             onClick={() => openModalSaoKe(history.content)}
                           >
                             Xem sao kê
-                          </Button>
+                          </button>
                         </td>
                       </>
                     )}
-                    <td className="py-3 px-1 text-center">
+                    <td
+                      style={{ minWidth: "120px" }}
+                      className="py-3 px-1 text-center"
+                    >
                       <span>{history.game_time}</span>
                     </td>
                   </tr>

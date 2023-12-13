@@ -7,6 +7,12 @@ html {
   font-size: 14px;
 }
 
+@media (max-width: 992px) {
+  body, html {
+    font-size: 14px !important;
+  }
+}
+
 .toast-lg {
   --bs-toast-max-width: 550px;
 }
@@ -149,4 +155,38 @@ body {
 
 .\!hl-text-warning {
   color: #C59A00 !important;
+}
+
+@media (max-width: 605px) {
+  .area-game-detail {
+    flex-direction: column;
+  }
+
+  .area-game-detail .menu-left .d-flex {
+    flex-direction: row !important;
+    width: 100% !important;
+    border: none !important;
+  }
+
+  .area-game-detail .menu-left .d-flex .item-menu-game-choose {
+    min-width: 85px;
+  }
+
+  .area-game-detail .menu-right {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 516px) {
+  .area-game-detail .menu-right tr td:first-child {
+    width: 100px !important;
+  }
+
+  .area-game-detail .menu-right .gap-2 {
+    gap: 0.15rem !important;
+  }
+
+  .card-body {
+    padding: 0 !important;
+  }
 }

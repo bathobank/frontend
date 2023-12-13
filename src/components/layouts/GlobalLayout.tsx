@@ -55,6 +55,7 @@ export const GlobalLayout = ({ children, title }: Props) => {
       <Head>
         <title>{websiteTitle}</title>
         <link rel="shortcut icon" href={systemSettings.icon} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
         <div
@@ -83,7 +84,6 @@ export const GlobalLayout = ({ children, title }: Props) => {
                   />
                 </Link>
               </div>
-
               <div
                 className="d-flex align-items-stretch justify-content-between flex-lg-grow-1"
                 id="kt_app_header_wrapper"

@@ -75,12 +75,12 @@ export const GameGap3 = ({
                   </td>
                   {user && (
                     <td style={{ minWidth: "50px" }} className="text-center">
-                      <span
-                        className="cursor-pointer hover:underline text-[#ff55a5] select-none"
+                      <button
+                        className="btn btn-light-primary btn-sm cursor-pointer select-none"
                         onClick={() => startGame("gap3", "G3")}
                       >
                         Chơi
-                      </span>
+                      </button>
                     </td>
                   )}
                 </tr>

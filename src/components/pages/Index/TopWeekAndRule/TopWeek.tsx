@@ -24,7 +24,7 @@ export const TopWeek = () => {
           <i className="!hl-text bi bi-currency-dollar fs-2x"></i>
           <h5 className="mb-0 ms-2 text-white">ĐẠI GIA TUẦN</h5>
         </div>
-        <div>
+        <div className="overflow-auto">
           <table className="w-100">
             <thead>
               <tr style={{ borderBottom: "1px solid #ffffff0d" }}>
@@ -53,16 +53,25 @@ export const TopWeek = () => {
             <tbody>
               {topWeek.map((top, index) => (
                 <tr className="text-center" key={`top-week-${index}`}>
-                  <td className="text-center py-3">
+                  <td style={{ minWidth: "80px" }} className="text-center py-3">
                     <span>NO{index + 1}</span>
                   </td>
-                  <td className="text-center py-3">
+                  <td
+                    style={{ minWidth: "150px" }}
+                    className="text-center py-3"
+                  >
                     <span>{hiddenText(top.nickname)}</span>
                   </td>
-                  <td className="text-center py-3">
+                  <td
+                    style={{ minWidth: "150px" }}
+                    className="text-center py-3"
+                  >
                     <span>{formatMoney(top.money)}</span>
                   </td>
-                  <td className="text-center py-3">
+                  <td
+                    style={{ minWidth: "150px" }}
+                    className="text-center py-3"
+                  >
                     <span>{formatMoney(top.reward)}</span>
                   </td>
                 </tr>

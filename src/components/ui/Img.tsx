@@ -13,7 +13,7 @@ export const Img = ({ src, alt, size, circle, className, ...props }: Props) => {
   const newClassName = useMemo(() => {
     let cls = "";
     if (size) {
-      cls += " max-w-full max-h-full ";
+      cls += " mw-100 mh-100 ";
     } else {
       cls += " w-auto h-auto ";
     }

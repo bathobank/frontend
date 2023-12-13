@@ -33,7 +33,7 @@ export default function Home({
   const [isOpenModalNotif, setOpenModalNotif] = useState<boolean>(false);
   const gameOpen: string = useSelector(getGameOpen);
   const hasOrderWaitQuery = useHasOrderWaitQuery();
-  const historyWin = useHistoryWin();
+  const historyWin = useHistoryWin(5);
 
   const openModalEnterBank = useCallback(() => {
     if (hasOrderWaitQuery) {
@@ -77,19 +77,21 @@ export default function Home({
   return (
     <GlobalLayout title={title}>
       <div className="app-container">
-        <div className="row mb-5">
-          <div className="col-xl-6">
+        <div className="row">
+          <div className="col-xl-6 mb-5">
             <div className="card h-100">
               <div className="card-body p-0">
-                <div className="d-flex">
-                  <div
-                    className="menu-left d-flex flex-column p-3 gap-2"
-                    style={{
-                      width: "150px",
-                      borderRight: "1px solid #ffffff0d",
-                    }}
-                  >
-                    <GameMenu />
+                <div className="d-flex area-game-detail">
+                  <div className="menu-left overflow-auto">
+                    <div
+                      className="d-flex flex-column p-3 gap-2"
+                      style={{
+                        width: "150px",
+                        borderRight: "1px solid #ffffff0d",
+                      }}
+                    >
+                      <GameMenu />
+                    </div>
                   </div>
                   <div
                     className="menu-right p-3"
@@ -106,7 +108,7 @@ export default function Home({
               </div>
             </div>
           </div>
-          <div className="col-xl-6">
+          <div className="col-xl-6 mb-5">
             <div className="card h-100">
               <div className="card-body p-0">
                 <BankList />
@@ -127,15 +129,15 @@ export default function Home({
             </div>
           </div>
         </div>
-        <div className="row mb-5">
-          <div className="col-lg-6">
+        <div className="row">
+          <div className="col-lg-6 mb-5">
             <div className="card h-100">
               <div className="card-body p-0">
                 <TopWeek />
               </div>
             </div>
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-6 mb-5">
             <div className="card h-100">
               <div className="card-body p-0">
                 <GameRule />

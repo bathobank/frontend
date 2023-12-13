@@ -19,7 +19,7 @@ export default function Jackpot({
   useSystemSetting(systemSettings);
   useUser(userDefault);
 
-  const [jackpot, setJackpot] = useState<string>("00000000");
+  const [jackpot, setJackpot] = useState<string>("0000000");
   const jackpotQuery = useJackpotQuery();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function Jackpot({
       setJackpot(String(jackpotData));
       return;
     }
-    const prefix = Array(8 - String(jackpotData).length)
+    const prefix = Array(7 - String(jackpotData).length)
       .fill("0")
       .join("");
     setJackpot(prefix + jackpotData);

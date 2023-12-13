@@ -46,7 +46,7 @@ export const BankList = () => {
             <table className="w-100">
               <thead>
                 <tr style={{ borderBottom: "1px solid #ffffff0d" }}>
-                  <th scope="col" className="text-left py-3">
+                  <th scope="col" className="text-left py-3 d-none d-sm-block">
                     <span className="fs-xl" style={{ color: "#B5B7C8" }}>
                       Ngân hàng
                     </span>
@@ -78,11 +78,18 @@ export const BankList = () => {
                       }),
                     }}
                   >
-                    <td style={{ width: "130px" }} className="py-3">
+                    <td
+                      style={{ width: "130px" }}
+                      className="py-3 d-none d-sm-block"
+                    >
                       <p className="mb-0">Mã NH: {bank.code}</p>
                       <p className="mb-0">{bank.title}</p>
                     </td>
                     <td style={{ width: "200px" }} className="py-3">
+                      <div className="mb-3 d-sm-none">
+                        <p className="mb-0">Mã NH: {bank.code}</p>
+                        <p className="mb-0">{bank.title}</p>
+                      </div>
                       <HightLightNickname content={bank.number} />
                       <p className="mb-0">{bank.name}</p>
                     </td>
