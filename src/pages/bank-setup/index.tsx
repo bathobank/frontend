@@ -74,22 +74,26 @@ export default function BankSetup({
     }
   }, [setValue, userBankReceive]);
 
-  useEffect(() => {
-    if (
-      typeof query.required === "undefined" ||
-      !query.required ||
-      query.required !== "true"
-    ) {
-      return;
-    }
-    const timeout = setTimeout(() => {
-      toastInfo("Bạn cần cài đặt tài khoản nhận tiền trước khi chơi game!");
-    }, 300);
+  useEffect(
+    () => {
+      if (
+        typeof query.required === "undefined" ||
+        !query.required ||
+        query.required !== "true"
+      ) {
+        return;
+      }
+      const timeout = setTimeout(() => {
+        toastInfo("Bạn cần cài đặt tài khoản nhận tiền trước khi chơi game!");
+      }, 300);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [query, toastInfo]);
+      return () => {
+        clearTimeout(timeout);
+      };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [query.required],
+  );
 
   const onSubmit = useCallback(
     (data: TBankUserForm) => {
