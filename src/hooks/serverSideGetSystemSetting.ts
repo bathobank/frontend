@@ -24,6 +24,17 @@ export const serverSideGetSystemSetting = async ({ req, res }: TContext) => {
     console.log(error.message);
   }
 
+  if (user && !user.has_bank_user) {
+    if (req.url?.indexOf("bank-setup") === -1) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/bank-setup?required=true",
+        },
+      };
+    }
+  }
+
   return {
     props: {
       systemSettings,

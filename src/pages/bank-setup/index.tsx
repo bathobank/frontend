@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 
 import { TBankUserForm } from "@/@types/bank-user";
 import { TSystemSetting } from "@/@types/system-setting";
+import { TUser } from "@/@types/user";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { Button } from "@/components/ui/Button";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
+import { useToast } from "@/hooks/useToast";
+import { useUser } from "@/hooks/useUser";
 import { useBankAllQuery } from "@/queries/bank/all";
 import {
   useUserBankReceive,
@@ -22,17 +25,21 @@ type TOption = {
 
 export default function BankSetup({
   systemSettings,
+  user: userDefault,
 }: {
   systemSettings: TSystemSetting;
+  user?: TUser;
 }) {
   useSystemSetting(systemSettings);
+  useUser(userDefault);
 
   const [banks, setBanks] = useState<TOption[]>([]);
   const bankSelectRef = useRef<HTMLSelectElement>(null);
-  const { push } = useRouter();
+  const { push, query } = useRouter();
   const bankQuery = useBankAllQuery();
   const userBankReceive = useUserBankReceive();
   const userBankReceiveMutation = useUserBankReceiveMutation();
+  const { error: toastInfo } = useToast();
 
   const { handleSubmit, register, setValue, reset } = useForm<TBankUserForm>();
 
@@ -66,6 +73,23 @@ export default function BankSetup({
       }, 500);
     }
   }, [setValue, userBankReceive]);
+
+  useEffect(() => {
+    if (
+      typeof query.required === "undefined" ||
+      !query.required ||
+      query.required !== "true"
+    ) {
+      return;
+    }
+    const timeout = setTimeout(() => {
+      toastInfo("Bạn cần cài đặt tài khoản nhận tiền trước khi chơi game!");
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [query, toastInfo]);
 
   const onSubmit = useCallback(
     (data: TBankUserForm) => {

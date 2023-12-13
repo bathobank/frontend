@@ -44,6 +44,13 @@ export const History = ({
             <table className="w-100">
               <thead>
                 <tr style={{ borderBottom: "1px solid #ffffff0d" }}>
+                  {!showContent && (
+                    <th scope="col" className="py-3 px-1 text-center">
+                      <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                        Nickname
+                      </span>
+                    </th>
+                  )}
                   <th scope="col" className="py-3 px-1 text-center">
                     <span className="fs-xl" style={{ color: "#B5B7C8" }}>
                       Trò chơi
@@ -57,6 +64,11 @@ export const History = ({
                   <th scope="col" className="py-3 px-1 text-center">
                     <span className="fs-xl" style={{ color: "#B5B7C8" }}>
                       Số tiền
+                    </span>
+                  </th>
+                  <th scope="col" className="py-3 px-1 text-center">
+                    <span className="fs-xl" style={{ color: "#B5B7C8" }}>
+                      Nhận được
                     </span>
                   </th>
                   <th scope="col" className="py-3 px-1 text-center">
@@ -100,6 +112,14 @@ export const History = ({
                       }),
                     }}
                   >
+                    {!showContent && (
+                      <td
+                        style={{ minWidth: "70px" }}
+                        className="py-3 px-1 text-center"
+                      >
+                        <span>{history.user.nickname}</span>
+                      </td>
+                    )}
                     <td
                       style={{ minWidth: "70px" }}
                       className="py-3 px-1 text-center"
@@ -121,6 +141,12 @@ export const History = ({
                       className="py-3 px-1 text-center"
                     >
                       <span>{formatMoney(history.money_coming)}</span>
+                    </td>
+                    <td
+                      style={{ minWidth: "120px" }}
+                      className="py-3 px-1 text-center"
+                    >
+                      <span>{formatMoney(history.money_real_bonus)}</span>
                     </td>
                     <td
                       style={{ minWidth: "70px" }}
