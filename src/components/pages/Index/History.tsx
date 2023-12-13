@@ -117,7 +117,7 @@ export const History = ({
                         style={{ minWidth: "70px" }}
                         className="py-3 px-1 text-center"
                       >
-                        <span>{history.user.nickname}</span>
+                        <span>{history.user.nickname.substring(0, 4)}****</span>
                       </td>
                     )}
                     <td
