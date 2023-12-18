@@ -1,4 +1,5 @@
 import axios from "axios";
+import { deleteCookie } from "cookies-next";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -24,6 +25,7 @@ axiosInstance.interceptors.response.use(
     if (!error.response.data) return Promise.reject(error.response);
     if (error.response.status === 401 && typeof window === "object") {
       window.localStorage.removeItem("customer-token");
+      deleteCookie("customer-token");
     }
     return Promise.reject({
       ...error.response.data,
