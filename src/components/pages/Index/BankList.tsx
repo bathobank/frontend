@@ -76,7 +76,7 @@ export const BankList = () => {
                 </td>
                 <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[120px]">
                   <Box>
-                    <Img src={bank.bank.logo} className="h-[45px] m-auto" />
+                    <Img src={bank.bank.logo} className="!h-[45px] m-auto" />
                   </Box>
                 </td>
                 <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[140px]">
