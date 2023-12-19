@@ -203,7 +203,7 @@ export const StartGameModal = ({
       </Box>
       {urlQr !== "" && (
         <Stack justifyContent="center" alignItems="center">
-          <Img src={urlQr} className="w-[300px] max-w-full" />
+          <Img src={urlQr} className="!w-[300px] max-w-full" />
         </Stack>
       )}
     </Modal>
