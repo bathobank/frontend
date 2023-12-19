@@ -40,15 +40,9 @@ export const GameGroup = () => {
         {gameOpen === "cltx2" && <GameCltx2 startGame={startGame} />}
         {gameOpen === "gap3" && <GameGap3 startGame={startGame} />}
         {gameOpen === "tong3so" && <GameTong3So startGame={startGame} />}
-        {gameOpen === "1phan3" && (
-          <Game1Phan3 startGame={startGame} gameData={games["1phan3"]} />
-        )}
-        {gameOpen === "xien" && (
-          <GameXien startGame={startGame} gameData={games.xien} />
-        )}
-        {gameOpen === "doanso" && (
-          <GameDoanSo startGame={startGame} gameData={games.doanso} />
-        )}
+        {gameOpen === "1phan3" && <Game1Phan3 startGame={startGame} />}
+        {gameOpen === "xien" && <GameXien startGame={startGame} />}
+        {gameOpen === "doanso" && <GameDoanSo startGame={startGame} />}
       </Box>
       <StartGameModal
         isOpen={openModalStartGame}
