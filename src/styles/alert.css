@@ -1,0 +1,31 @@
+body .alert-ui {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+body .alert-ui-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d
+}
+
+body .alert-ui-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f
+}
+
+body .alert-ui-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b
+}
+
+body .alert-ui-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}

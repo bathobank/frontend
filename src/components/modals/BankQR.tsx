@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
+import { Stack } from "@mui/material";
+
 import { Img } from "@/components/ui/Img";
 import { Modal } from "@/components/ui/Modal";
 
@@ -12,21 +12,17 @@ type Props = {
 
 export const BankQRModal = ({ isOpen, onClose, bank_qr }: Props) => {
   return (
-    <Modal id="bank-qr-modal" isOpen={isOpen} title="Bank QR" onClose={onClose}>
-      <Flex justify="center" className="py-5">
+    <Modal
+      id="bank-qr-modal"
+      isOpen={isOpen}
+      onClose={onClose}
+      title="QR nhận tiền"
+    >
+      <Stack direction="row" justifyContent="center">
         {bank_qr !== "" && (
-          <Img src={bank_qr} className="w-[450px] max-w-full" />
+          <Img src={bank_qr} className="!w-[400px] !max-w-full !h-full" />
         )}
-      </Flex>
-      <Flex
-        items="center"
-        justify="center"
-        className="p-6 border-t border-gray-200 rounded-b dark:border-gray-600 gap-[10px]"
-      >
-        <Button variant="light" onClick={onClose}>
-          Close
-        </Button>
-      </Flex>
+      </Stack>
     </Modal>
   );
 };

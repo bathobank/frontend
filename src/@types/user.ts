@@ -5,6 +5,7 @@ export type TUser = {
   created_at: string;
   telegram_id?: string;
   money_daily: number;
+  has_bank_user?: boolean;
 };
 
 export type TUserQuery = {

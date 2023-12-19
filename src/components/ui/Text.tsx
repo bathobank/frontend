@@ -34,7 +34,7 @@ const textVariants = cva("m-0 not-italic tracking-normal leading-none", {
   },
   defaultVariants: {
     size: "base",
-    col: "white",
+    col: "black",
     weight: "light",
   },
 });

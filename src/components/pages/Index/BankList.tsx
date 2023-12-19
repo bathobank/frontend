@@ -1,14 +1,16 @@
-import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import QrCode2RoundedIcon from "@mui/icons-material/QrCode2Rounded";
+import { Box, Stack } from "@mui/material";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { TBank } from "@/@types/bank";
 import { BankQRModal } from "@/components/modals/BankQR";
-import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { Text } from "@/components/ui/Text";
+import { DangerAlert } from "@/components/ui/DangerAlert";
+import { Img } from "@/components/ui/Img";
+import { Table } from "@/components/ui/Table";
 import { useToast } from "@/hooks/useToast";
+import { useUser } from "@/hooks/useUser";
 import { useBankReceiveQuery } from "@/queries/bank/receive";
 import { copyContent, formatMoney } from "@/utils/helper";
 import { cn } from "@/utils/ui";
@@ -21,6 +23,7 @@ export const BankList = () => {
   const [bankReceives, setBankReceives] = useState<TBank[]>([]);
   const toast = useToast();
   const bankReceiveQuery = useBankReceiveQuery();
+  const { isLogined } = useUser();
 
   useEffect(() => {
     if (bankReceiveQuery) {
@@ -42,88 +45,81 @@ export const BankList = () => {
     setOpenBankQrModal(true);
   };
 
+  const headerTable: Array<string> = [
+    "QR",
+    "Ngân hàng",
+    "STK",
+    "Tên CTK",
+    "Tối thiểu",
+    "Tối đa",
+  ];
+
   return (
-    <Box>
-      <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
-        <AccountBalanceRoundedIcon className="text-[#ff55a5]" />
-        <Text custom={true} className="ml-2 text-white">
-          THÔNG TIN BANK NHẬN
-        </Text>
-      </Flex>
-      <Box className="p-3">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-b-[#ffffff0d]">
-              <th scope="col" className="text-left py-3">
-                <Text className="text-[#c7c7c7]">Ngân hàng</Text>
-              </th>
-              <th scope="col" className="text-left py-3">
-                <Text className="text-[#c7c7c7]">Tài khoản</Text>
-              </th>
-              <th scope="col" className="text-left py-3">
-                <Text className="text-[#c7c7c7]">Cược</Text>
-              </th>
-              <th scope="col" className="py-3">
-                <Text className="text-[#c7c7c7]">QR</Text>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+    <>
+      <Table headers={headerTable}>
+        {isLogined ? (
+          <>
             {bankReceives.map((bank, index) => (
               <tr
                 key={`tr-bank-list-${index}`}
                 className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : "")}
               >
-                <td className="py-3 w-[130px]">
-                  <Text size="sm">Mã NH: {bank.code}</Text>
-                  <Text size="sm">{bank.title}</Text>
-                </td>
-                <td className="py-3 w-[100px] sm:w-[150px]">
-                  <Flex
-                    className="cursor-pointer select-none"
-                    onClick={() => triggerCopyContent(bank.number)}
-                  >
-                    <Text size="sm" custom={true} className="mr-1">
-                      {bank.number}
-                    </Text>
-                    <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
-                  </Flex>
-                  <Text size="sm">{bank.name}</Text>
-                </td>
-                <td className="py-3">
-                  <Text size="sm">
-                    Min:{" "}
-                    <span className="text-[#ff55a5]">
-                      {formatMoney(bank.min)}
-                    </span>
-                  </Text>
-                  <Text size="sm">
-                    Max:{" "}
-                    <span className="text-[#ff55a5]">
-                      {formatMoney(bank.max)}
-                    </span>
-                  </Text>
-                </td>
-                <td className="min-w-[50px] text-center">
-                  <Flex justify="center">
+                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[60px]">
+                  <Stack direction="row" justifyContent="center">
                     <Box
                       className="p-1 bg-[#ff55a51a] rounded cursor-pointer"
                       onClick={() => triggerOpenBankQrModal(bank)}
                     >
                       <QrCode2RoundedIcon className="text-[#5bceae]" />
                     </Box>
-                  </Flex>
+                  </Stack>
+                </td>
+                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[120px]">
+                  <Box>
+                    <Img src={bank.bank.logo} className="h-[45px] m-auto" />
+                  </Box>
+                </td>
+                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[140px]">
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    className="cursor-pointer select-none"
+                    onClick={() => triggerCopyContent(bank.number)}
+                  >
+                    {bank.number}
+                    <ContentCopyRoundedIcon className="!text-[18px] text-[#ff55a5]" />
+                  </Stack>
+                </td>
+                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[160px]">
+                  {bank.name}
+                </td>
+                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[100px]">
+                  {formatMoney(bank.min)}
+                </td>
+                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[120px]">
+                  {formatMoney(bank.max)}
                 </td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </Box>
+          </>
+        ) : (
+          <tr>
+            <td colSpan={6}>
+              <DangerAlert className="text-center !rounded-t-[0px]">
+                ĐỂ LẤY THÔNG TIN BANK CHUYỂN KHOẢN, VUI LÒNG{" "}
+                <Link href="/auth/login">ĐĂNG NHẬP</Link> HOẶC{" "}
+                <Link href="/auth/register">ĐĂNG KÝ</Link> NHANH
+              </DangerAlert>
+            </td>
+          </tr>
+        )}
+      </Table>
       <BankQRModal
         isOpen={isOpenBankQrModal}
         onClose={() => setOpenBankQrModal(false)}
         bank_qr={bankInfoOpen?.bank_qr ?? ""}
       />
-    </Box>
+    </>
   );
 };

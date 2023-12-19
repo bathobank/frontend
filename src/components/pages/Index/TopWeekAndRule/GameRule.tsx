@@ -1,18 +1,20 @@
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import { Box, Stack } from "@mui/material";
 
-import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
 import { Text } from "@/components/ui/Text";
 
 export const GameRule = () => {
   return (
     <Box>
-      <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
+      <Stack
+        direction="row"
+        className="px-3 py-5 border-b border-b-[#ffffff0d]"
+      >
         <EngineeringIcon className="text-[#ff55a5]" />
         <Text custom={true} className="ml-2 text-white">
           QUY ĐỊNH LUẬT CHƠI
         </Text>
-      </Flex>
+      </Stack>
       <Box className="space-y-3 p-3">
         <Text>
           1. Hệ thống chẵn lẻ bank tính theo kết quả mã giao dịch của bạn nếu

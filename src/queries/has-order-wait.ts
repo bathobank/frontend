@@ -15,7 +15,7 @@ export const useHasOrderWaitQuery = (): THasOrderWaitResponse | undefined => {
     queryKey: [HAS_ORDER_WAIT_QK],
     queryFn: () => hasOrderWaitQuery(),
     retry: 0,
-    staleTime: 5000,
+    staleTime: Infinity,
   });
   return data;
 };

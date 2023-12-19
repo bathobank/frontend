@@ -68,6 +68,9 @@ const config: Config = {
       boxShadow: {
         normal: "0 0 4px 1px rgba(0, 0, 0, 0.2)",
       },
+      translate: {
+        center: "-50%",
+      },
     },
   },
   plugins: [require("flowbite/plugin"), require("tailwindcss-animate")],

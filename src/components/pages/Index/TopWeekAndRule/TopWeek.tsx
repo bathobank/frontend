@@ -1,10 +1,8 @@
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { TTopWeek } from "@/@types/top-week";
-import { Box } from "@/components/ui/Box";
-import { Flex } from "@/components/ui/Flex";
-import { Text } from "@/components/ui/Text";
+import { Table } from "@/components/ui/Table";
 import { useTopWeekQuery } from "@/queries/top-week";
 import { formatMoney, hiddenText } from "@/utils/helper";
 
@@ -18,69 +16,33 @@ export const TopWeek = () => {
     }
   }, [topWeekQuery]);
 
+  const headerTable = ["HẠNG", "NICKNAME", "TỔNG CƯỢC", "PHẦN THƯỞNG"];
+
   return (
     <Box>
-      <Flex className="px-3 py-5 border-b border-b-[#ffffff0d]">
-        <AttachMoneyIcon className="text-[#ff55a5]" />
-        <Text custom={true} className="ml-2 text-white">
-          ĐẠI GIA TUẦN
-        </Text>
-      </Flex>
-      <Box>
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-b-[#ffffff0d]">
-              <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">
-                  HẠNG
-                </Text>
-              </th>
-              <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">
-                  NICKNAME
-                </Text>
-              </th>
-              <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">
-                  TỔNG CƯỢC
-                </Text>
-              </th>
-              <th scope="col" className="py-3">
-                <Text size="xs" className="text-[#c7c7c7]">
-                  PHẦN THƯỞNG
-                </Text>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {topWeek.map((top, index) => (
-              <tr className="text-center" key={`top-week-${index}`}>
-                <td className="py-3">
-                  <Text size="sm">NO{index + 1}</Text>
-                </td>
-                <td className="py-3">
-                  <Text size="sm">{hiddenText(top.nickname)}</Text>
-                </td>
-                <td className="py-3">
-                  <Text size="sm">{formatMoney(top.money)}</Text>
-                </td>
-                <td className="py-3">
-                  <Text size="sm">{formatMoney(top.reward)}</Text>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Box>
-      <Box className="py-5">
-        <Text className="italic text-[12px] text-center mb-3">
-          PHẦN THƯỞNG TOP SẼ ĐƯỢC TRAO VÀO{" "}
-          <span className="text-[#ff55a5]">00:00</span> THỨ{" "}
-          <span className="text-[#ff55a5]">2</span> TUẦN TIẾP THEO.
-        </Text>
-        {/*<Text className="italic text-[12px] text-center">*/}
-        {/*  VUI LÒNG KIỂM TRA LỊCH SỬ GIAO DỊCH <span className="text-[#ff55a5]">THUONGTOP</span> ĐỂ TRẢ THƯỞNG*/}
-        {/*</Text>*/}
+      <h3 className="mb-2 text-center">TOP ĐẠI GIA TUẦN</h3>
+      <Table headers={headerTable}>
+        {topWeek.map((top, index) => (
+          <tr className="text-center" key={`top-week-${index}`}>
+            <td className="py-[8px] px-[4px] border border-[#ddd] text-center">
+              NO{index + 1}
+            </td>
+            <td className="py-[8px] px-[4px] border border-[#ddd] text-center">
+              {hiddenText(top.nickname)}
+            </td>
+            <td className="py-[8px] px-[4px] border border-[#ddd] text-center">
+              {formatMoney(top.money)}
+            </td>
+            <td className="py-[8px] px-[4px] border border-[#ddd] text-center">
+              {formatMoney(top.reward)}
+            </td>
+          </tr>
+        ))}
+      </Table>
+      <Box className="py-5 text-center">
+        <b className="text-[#a94442]">
+          Phần thưởng TOP sẽ được trao vào 0:00 Thứ hai.
+        </b>
       </Box>
     </Box>
   );

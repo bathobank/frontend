@@ -1,26 +1,25 @@
-import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
+import { Box } from "@mui/material";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 
+import { TPageProp } from "@/@types/page-prop";
 import { TChangePwForm } from "@/@types/password";
-import { TSystemSetting } from "@/@types/system-setting";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Box } from "@/components/ui/Box";
-import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
+import { Card } from "@/components/ui/Card";
+import { DangerButton } from "@/components/ui/DangerButton";
 import { Input } from "@/components/ui/Input";
-import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useSystemSetting } from "@/hooks/useSystemSetting";
+import { useUser } from "@/hooks/useUser";
 import { useChangePasswordMutation } from "@/queries/auth/change-password";
 import { AUTH_GET_USER_QK } from "@/queries/auth/user";
 import { defaultOptionReactQueryResponse } from "@/utils/helper";
 
-export default function ChangePassword({
-  systemSettings,
-}: {
-  systemSettings: TSystemSetting;
-}) {
+export default function ChangePassword({ systemSettings, user }: TPageProp) {
+  useSystemSetting(systemSettings);
+  useUser(user);
+
   const changePasswordMutation = useChangePasswordMutation();
   const { push } = useRouter();
   const queryClient = useQueryClient();
@@ -39,43 +38,33 @@ export default function ChangePassword({
   };
 
   return (
-    <GlobalLayout
-      showHeader={false}
-      title="Đổi mật khẩu"
-      systemSettings={systemSettings}
-    >
-      <Box className="rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal mt-5 px-3">
-        <Flex justify="center" className="border-b border-[#ffffff0d] py-3">
-          <ManageAccountsRoundedIcon className="text-[#ff55a5] mr-3" />
-          <Text custom={true}>ĐỔI MẬT KHẨU</Text>
-        </Flex>
-        <Box className="py-3">
-          <Box className="w-full max-w-[550px] m-auto">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-              <Input
-                type="password"
-                label="Mật khẩu hiện tại"
-                id="current_password"
-                {...register("current_password")}
-              />
-              <Input
-                type="password"
-                label="Mật khẩu mới"
-                id="new_password"
-                {...register("new_password")}
-              />
-              <Input
-                type="password"
-                label="Nhập lại mật khẩu mới"
-                id="new_password_confirm"
-                {...register("new_password_confirm")}
-              />
-              <Button variant="theme" fullWidth={true} type="submit">
-                Đổi mật khẩu
-              </Button>
-            </form>
-          </Box>
-        </Box>
+    <GlobalLayout>
+      <Box className="w-full max-w-[550px] m-auto">
+        <Card title="ĐỔI MẬT KHẨU">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+            <Input
+              type="password"
+              label="Mật khẩu hiện tại"
+              id="current_password"
+              {...register("current_password")}
+            />
+            <Input
+              type="password"
+              label="Mật khẩu mới"
+              id="new_password"
+              {...register("new_password")}
+            />
+            <Input
+              type="password"
+              label="Nhập lại mật khẩu mới"
+              id="new_password_confirm"
+              {...register("new_password_confirm")}
+            />
+            <Box textAlign="center">
+              <DangerButton type="submit">Đổi mật khẩu</DangerButton>
+            </Box>
+          </form>
+        </Card>
       </Box>
     </GlobalLayout>
   );

@@ -1,4 +1,5 @@
-import { Box } from "@/components/ui/Box";
+import { Box } from "@mui/material";
+
 import { forwardRefWithAs } from "@/utils/forwardRefWithAs";
 import { uuidv4 } from "@/utils/helper";
 import { cn } from "@/utils/ui";
@@ -21,10 +22,7 @@ export const Input = forwardRefWithAs<"input", Props>((props, ref) => {
   return (
     <Box>
       {label && (
-        <label
-          className="block mb-2 text-sm font-medium text-white"
-          htmlFor={inputId}
-        >
+        <label className="block mb-2 text-sm font-medium" htmlFor={inputId}>
           {label}
         </label>
       )}

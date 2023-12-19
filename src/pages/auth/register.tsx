@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,24 +9,23 @@ import {
   TApiSuccessResponse,
   TParamError,
 } from "@/@types/axios";
-import { TSystemSetting } from "@/@types/system-setting";
+import { TPageProp } from "@/@types/page-prop";
 import { TUserCreate } from "@/@types/user";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { Box } from "@/components/ui/Box";
-import { Button } from "@/components/ui/Button";
+import { DefaultButton } from "@/components/ui/DefaultButton";
 import { Input } from "@/components/ui/Input";
-import { LinkUI } from "@/components/ui/Link";
 import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
+import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useToast } from "@/hooks/useToast";
+import { useUser } from "@/hooks/useUser";
 import { useAuthRegisterMutation } from "@/queries/auth/register";
 import { buildErrorParam } from "@/utils/helper";
 
-export default function AuthRegister({
-  systemSettings,
-}: {
-  systemSettings: TSystemSetting;
-}) {
+export default function AuthRegister({ systemSettings, user }: TPageProp) {
+  useSystemSetting(systemSettings);
+  useUser(user);
+
   const [isRequesting, setRequesting] = useState<boolean>(false);
   const authRegisterMutate = useAuthRegisterMutation();
   const toast = useToast();
@@ -64,71 +65,80 @@ export default function AuthRegister({
   };
 
   return (
-    <GlobalLayout
-      showHeader={false}
-      title="Đăng ký"
-      systemSettings={systemSettings}
-    >
-      <Box className="w-full lg:w-1/2 mx-auto mt-10 rounded-lg bg-[#28282d] border border-[#ffffff0d] shadow-normal">
-        <Box className="w-full rounded-lg shadow">
-          <Box className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <Text align="center" className="text-xl">
-              Đăng ký tài khoản
-            </Text>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Box className="mb-3">
-                <Input
-                  id="nickname"
-                  label="Nickname"
-                  {...register("nickname", { required: true })}
-                />
-                {errors.nickname && (
-                  <Text size="sm" col="red" className="italic !mt-1">
-                    Hãy nhập Nickname
-                  </Text>
-                )}
-              </Box>
-              <Box className="mb-3">
-                <Input
-                  id="password"
-                  label="Mật khẩu"
-                  type="password"
-                  {...register("password", { required: true })}
-                />
-                {errors.password && (
-                  <Text size="sm" col="red" className="italic !mt-1">
-                    Mật khẩu không được trống
-                  </Text>
-                )}
-              </Box>
-              <Box className="mb-5">
-                <Input
-                  id="password_confirm"
-                  label="Nhập lại mật khẩu"
-                  type="password"
-                  {...register("password_confirm", { required: true })}
-                />
-                {errors.password_confirm && (
-                  <Text size="sm" col="red" className="italic !mt-1">
-                    Hãy nhập lại mật khẩu
-                  </Text>
-                )}
-              </Box>
-              <Button
-                type="submit"
-                fullWidth={true}
-                variant="theme"
-                disabled={isRequesting}
-                className="mb-3"
-              >
+    <GlobalLayout isAuth={true}>
+      <Box
+        borderColor="#2c2c83"
+        borderRadius="4px"
+        overflow="hidden"
+        className="w-full lg:w-1/2 mx-auto border border-[#2c2c83]"
+      >
+        <Box
+          bgcolor="#2c2c83"
+          borderColor="#2c2c83"
+          color="#ffffff"
+          p="8px 12px"
+          fontSize="14px"
+          textTransform="uppercase"
+          textAlign="center"
+        >
+          ĐĂNG KÝ TÀI KHOẢN
+        </Box>
+        <Box
+          p="10px 15px 20px 15px"
+          border="1px solid #2c2c83"
+          sx={{
+            borderBottomLeftRadius: "4px",
+            borderBottomRightRadius: "4px",
+          }}
+        >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box className="mb-2">
+              <Input
+                id="nickname"
+                placeholder="Tài khoản"
+                {...register("nickname", { required: true })}
+              />
+              {errors.nickname && (
+                <Text size="sm" col="red" className="italic !mt-1">
+                  Hãy nhập Tài khoản
+                </Text>
+              )}
+            </Box>
+            <Box className="mb-2">
+              <Input
+                id="password"
+                placeholder="Mật khẩu"
+                type="password"
+                {...register("password", { required: true })}
+              />
+              {errors.password && (
+                <Text size="sm" col="red" className="italic !mt-1">
+                  Mật khẩu không được trống
+                </Text>
+              )}
+            </Box>
+            <Box className="mb-2">
+              <Input
+                id="password_confirm"
+                placeholder="Nhập lại mật khẩu"
+                type="password"
+                {...register("password_confirm", { required: true })}
+              />
+              {errors.password_confirm && (
+                <Text size="sm" col="red" className="italic !mt-1">
+                  Hãy nhập lại mật khẩu
+                </Text>
+              )}
+            </Box>
+            <Box className="mb-2 text-center">
+              <DefaultButton type="submit" disabled={isRequesting}>
                 Đăng ký
-              </Button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-                Bạn đã có tài khoản?{" "}
-                <LinkUI href="/auth/login">Đăng nhập</LinkUI>
-              </p>
-            </form>
-          </Box>
+              </DefaultButton>
+            </Box>
+            <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
+              Bạn đã có tài khoản? <Link href="/auth/login">Đăng nhập</Link>
+            </p>
+          </form>
         </Box>
       </Box>
     </GlobalLayout>

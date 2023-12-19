@@ -1,12 +1,11 @@
+import { Box, Stack } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import ReactSelect from "react-select";
 
-import { Box } from "@/components/ui/Box";
-import { Button } from "@/components/ui/Button";
-import { Flex } from "@/components/ui/Flex";
 import { Img } from "@/components/ui/Img";
 import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
+import { SuccessButton } from "@/components/ui/SuccessButton";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import { useBankReceiveQuery } from "@/queries/bank/receive";
@@ -57,7 +56,7 @@ export const StartGameModal = ({
       const bankSelectData: TBankOption[] = [];
       for (const bank of bankReceiveData) {
         bankSelectData.push({
-          label: bank.bank.code,
+          label: `${bank.bank.short_name} - ${bank.number}`,
           code: bank.bank.code,
           value: bank.bank.bin,
           name: bank.name,
@@ -125,17 +124,26 @@ export const StartGameModal = ({
   };
 
   const generateQrGame = () => {
-    if (!user) return;
-    if (formData.money === 0 || !formData.bank) {
-      toast.error("Hãy chọn ngân hàng và nhập số tiền!");
+    if (!user || !document) return;
+
+    if (!formData.bank) {
+      toast.error("Hãy chọn ngân hàng nhận!");
       return;
     }
+
+    if (formData.money === 0) {
+      toast.error("Hãy nhập số tiền!");
+      return;
+    }
+
+    const bankData = formData.bank;
+
     let qrFormat = "";
-    if (formData.bank.code === "TCB") {
+    if (bankData.code === "TCB") {
       qrFormat = "ElYgubG";
-    } else if (formData.bank.code === "VCB") {
+    } else if (bankData.code === "VCB") {
       qrFormat = "lvejI6J";
-    } else if (formData.bank.code === "MB") {
+    } else if (bankData.code === "MB") {
       qrFormat = "MuJWKcH";
     }
     if (qrFormat === "") {
@@ -143,7 +151,7 @@ export const StartGameModal = ({
       return;
     }
     const mgs = `${user.nickname} ${gameType}`;
-    const url = `https://api.vietqr.io/image/${formData.bank.value}-${formData.bank.number}-${qrFormat}.png?accountName=${formData.bank.name}&amount=${formData.money}&addInfo=${mgs}`;
+    const url = `https://api.vietqr.io/image/${bankData.value}-${bankData.number}-${qrFormat}.png?accountName=${bankData.name}&amount=${formData.money}&addInfo=${mgs}`;
     setUrlQr(url);
     setDisableBtnGenQr(true);
     setTimeout(() => {
@@ -155,61 +163,49 @@ export const StartGameModal = ({
     <Modal
       id="start-game-modal"
       isOpen={isOpen}
-      title={`Chơi game - ${gameGroup.toUpperCase()} - ${gameType.toUpperCase()}`}
       onClose={onClose}
+      title={`Chơi game - ${gameGroup} - ${gameType.toUpperCase()}`}
     >
-      <Box className="p-5">
-        <Box>
-          <Flex wrap="wrap" justify="between">
-            <ReactSelect
-              className="text-sm w-full lg:w-[49%] mb-3"
-              classNamePrefix="select"
-              isDisabled={false}
-              isClearable={false}
-              isSearchable={true}
-              id="bank_start_game"
-              noOptionsMessage={() => "Không có ngân hàng phù hợp"}
-              options={bankSelects}
-              value={formData.bank}
-              inputId="bank_start_game"
-              instanceId="instance_bank_start_game"
-              placeholder="Chọn ngân hàng nhận chuyển khoản"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              onChange={setBankSelected}
-            />
-            <Box className="w-full lg:w-[49%] mb-3">
-              <Input
-                placeholder="Nhập số tiền chơi"
-                ref={inputAmount}
-                id="input_amount"
-              />
-            </Box>
-          </Flex>
-          <Box className="text-center">
-            <Button
-              variant="theme"
-              className="w-[60%] min-w-[200px]"
-              onClick={generateQrGame}
-              disabled={disableButtonGenQr}
-            >
-              Tạo mã QR
-            </Button>
-          </Box>
+      <Box mb={2}>
+        <ReactSelect
+          className="text-sm w-full mb-3"
+          classNamePrefix="select"
+          isDisabled={false}
+          isClearable={false}
+          isSearchable={true}
+          id="bank_start_game"
+          noOptionsMessage={() => "Không có ngân hàng phù hợp"}
+          options={bankSelects}
+          value={formData.bank}
+          inputId="bank_start_game"
+          instanceId="instance_bank_start_game"
+          placeholder="Chọn ngân hàng nhận chuyển khoản"
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          onChange={setBankSelected}
+        />
+        <Box className="w-full mb-3">
+          <Input
+            placeholder="Nhập số tiền chơi"
+            ref={inputAmount}
+            id="input_amount"
+          />
         </Box>
-        <Flex justify="center" className="py-3">
-          {urlQr !== "" && <Img src={urlQr} className="w-[400px] max-w-full" />}
-        </Flex>
+        <Box className="text-center">
+          <SuccessButton
+            className="w-[60%] min-w-[200px]"
+            onClick={generateQrGame}
+            disabled={disableButtonGenQr}
+          >
+            Tạo mã QR
+          </SuccessButton>
+        </Box>
       </Box>
-      <Flex
-        items="center"
-        justify="center"
-        className="p-6 border-t border-gray-200 rounded-b dark:border-gray-600 gap-[10px]"
-      >
-        <Button variant="light" onClick={onClose}>
-          Close
-        </Button>
-      </Flex>
+      {urlQr !== "" && (
+        <Stack justifyContent="center" alignItems="center">
+          <Img src={urlQr} className="w-[300px] max-w-full" />
+        </Stack>
+      )}
     </Modal>
   );
 };

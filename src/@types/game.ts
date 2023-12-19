@@ -28,3 +28,10 @@ export type TGame = {
   };
   xien: Record<string, TTypeGameSum2End>;
 };
+
+export type TGameDetailData = { key: string; ends: string[]; ratio: number }[];
+export type TGameGap3Data = {
+  ends: string[];
+  ratio: number;
+  type: number;
+}[];
