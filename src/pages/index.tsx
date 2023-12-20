@@ -61,7 +61,9 @@ export default function Home({ systemSettings, user }: TPageProp) {
           <Link href="/daily-mission">
             <DangerButton>Nhiệm vụ ngày</DangerButton>
           </Link>
-          <DangerButton disabled={true}>Kênh phát code</DangerButton>
+          <Link href={systemSettings["box-giftcode-link"]} target="_blank">
+            <DangerButton>Kênh phát code</DangerButton>
+          </Link>
         </Stack>
         <Stack
           gap="2px"
@@ -73,8 +75,12 @@ export default function Home({ systemSettings, user }: TPageProp) {
           <SuccessButton onClick={() => openModalNotification()}>
             THÔNG BÁO
           </SuccessButton>
-          <InfoButton>BOX TELEGRAM</InfoButton>
-          <WarningButton>Hướng Dẫn</WarningButton>
+          <Link href={systemSettings["box-chat-link"]} target="_blank">
+            <InfoButton>BOX TELEGRAM</InfoButton>
+          </Link>
+          <Link href={systemSettings["guide-link"]} target="_blank">
+            <WarningButton>Hướng Dẫn</WarningButton>
+          </Link>
         </Stack>
         <Card title="CÁCH CHƠI">
           <Stack gap={2}>

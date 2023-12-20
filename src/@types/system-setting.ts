@@ -8,6 +8,8 @@ export type TSystemSetting = {
   logo: string;
   notification: string;
   "box-chat-link": string;
+  "box-giftcode-link": string;
+  "guide-link": string;
   games: TGame;
 };
 
