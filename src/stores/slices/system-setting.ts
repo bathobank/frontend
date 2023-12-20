@@ -10,6 +10,8 @@ const initialState: TSystemSettingState = {
     logo: "",
     author_name: "",
     "box-chat-link": "",
+    "box-giftcode-link": "",
+    "guide-link": "",
     suffix_title: "",
     icon: "",
     notification: "",
