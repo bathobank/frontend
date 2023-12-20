@@ -40,8 +40,8 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
         <link rel="shortcut icon" href={systemSettings.icon} />
       </Head>
       <Box position="relative">
-        <Box bgcolor="#2c2c83" className="md:h-[50px] h-[30px]" />
-        <Box bgcolor="#2c2c83a3" className="md:h-[150px] h-[100px]" />
+        <Box bgcolor="#2c2c83" className="md:h-[50px] h-[130px]" />
+        <Box bgcolor="#2c2c83a3" className="md:h-[150px] hidden md:block" />
         <Box bgcolor="#ffffff" className="h-[10px]" />
         <Link href="/">
           <Container

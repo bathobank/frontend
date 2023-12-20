@@ -143,7 +143,7 @@ export const History = ({
                     </td>
                   </>
                 )}
-                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[100px]">
+                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[160px]">
                   <Text size="sm">{history.game_time}</Text>
                 </td>
               </tr>
