@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactSelect from "react-select";
 
-import { TBankUserForm } from "@/@types/bank-user";
+import { TBankUser, TBankUserForm } from "@/@types/bank-user";
 import { TPageProp } from "@/@types/page-prop";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
-import { InfoAlert } from "@/components/ui/Alert";
+import { DangerAlert, InfoAlert } from "@/components/ui/Alert";
 import { DefaultButton } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -36,6 +36,7 @@ export default function BankSetup({ systemSettings, user }: TPageProp) {
   const [bankSelected, setBankSelected] = useState<TOption | null>(null);
   const { push, query } = useRouter();
   const bankQuery = useBankAllQuery();
+  const [bankUser, setBankUser] = useState<TBankUser | null>(null);
   const userBankReceive = useUserBankReceive();
   const userBankReceiveMutation = useUserBankReceiveMutation();
   const { error: toastInfo } = useToast();
@@ -64,6 +65,7 @@ export default function BankSetup({ systemSettings, user }: TPageProp) {
     if (bankUser) {
       setValue("bank_number", bankUser.bank_number);
       setValue("bank_owner", bankUser.bank_owner);
+      setBankUser(bankUser);
     }
   }, [setValue, userBankReceive]);
 
@@ -113,6 +115,12 @@ export default function BankSetup({ systemSettings, user }: TPageProp) {
       <Box className="w-full max-w-[450px] m-auto">
         <Card title="CẬP NHẬT NGÂN HÀNG">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            {bankUser?.looked === 1 && (
+              <DangerAlert>
+                Tài khoản ngân hàng đang được bảo vệ. Nếu muốn thay đổi, hãy
+                liên hệ ADMIN!
+              </DangerAlert>
+            )}
             <Box>
               <Box className="mb-2">
                 <label
@@ -128,7 +136,7 @@ export default function BankSetup({ systemSettings, user }: TPageProp) {
               <ReactSelect
                 className="text-sm"
                 classNamePrefix="select"
-                isDisabled={false}
+                isDisabled={bankUser?.looked === 1}
                 isClearable={false}
                 isSearchable={true}
                 id="bank_receive"
@@ -151,15 +159,19 @@ export default function BankSetup({ systemSettings, user }: TPageProp) {
             <Input
               label="Số tài khoản"
               id="bank_number"
+              disabled={bankUser?.looked === 1}
               {...register("bank_number")}
             />
             <Input
               label="Tên chủ tài khoản"
               id="bank_owner"
+              disabled={bankUser?.looked === 1}
               {...register("bank_owner")}
             />
             <Box textAlign="center">
-              <DefaultButton type="submit">Cập nhật</DefaultButton>
+              <DefaultButton type="submit" disabled={bankUser?.looked === 1}>
+                Cập nhật
+              </DefaultButton>
             </Box>
           </form>
           <Box className="py-5">
