@@ -49,7 +49,7 @@ export default function Home({ systemSettings, user }: TPageProp) {
       <GlobalLayout>
         <GameList />
         <Stack
-          gap={1}
+          gap="2px"
           direction="row"
           m="auto"
           flexWrap="wrap"
@@ -64,7 +64,7 @@ export default function Home({ systemSettings, user }: TPageProp) {
           <DangerButton disabled={true}>Kênh phát code</DangerButton>
         </Stack>
         <Stack
-          gap={1}
+          gap="2px"
           direction="row"
           m="auto"
           flexWrap="wrap"

@@ -257,7 +257,7 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
             },
           }}
         >
-          <Stack gap={3}>
+          <Stack className="gap-3 md:gap-5">
             <Box>
               <h3 className="text-center">
                 Chẵn Lẻ Bank - {systemSettings.author_name}
