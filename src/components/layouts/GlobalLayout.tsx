@@ -61,7 +61,7 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
               <img
                 src={systemSettings.logo}
                 alt="Banner"
-                style={{ height: "100%", width: "100%", margin: "auto" }}
+                style={{ height: "100%", margin: "auto" }}
               />
             </picture>
           </Container>
