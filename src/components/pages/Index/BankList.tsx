@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { TBank } from "@/@types/bank";
 import { BankQRModal } from "@/components/modals/BankQR";
-import { DangerAlert } from "@/components/ui/DangerAlert";
+import { DangerAlert } from "@/components/ui/Alert";
 import { Img } from "@/components/ui/Img";
 import { Table } from "@/components/ui/Table";
 import { useToast } from "@/hooks/useToast";

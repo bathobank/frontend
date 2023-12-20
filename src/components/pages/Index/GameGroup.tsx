@@ -10,27 +10,35 @@ import { GameDoanSo } from "@/components/pages/Index/Game/doanso";
 import { GameGap3 } from "@/components/pages/Index/Game/gap3";
 import { GameTong3So } from "@/components/pages/Index/Game/tong3so";
 import { GameXien } from "@/components/pages/Index/Game/xien";
-import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { getGameOpen } from "@/stores/slices/game";
 
+type TGameSelected = {
+  type: string;
+  group: string;
+};
+
 export const GameGroup = () => {
-  const [openModalStartGame, setOpenModalStartGame] = useState<boolean>(false);
-  const [gameTypeSelected, setGameTypeSelected] = useState<string>("");
-  const [gameGroupSelected, setGameGroupSelected] = useState<string>("");
   const gameOpen = useSelector(getGameOpen);
-  const {
-    settings: { games },
-  } = useSystemSetting();
+  const [openModalStartGame, setOpenModalStartGame] = useState<boolean>(false);
+  const [gameSelected, setGameSelected] = useState<TGameSelected>({
+    group: "",
+    type: "",
+  });
 
   const startGame = (gameGroup: string, gameType: string) => {
-    setGameGroupSelected(gameGroup);
-    setGameTypeSelected(gameType);
+    setGameSelected({
+      group: gameGroup,
+      type: gameType,
+    });
     setOpenModalStartGame(true);
   };
 
   const endGame = () => {
-    setGameTypeSelected("");
     setOpenModalStartGame(false);
+    setGameSelected({
+      group: "",
+      type: "",
+    });
   };
 
   return (
@@ -46,8 +54,8 @@ export const GameGroup = () => {
       </Box>
       <StartGameModal
         isOpen={openModalStartGame}
-        gameType={gameTypeSelected}
-        gameGroup={gameGroupSelected}
+        gameType={gameSelected.type}
+        gameGroup={gameSelected.group}
         onClose={endGame}
       />
     </>

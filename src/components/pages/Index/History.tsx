@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { THistories, THistoriesQuery } from "@/@types/history";
 import { SaoKeModal } from "@/components/modals/SaoKe";
-import { DangerAlert } from "@/components/ui/DangerAlert";
+import { DangerAlert } from "@/components/ui/Alert";
 import { Table } from "@/components/ui/Table";
 import { Text } from "@/components/ui/Text";
 import { useUser } from "@/hooks/useUser";

@@ -10,13 +10,14 @@ import { GameGroup } from "@/components/pages/Index/GameGroup";
 import { GameList } from "@/components/pages/Index/GameList";
 import { History } from "@/components/pages/Index/History";
 import { TopWeek } from "@/components/pages/Index/TopWeekAndRule/TopWeek";
+import { DangerAlert, WarningAlert } from "@/components/ui/Alert";
+import {
+  DangerButton,
+  InfoButton,
+  SuccessButton,
+  WarningButton,
+} from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { DangerAlert } from "@/components/ui/DangerAlert";
-import { DangerButton } from "@/components/ui/DangerButton";
-import { InfoButton } from "@/components/ui/InfoButton";
-import { SuccessButton } from "@/components/ui/SuccessButton";
-import { WarningAlert } from "@/components/ui/WarningAlert";
-import { WarningButton } from "@/components/ui/WarningButton";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";

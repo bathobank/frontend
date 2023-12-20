@@ -2,7 +2,7 @@ import { Box, Modal as ModalMUI, Stack } from "@mui/material";
 import { PropsWithChildren, ReactNode } from "react";
 
 import { TimeIcon } from "@/components/icons/TimeIcon";
-import { DefaultButton } from "@/components/ui/DefaultButton";
+import { DefaultButton } from "@/components/ui/Button";
 
 type Props = PropsWithChildren<{
   id: string;

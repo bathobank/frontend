@@ -3,9 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { MouseEvent, PropsWithChildren, useMemo, useState } from "react";
 
-import { DangerButton } from "@/components/ui/DangerButton";
-import { DefaultButton } from "@/components/ui/DefaultButton";
-import { SuccessButton } from "@/components/ui/SuccessButton";
+import {
+  DangerButton,
+  DefaultButton,
+  SuccessButton,
+} from "@/components/ui/Button";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";
 

@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { useEffect, useRef } from "react";
 
+import { DangerButton } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { DangerButton } from "@/components/ui/DangerButton";
 import { Input } from "@/components/ui/Input";
 import { useToast } from "@/hooks/useToast";
 import { useUserUseGiftCode } from "@/queries/gift-code";

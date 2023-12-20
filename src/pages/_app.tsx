@@ -9,7 +9,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
-import InitComponentData from "@/components/Init";
 import { wrapper } from "@/stores/store";
 
 const clientSideEmotionCache = createEmotionCache({ key: "app-cached" });
@@ -24,10 +23,8 @@ const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <CacheProvider value={emotionCache}>
-            <InitComponentData>
-              <Component {...pageProps} />
-              <ToastContainer />
-            </InitComponentData>
+            <Component {...pageProps} />
+            <ToastContainer />
           </CacheProvider>
         </QueryClientProvider>
       </Provider>

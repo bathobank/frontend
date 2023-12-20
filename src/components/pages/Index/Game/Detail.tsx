@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { useMemo } from "react";
 
 import { TGameDetailData, TStartGame } from "@/@types/game";
-import { SuccessButton } from "@/components/ui/SuccessButton";
+import { SuccessButton } from "@/components/ui/Button";
 import { Table } from "@/components/ui/Table";
 import { useUser } from "@/hooks/useUser";
 import { uuidv4 } from "@/utils/helper";

@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 
 import { TPageProp } from "@/@types/page-prop";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
+import { SuccessButton } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { SuccessButton } from "@/components/ui/SuccessButton";
 import { Text } from "@/components/ui/Text";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useSystemSetting } from "@/hooks/useSystemSetting";

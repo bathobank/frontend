@@ -2,10 +2,10 @@ import { Box, Stack } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import ReactSelect from "react-select";
 
+import { SuccessButton } from "@/components/ui/Button";
 import { Img } from "@/components/ui/Img";
 import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
-import { SuccessButton } from "@/components/ui/SuccessButton";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import { useBankReceiveQuery } from "@/queries/bank/receive";

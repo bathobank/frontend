@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { useMemo } from "react";
 
 import { TGameGap3Data, TStartGame } from "@/@types/game";
-import { SuccessButton } from "@/components/ui/SuccessButton";
+import { SuccessButton } from "@/components/ui/Button";
 import { Table } from "@/components/ui/Table";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";

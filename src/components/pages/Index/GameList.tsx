@@ -2,8 +2,7 @@ import { Stack } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { DefaultButton } from "@/components/ui/DefaultButton";
-import { InfoButton } from "@/components/ui/InfoButton";
+import { DefaultButton, InfoButton } from "@/components/ui/Button";
 import { getGameOpen, setGameOpen } from "@/stores/slices/game";
 
 const MENU: Array<{ slug: string; title: string }> = [
