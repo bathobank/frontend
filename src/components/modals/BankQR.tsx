@@ -1,16 +1,52 @@
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
 
+import { LoadingIcon } from "@/components/icons/LoadingIcon";
 import { Img } from "@/components/ui/Img";
 import { Modal } from "@/components/ui/Modal";
+import { useToast } from "@/hooks/useToast";
+import { useUser } from "@/hooks/useUser";
+import { qrBankGameQuery } from "@/queries/qr-bank-game";
 
 type Props = {
   isOpen: boolean;
-  bank_qr: string;
-  title?: string;
-  onClose?: () => void;
+  onClose: () => void;
+  bankCode: string;
+  accountNumber: string;
 };
 
-export const BankQRModal = ({ isOpen, onClose, bank_qr }: Props) => {
+export const BankQRModal = ({
+  isOpen,
+  onClose,
+  bankCode,
+  accountNumber,
+}: Props) => {
+  const [bankQr, setBankQr] = useState<string>("");
+  const { user } = useUser();
+  const toast = useToast();
+
+  useEffect(
+    () => {
+      const getQrBankGame = async () => {
+        if (!user) return;
+        try {
+          const result = await qrBankGameQuery({
+            bank_code: bankCode,
+            account_number: accountNumber,
+            nickname: user.nickname,
+          });
+          setBankQr(result.data.url);
+        } catch (e) {
+          onClose();
+          toast.error((e as { message: string }).message);
+        }
+      };
+      isOpen ? getQrBankGame() : setBankQr("");
+    },
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    [isOpen],
+  );
+
   return (
     <Modal
       id="bank-qr-modal"
@@ -19,8 +55,12 @@ export const BankQRModal = ({ isOpen, onClose, bank_qr }: Props) => {
       title="QR nhận tiền"
     >
       <Stack direction="row" justifyContent="center">
-        {bank_qr !== "" && (
-          <Img src={bank_qr} className="!w-[400px] !max-w-full !h-full" />
+        {bankQr !== "" ? (
+          <Img src={bankQr} className="!w-[400px] !max-w-full !h-full" />
+        ) : (
+          <Box>
+            <LoadingIcon />
+          </Box>
         )}
       </Stack>
     </Modal>

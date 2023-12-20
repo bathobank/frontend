@@ -38,6 +38,10 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
       <Head>
         <title>{websiteTitle}</title>
         <link rel="shortcut icon" href={systemSettings.icon} />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
       </Head>
       <Box position="relative">
         <Box bgcolor="#2c2c83" className="md:h-[50px] h-[130px]" />

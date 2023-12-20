@@ -124,14 +124,17 @@ export const StartGameModal = ({
   };
 
   const generateQrGame = () => {
-    if (!user || !document) return;
+    if (!user || !document || !inputAmount.current) return;
 
     if (!formData.bank) {
       toast.error("Hãy chọn ngân hàng nhận!");
       return;
     }
 
-    if (formData.money === 0) {
+    const amount = inputAmount.current!.value.replaceAll(",", "");
+    const money = parseInt(amount) || 0;
+
+    if (money <= 0) {
       toast.error("Hãy nhập số tiền!");
       return;
     }
@@ -151,7 +154,7 @@ export const StartGameModal = ({
       return;
     }
     const mgs = `${user.nickname} ${gameType}`;
-    const url = `https://api.vietqr.io/image/${bankData.value}-${bankData.number}-${qrFormat}.png?accountName=${bankData.name}&amount=${formData.money}&addInfo=${mgs}`;
+    const url = `https://api.vietqr.io/image/${bankData.value}-${bankData.number}-${qrFormat}.png?accountName=${bankData.name}&amount=${money}&addInfo=${mgs}`;
     setUrlQr(url);
     setDisableBtnGenQr(true);
     setTimeout(() => {
