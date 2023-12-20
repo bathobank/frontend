@@ -131,15 +131,13 @@ export const History = ({
                       {history.transaction_code}
                     </td>
                     <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[100px]">
-                      {history.order?.transaction_receipt && (
-                        <Text
-                          size="sm"
-                          className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer"
-                          onClick={() => openModalSaoKe(history.content)}
-                        >
-                          Xem sao kê
-                        </Text>
-                      )}
+                      <Text
+                        size="sm"
+                        className="hover:underline text-blue-500 hover:text-blue-700 cursor-pointer"
+                        onClick={() => openModalSaoKe(history.content)}
+                      >
+                        Xem sao kê
+                      </Text>
                     </td>
                   </>
                 )}
