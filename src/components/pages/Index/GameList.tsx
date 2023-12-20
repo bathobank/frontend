@@ -37,7 +37,7 @@ export const GameList = () => {
     <Stack
       direction="row"
       gap={1}
-      className="overflow-x-auto m-auto max-w-full"
+      className="overflow-x-auto m-auto max-w-full py-1"
     >
       {MENU.map((menu, index) => {
         return menu.slug === gameOpen ? (

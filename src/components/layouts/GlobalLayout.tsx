@@ -271,7 +271,17 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
         </Box>
       </Container>
       <Box bgcolor="#2c2c83" textAlign="center" py={3} className="text-white">
-        Copyright 2023 | All rights reserved | {systemSettings.author_name}
+        <Box>
+          <span>Copyright 2023 &copy; </span>
+          <Link
+            href="https://t.me/leumeng"
+            target="_blank"
+            className="text-[#cbab05] font-bold"
+          >
+            CLB SERVICE
+          </Link>
+        </Box>
+        <Box>Dịch vụ Chẵn Lẻ Bank</Box>
       </Box>
     </>
   );
