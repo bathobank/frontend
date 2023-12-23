@@ -5,8 +5,14 @@ import axiosInstance from "@/utils/axios";
 
 const USER_USE_GIFT_CODE_MUTATION_QK = "user_use_gift_code_mutation_query_key";
 
-export const userUseGiftCode = ({ giftcode }: { giftcode: string }) => {
-  return axiosInstance.post(USER_USE_GIFT_CODE, { giftcode });
+export const userUseGiftCode = ({
+  giftcode,
+  phone,
+}: {
+  giftcode: string;
+  phone: string;
+}) => {
+  return axiosInstance.post(USER_USE_GIFT_CODE, { giftcode, phone });
 };
 
 export const useUserUseGiftCode = () => {

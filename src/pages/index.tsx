@@ -58,9 +58,6 @@ export default function Home({ systemSettings, user }: TPageProp) {
           <Link href="/gift-code">
             <DangerButton>Giftcode</DangerButton>
           </Link>
-          <Link href="/daily-mission">
-            <DangerButton>Nhiệm vụ ngày</DangerButton>
-          </Link>
           <Link href={systemSettings["box-giftcode-link"]} target="_blank">
             <DangerButton>Kênh phát code</DangerButton>
           </Link>
@@ -88,7 +85,9 @@ export default function Home({ systemSettings, user }: TPageProp) {
               <b>Chú ý 🔞: Vui lòng đọc kỹ QUY ĐỊNH trước khi chơi!</b>
             </WarningAlert>
             <Box>
-              <p>Chuyển tiền vào 1 trong các tài khoản ngân hàng sau:</p>
+              <p>
+                Chuyển tiền vào 1 trong các tài khoản <b>ZaloPay</b> sau:
+              </p>
               <BankList />
             </Box>
             <Box>
@@ -97,15 +96,7 @@ export default function Home({ systemSettings, user }: TPageProp) {
             </Box>
             <Box>
               <DangerAlert className="flex flex-col gap-[.5rem]">
-                <p>
-                  Nên chuyển cùng ngân hàng để được xứ lý nhanh nhất, khác ngân
-                  hàng có nguy cơ không được trả thưởng
-                </p>
-                <p>
-                  Dùng ngân hàng khác chuyển đến VCB sẽ tính số giao dịch của
-                  VCB
-                </p>
-                <p>
+                <p className="text-center">
                   Vui lòng chuyển đúng nội dung, Sai nội dung sẽ không được hoàn
                   tiền.
                 </p>
@@ -131,13 +122,11 @@ export default function Home({ systemSettings, user }: TPageProp) {
             </Box>
           </Stack>
         </Card>
-        <History title="LỊCH SỬ CHƠI CỦA BẠN" historyQuery={historyQuery} />
         <History
           title="LỊCH SỬ THẮNG"
           historyQuery={historyWin}
           isPersonal={false}
         />
-        <TopWeek />
       </GlobalLayout>
       <AlertNotification
         isOpen={isOpenModalNotif}

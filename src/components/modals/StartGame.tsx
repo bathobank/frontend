@@ -9,6 +9,7 @@ import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import { useBankReceiveQuery } from "@/queries/bank/receive";
+import { qrBankGameQuery } from "@/queries/qr-bank-game";
 import { formatMoney } from "@/utils/helper";
 
 type TBankOption = {
@@ -123,8 +124,9 @@ export const StartGameModal = ({
     setFormData({ ...formData, bank });
   };
 
-  const generateQrGame = () => {
-    if (!user || !document || !inputAmount.current) return;
+  const generateQrGame = async () => {
+    if (!document || !inputAmount.current) return;
+    setUrlQr("");
 
     if (!formData.bank) {
       toast.error("Hãy chọn ngân hàng nhận!");
@@ -141,21 +143,13 @@ export const StartGameModal = ({
 
     const bankData = formData.bank;
 
-    let qrFormat = "";
-    if (bankData.code === "TCB") {
-      qrFormat = "ElYgubG";
-    } else if (bankData.code === "VCB") {
-      qrFormat = "lvejI6J";
-    } else if (bankData.code === "MB") {
-      qrFormat = "MuJWKcH";
-    }
-    if (qrFormat === "") {
-      toast.error("Ngân hàng không được hỗ trợ!");
-      return;
-    }
-    const mgs = `${user.nickname} ${gameType}`;
-    const url = `https://api.vietqr.io/image/${bankData.value}-${bankData.number}-${qrFormat}.png?accountName=${bankData.name}&amount=${money}&addInfo=${mgs}`;
-    setUrlQr(url);
+    const result = await qrBankGameQuery({
+      account_number: bankData.number,
+      amount: amount,
+      message: gameType,
+    });
+
+    setUrlQr(result.data.url);
     setDisableBtnGenQr(true);
     setTimeout(() => {
       setDisableBtnGenQr(false);
@@ -206,7 +200,7 @@ export const StartGameModal = ({
       </Box>
       {urlQr !== "" && (
         <Stack justifyContent="center" alignItems="center">
-          <Img src={urlQr} className="!w-[300px] max-w-full" />
+          <Img src={urlQr} className="!w-[400px] max-w-full" />
         </Stack>
       )}
     </Modal>

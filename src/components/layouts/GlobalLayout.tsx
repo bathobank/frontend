@@ -70,27 +70,6 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
             </picture>
           </Container>
         </Link>
-        {!isAuth && !isLogined && (
-          <Container
-            fixed
-            sx={{
-              position: "absolute",
-              bottom: "10px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "100%",
-            }}
-          >
-            <Stack direction="row" gap={2} justifyContent="center">
-              <Link href="/auth/login">
-                <SuccessButton>Đăng nhập</SuccessButton>
-              </Link>
-              <Link href="/auth/register">
-                <DangerButton>Đăng ký</DangerButton>
-              </Link>
-            </Stack>
-          </Container>
-        )}
         {isLogined && (
           <Container
             fixed
@@ -264,10 +243,10 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
           <Stack className="gap-3 md:gap-5">
             <Box>
               <h3 className="text-center">
-                Chẵn Lẻ Bank - {systemSettings.author_name}
+                Chẵn Lẻ ZaloPay - {systemSettings.author_name}
               </h3>
               <h4 className="text-center">
-                Uy tín, giao dịch tự động 24/7 - Bank 30s !
+                Uy tín, giao dịch tự động - Bank 5s
               </h4>
             </Box>
             {children}

@@ -2,9 +2,9 @@ import { GET_QR_BANK_GAME } from "@/utils/api-url";
 import axiosInstance from "@/utils/axios";
 
 export type TQrBankGameQuery = {
-  nickname: string;
-  bank_code: string;
   account_number: string;
+  amount?: string;
+  message?: string;
 };
 
 type Response = {

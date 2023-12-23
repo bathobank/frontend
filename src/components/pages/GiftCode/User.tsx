@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { useEffect, useRef } from "react";
 
+import { DangerAlert } from "@/components/ui/Alert";
 import { DangerButton } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -10,6 +11,7 @@ import { defaultOptionReactQueryResponse } from "@/utils/helper";
 
 export const GiftCodeUser = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
   const toast = useToast();
   const userUseGiftCode = useUserUseGiftCode();
 
@@ -20,16 +22,25 @@ export const GiftCodeUser = () => {
   }, [inputRef]);
 
   const onSubmitGiftCode = () => {
-    if (!inputRef.current) return;
+    if (!inputRef.current || !phoneRef.current) return;
+
     const giftcode = inputRef.current.value.trim();
     if (giftcode === "") {
       toast.error("Chưa nhập GIFTCODE!");
       return;
     }
+
+    const phone = phoneRef.current.value.trim();
+    if (phone === "") {
+      toast.error("Chưa nhập SDT!");
+      return;
+    }
+
     userUseGiftCode.mutate(
-      { giftcode },
+      { giftcode, phone },
       defaultOptionReactQueryResponse(() => {
         inputRef.current!.value = "";
+        phoneRef.current!.value = "";
         inputRef.current!.focus();
       }),
     );
@@ -42,14 +53,16 @@ export const GiftCodeUser = () => {
           <Box mb={2}>
             <Input placeholder="Nhập Giftcode" id="gift_code" ref={inputRef} />
           </Box>
+          <Box mb={2}>
+            <Input placeholder="Nhập Sdt nhận tiền" id="phone" ref={phoneRef} />
+          </Box>
           <Box textAlign="center">
             <DangerButton onClick={onSubmitGiftCode}>Nhận thưởng</DangerButton>
           </Box>
         </Box>
-        <Box className="text-center">
-          <p>Hệ thống tự động KHOÁ TÀI KHOẢN nếu phát hiện gian lận.</p>
-          <p>Tham gia nhóm trên Telegram để nhận Code</p>
-        </Box>
+        <DangerAlert className="text-center">
+          Phải nhập SDT đúng định dạng. Ví dụ: 0978******
+        </DangerAlert>
       </Card>
     </Box>
   );

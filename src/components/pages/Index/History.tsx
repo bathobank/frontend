@@ -42,9 +42,6 @@ export const History = ({
 
   const headerTable = useMemo(() => {
     const header: string[] = [];
-    if (!isPersonal) {
-      header.push("Nickname");
-    }
     header.push("Trò chơi");
     header.push("Đã chọn");
     header.push("Số tiền");
@@ -80,11 +77,6 @@ export const History = ({
                 key={`tr-history-${index}`}
                 className={cn(index > 0 ? "border-t border-t-[#ffffff0d]" : "")}
               >
-                {!isPersonal && (
-                  <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[90px]">
-                    {history.user.nickname.substring(0, 4)}****
-                  </td>
-                )}
                 <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[60px]">
                   {history.game_group.toUpperCase()}
                 </td>
