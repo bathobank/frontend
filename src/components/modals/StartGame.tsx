@@ -7,7 +7,6 @@ import { Img } from "@/components/ui/Img";
 import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/hooks/useToast";
-import { useUser } from "@/hooks/useUser";
 import { useBankReceiveQuery } from "@/queries/bank/receive";
 import { qrBankGameQuery } from "@/queries/qr-bank-game";
 import { formatMoney } from "@/utils/helper";
@@ -47,7 +46,6 @@ export const StartGameModal = ({
   const [urlQr, setUrlQr] = useState<string>("");
   const [disableButtonGenQr, setDisableBtnGenQr] = useState<boolean>(false);
   const bankReceiveQuery = useBankReceiveQuery();
-  const { user } = useUser();
   const toast = useToast();
   const inputAmount = useRef<HTMLInputElement>(null);
 

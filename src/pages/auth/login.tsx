@@ -56,7 +56,7 @@ export default function AuthLogin({ systemSettings, user }: TPageProp) {
   };
 
   return (
-    <GlobalLayout isAuth={true}>
+    <GlobalLayout>
       <Box
         borderColor="#2c2c83"
         borderRadius="4px"

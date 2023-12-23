@@ -9,7 +9,6 @@ import { BankList } from "@/components/pages/Index/BankList";
 import { GameGroup } from "@/components/pages/Index/GameGroup";
 import { GameList } from "@/components/pages/Index/GameList";
 import { History } from "@/components/pages/Index/History";
-import { TopWeek } from "@/components/pages/Index/TopWeekAndRule/TopWeek";
 import { DangerAlert, WarningAlert } from "@/components/ui/Alert";
 import {
   DangerButton,
@@ -21,7 +20,6 @@ import { Card } from "@/components/ui/Card";
 import { serverSideGetSystemSetting } from "@/hooks/serverSideGetSystemSetting";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";
-import { useUserHistories } from "@/queries/histories";
 import { useHistoryWin } from "@/queries/histories/win";
 
 export default function Home({ systemSettings, user }: TPageProp) {
@@ -29,7 +27,6 @@ export default function Home({ systemSettings, user }: TPageProp) {
   useUser(user);
 
   const [isOpenModalNotif, setOpenModalNotif] = useState<boolean>(false);
-  const historyQuery = useUserHistories(20);
   const historyWin = useHistoryWin();
 
   const openModalNotification = useCallback(() => {

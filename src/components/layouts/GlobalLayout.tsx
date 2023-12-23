@@ -3,17 +3,13 @@ import Head from "next/head";
 import Link from "next/link";
 import { MouseEvent, PropsWithChildren, useMemo, useState } from "react";
 
-import {
-  DangerButton,
-  DefaultButton,
-  SuccessButton,
-} from "@/components/ui/Button";
+import { DefaultButton } from "@/components/ui/Button";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";
 
-type Props = PropsWithChildren<{ isAuth?: boolean }>;
+type Props = PropsWithChildren;
 
-export const GlobalLayout = ({ children, isAuth = false }: Props) => {
+export const GlobalLayout = ({ children }: Props) => {
   const { settings: systemSettings } = useSystemSetting();
   const { isLogined, user, logout } = useUser();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
