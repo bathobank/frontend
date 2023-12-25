@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { LoadingIcon } from "@/components/icons/LoadingIcon";
 import { Img } from "@/components/ui/Img";
