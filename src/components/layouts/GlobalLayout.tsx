@@ -8,12 +8,19 @@ import {
   DefaultButton,
   SuccessButton,
 } from "@/components/ui/Button";
+import { useScript } from "@/hooks/useScript";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";
 
 type Props = PropsWithChildren<{ isAuth?: boolean }>;
 
 export const GlobalLayout = ({ children, isAuth = false }: Props) => {
+  useScript(
+    "https://web1s.com/site-u-v5.js?id=tKoSfjj2gL",
+    "web1s_script",
+    500,
+  );
+
   const { settings: systemSettings } = useSystemSetting();
   const { isLogined, user, logout } = useUser();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -286,6 +293,7 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
           </Link>
         </Box>
         <Box>Dịch vụ Chẵn Lẻ Bank</Box>
+        <div id="web1s_script"></div>
       </Box>
     </>
   );

@@ -30,7 +30,7 @@ export const Modal = ({
     >
       <Box
         position="absolute"
-        className="w-[calc(100%-30px)] max-w-[500px] m-auto bg-white top-[50%] left-[50%] outline-none"
+        className="w-[calc(100%-30px)] max-w-[500px] max-h-[97vh] overflow-auto m-auto bg-white top-[50%] left-[50%] outline-none"
         sx={{ transform: "translate(-50%, -50%)" }}
       >
         {title && (
@@ -46,7 +46,9 @@ export const Modal = ({
             </DefaultButton>
           </Stack>
         )}
-        <Box className="p-5">{children}</Box>
+        <Box className="p-5 max-h-[calc(97vh-100px)] overflow-auto">
+          {children}
+        </Box>
         <Box p={1} textAlign="center" className="border-t border-t-[#ddd]">
           {submitBtn}
           <DefaultButton onClick={onClose}>Đóng</DefaultButton>
