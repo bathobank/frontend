@@ -8,19 +8,12 @@ import {
   DefaultButton,
   SuccessButton,
 } from "@/components/ui/Button";
-import { useScript } from "@/hooks/useScript";
 import { useSystemSetting } from "@/hooks/useSystemSetting";
 import { useUser } from "@/hooks/useUser";
 
 type Props = PropsWithChildren<{ isAuth?: boolean }>;
 
 export const GlobalLayout = ({ children, isAuth = false }: Props) => {
-  useScript(
-    "https://web1s.com/site-u-v5.js?id=tKoSfjj2gL",
-    "web1s_script",
-    500,
-  );
-
   const { settings: systemSettings } = useSystemSetting();
   const { isLogined, user, logout } = useUser();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -282,18 +275,8 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
         </Box>
       </Container>
       <Box bgcolor="#2c2c83" textAlign="center" py={3} className="text-white">
-        <Box>
-          <span>Copyright 2023 &copy; </span>
-          <Link
-            href="https://t.me/leumeng"
-            target="_blank"
-            className="text-[#cbab05] font-bold"
-          >
-            CLB SERVICE
-          </Link>
-        </Box>
+        <Box>Copyright 2023 &copy; {systemSettings.author_name}</Box>
         <Box>Dịch vụ Chẵn Lẻ Bank</Box>
-        <div id="web1s_script"></div>
       </Box>
     </>
   );
