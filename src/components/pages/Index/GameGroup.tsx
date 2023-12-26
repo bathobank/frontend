@@ -8,6 +8,7 @@ import { GameCltx } from "@/components/pages/Index/Game/cltx";
 import { GameCltx2 } from "@/components/pages/Index/Game/cltx2";
 import { GameDoanSo } from "@/components/pages/Index/Game/doanso";
 import { GameGap3 } from "@/components/pages/Index/Game/gap3";
+import { GameHieu3 } from "@/components/pages/Index/Game/hieu3";
 import { GameTong3So } from "@/components/pages/Index/Game/tong3so";
 import { GameXien } from "@/components/pages/Index/Game/xien";
 import { getGameOpen } from "@/stores/slices/game";
@@ -51,6 +52,7 @@ export const GameGroup = () => {
         {gameOpen === "1phan3" && <Game1Phan3 startGame={startGame} />}
         {gameOpen === "xien" && <GameXien startGame={startGame} />}
         {gameOpen === "doanso" && <GameDoanSo startGame={startGame} />}
+        {gameOpen === "hieu3" && <GameHieu3 startGame={startGame} />}
       </Box>
       <StartGameModal
         isOpen={openModalStartGame}

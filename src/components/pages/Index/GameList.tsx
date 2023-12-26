@@ -10,6 +10,7 @@ const MENU: Array<{ slug: string; title: string }> = [
   { slug: "cltx2", title: "CLTX+2" },
   { slug: "gap3", title: "Gấp 3" },
   { slug: "tong3so", title: "Tổng 3 số" },
+  { slug: "hieu3", title: "Hiệu 2 số" },
   { slug: "1phan3", title: "1 phần 3" },
   { slug: "xien", title: "Xiên" },
   { slug: "doanso", title: "Đoán số" },

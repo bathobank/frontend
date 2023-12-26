@@ -23,6 +23,9 @@ export type TGame = {
   gap3: {
     G3: Record<string, TTypeGameEnd>;
   };
+  hieu3: {
+    H3: Record<string, TTypeGameEnd>;
+  };
   tong3so: {
     S: Record<string, TTypeGameSum3End>;
   };

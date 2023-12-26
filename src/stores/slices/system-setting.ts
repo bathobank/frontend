@@ -23,6 +23,9 @@ const initialState: TSystemSettingState = {
       gap3: {
         G3: {},
       },
+      hieu3: {
+        H3: {},
+      },
       xien: {},
       tong3so: {
         S: {},
