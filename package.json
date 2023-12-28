@@ -1,11 +1,11 @@
 {
-  "name": "bathobank-frontend",
-  "version": "1.1.0",
+  "name": "clbank88vin",
+  "version": "1.1.3005",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start --port 3002",
+    "start": "next start --port 3005",
     "lint": "eslint . --ext .ts,.tsx",
     "fix-lint": "eslint . --ext .ts,.tsx --fix"
   },
