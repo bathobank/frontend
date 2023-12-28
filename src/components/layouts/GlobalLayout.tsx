@@ -276,14 +276,8 @@ export const GlobalLayout = ({ children, isAuth = false }: Props) => {
       </Container>
       <Box bgcolor="#2c2c83" textAlign="center" py={3} className="text-white">
         <Box>
-          <span>Copyright 2023 &copy; </span>
-          <Link
-            href="https://t.me/leumeng"
-            target="_blank"
-            className="text-[#cbab05] font-bold"
-          >
-            CLB SERVICE
-          </Link>
+          <span>Copyright 2023 &copy;</span>
+          <span className="text-[#cbab05] font-bold">&nbsp;CLB SERVICE</span>
         </Box>
         <Box>Dịch vụ Chẵn Lẻ Bank</Box>
       </Box>
