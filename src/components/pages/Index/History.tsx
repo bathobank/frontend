@@ -48,14 +48,12 @@ export const History = ({
     header.push("Trò chơi");
     header.push("Đã chọn");
     header.push("Số tiền");
-    header.push("Nhận được");
     header.push("Kết quả");
     if (isPersonal) {
       header.push("Trả thưởng");
       header.push("Mã giao dịch");
       header.push("Sao kê");
     }
-    header.push("Thời gian");
     return header;
   }, [isPersonal]);
 
@@ -93,9 +91,6 @@ export const History = ({
                 </td>
                 <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[95px]">
                   {formatMoney(history.money_coming)}
-                </td>
-                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[95px]">
-                  {formatMoney(history.money_real_bonus)}
                 </td>
                 <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[55px]">
                   {history.status === "L" ? (
@@ -141,9 +136,6 @@ export const History = ({
                     </td>
                   </>
                 )}
-                <td className="py-[8px] px-[4px] border border-[#ddd] text-center min-w-[180px]">
-                  <Text size="sm">{history.game_time}</Text>
-                </td>
               </tr>
             ))}
           </>
