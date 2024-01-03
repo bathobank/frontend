@@ -14,7 +14,7 @@ export const GameXien = ({ startGame }: { startGame: TStartGame }) => {
   } = useSystemSetting();
 
   const headerTable: Array<string> = useMemo(() => {
-    const data = ["Nội dung", "Số cuối", "Tỉ lệ"];
+    const data = ["Nội dung", "Tổng 2 số cuối", "Tỉ lệ"];
     if (isLogined) {
       data.push("");
     }
