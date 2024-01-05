@@ -7,6 +7,7 @@ import { DefaultButton } from "@/components/ui/Button";
 type Props = PropsWithChildren<{
   id: string;
   title?: string;
+  width?: string;
   isOpen?: boolean;
   onClose?: () => void;
   submitBtn?: ReactNode;
@@ -16,6 +17,7 @@ export const Modal = ({
   id,
   children,
   title,
+  width = "500px",
   onClose,
   isOpen = false,
   submitBtn,
@@ -30,8 +32,8 @@ export const Modal = ({
     >
       <Box
         position="absolute"
-        className="w-[calc(100%-30px)] max-w-[500px] max-h-[97vh] overflow-auto m-auto bg-white top-[50%] left-[50%] outline-none"
-        sx={{ transform: "translate(-50%, -50%)" }}
+        className="w-[calc(100%-30px)] max-h-[97vh] overflow-auto m-auto bg-white top-[50%] left-[50%] outline-none"
+        sx={{ transform: "translate(-50%, -50%)", maxWidth: width }}
       >
         {title && (
           <Stack

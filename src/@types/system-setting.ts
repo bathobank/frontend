@@ -13,8 +13,8 @@ export type TSystemSetting = {
   games: TGame;
   daily_checkpoint: {
     active: boolean;
+    time: number;
     min: number;
-    step: number;
   };
 };
 

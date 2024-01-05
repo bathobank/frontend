@@ -94,10 +94,10 @@ export default function Home({ systemSettings, user }: TPageProp) {
             justifyContent="center"
           >
             <PrimaryButton
-              className="min-w-[250px]"
+              className="w-[300px] max-w-full"
               onClick={() => setOpenDCR(true)}
             >
-              Điểm danh hằng ngày
+              Điểm danh nhận quà
             </PrimaryButton>
           </Stack>
         )}
