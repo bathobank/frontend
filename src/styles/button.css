@@ -201,3 +201,37 @@ body .btn-ui-warning[disabled].active {
   cursor: not-allowed;
   opacity: .8;
 }
+
+body .btn-ui-primary {
+  color: #fff;
+  background-color: #0a7cff;
+  border-color: #0779ff;
+}
+
+body .btn-ui-primary:hover,
+body .btn-ui-primary:focus,
+body .btn-ui-primary:active,
+body .btn-ui-primary.active{
+  color: #fff;
+  background-color: #0d7ddc;
+  border-color: #0892ff
+}
+
+body .btn-ui-primary:active,
+body .btn-ui-primary.active{
+  background-image: none
+}
+
+body .btn-ui-primary.disabled,
+body .btn-ui-primary[disabled],
+body .btn-ui-primary.disabled:hover,
+body .btn-ui-primary[disabled]:hover,
+body .btn-ui-primary.disabled:focus,
+body .btn-ui-primary[disabled]:focus,
+body .btn-ui-primary.disabled:active,
+body .btn-ui-primary[disabled]:active,
+body .btn-ui-primary.disabled.active,
+body .btn-ui-primary[disabled].active {
+  background-color: #ad4105;
+  border-color: #357ebd
+}

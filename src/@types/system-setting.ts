@@ -11,6 +11,11 @@ export type TSystemSetting = {
   "box-giftcode-link": string;
   "guide-link": string;
   games: TGame;
+  daily_checkpoint: {
+    active: boolean;
+    min: number;
+    step: number;
+  };
 };
 
 export type TSystemSettingResponse = TApiSuccessResponse<{

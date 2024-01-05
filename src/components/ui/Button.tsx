@@ -8,6 +8,7 @@ const ButtonVarian = {
   info: "btn-ui-info",
   success: "btn-ui-success",
   warning: "btn-ui-warning",
+  primary: "btn-ui-primary",
 };
 
 type TProps = PropsWithChildren<{
@@ -15,6 +16,7 @@ type TProps = PropsWithChildren<{
   type?: "button" | "submit";
   variant?: keyof typeof ButtonVarian;
   size?: "sm" | "nomal";
+  fullWidth?: boolean;
 }>;
 
 export const Button = forwardRefWithAs<"button", TProps>((props, ref) => {
@@ -24,12 +26,25 @@ export const Button = forwardRefWithAs<"button", TProps>((props, ref) => {
     type = "button",
     variant = "default",
     size = "nomal",
+    fullWidth = false,
     ...rest
   } = props;
 
-  const clsSize = size === "sm" ? "btn-ui-sm" : "";
-  rest.className =
-    `btn-ui ${ButtonVarian[variant]} ${clsSize} ` + (rest.className ?? "");
+  const className: string[] = ["btn-ui", ButtonVarian[variant]];
+
+  if (rest.className) {
+    className.push(rest.className);
+  }
+
+  if (size === "sm") {
+    className.push("btn-ui-sm");
+  }
+
+  if (fullWidth) {
+    className.push("w-100");
+  }
+
+  rest.className = className.join(" ");
 
   return (
     <Tag ref={ref} type={type} {...rest}>
@@ -61,5 +76,11 @@ export const SuccessButton = forwardRefWithAs<"button", TProps>(
 export const WarningButton = forwardRefWithAs<"button", TProps>(
   (props, ref) => {
     return <Button ref={ref} {...props} variant="warning" />;
+  },
+);
+
+export const PrimaryButton = forwardRefWithAs<"button", TProps>(
+  (props, ref) => {
+    return <Button ref={ref} {...props} variant="primary" />;
   },
 );

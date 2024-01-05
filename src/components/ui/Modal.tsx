@@ -49,10 +49,16 @@ export const Modal = ({
         <Box className="p-5 max-h-[calc(97vh-100px)] overflow-auto">
           {children}
         </Box>
-        <Box p={1} textAlign="center" className="border-t border-t-[#ddd]">
-          {submitBtn}
+        <Stack
+          p={1}
+          justifyContent="center"
+          direction="row"
+          gap={1}
+          className="border-t border-t-[#ddd]"
+        >
           <DefaultButton onClick={onClose}>Đóng</DefaultButton>
-        </Box>
+          {submitBtn}
+        </Stack>
       </Box>
     </ModalMUI>
   );

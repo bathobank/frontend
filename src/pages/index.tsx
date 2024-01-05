@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { TPageProp } from "@/@types/page-prop";
 import { GlobalLayout } from "@/components/layouts/GlobalLayout";
 import { AlertNotification } from "@/components/modals/AlertNotification";
+import { DailyCheckpoint } from "@/components/modals/DailyCheckpoint";
 import { BankList } from "@/components/pages/Index/BankList";
 import { GameGroup } from "@/components/pages/Index/GameGroup";
 import { GameList } from "@/components/pages/Index/GameList";
@@ -14,6 +15,7 @@ import { DangerAlert, WarningAlert } from "@/components/ui/Alert";
 import {
   DangerButton,
   InfoButton,
+  PrimaryButton,
   SuccessButton,
   WarningButton,
 } from "@/components/ui/Button";
@@ -29,6 +31,7 @@ export default function Home({ systemSettings, user }: TPageProp) {
   useUser(user);
 
   const [isOpenModalNotif, setOpenModalNotif] = useState<boolean>(false);
+  const [isOpenDCR, setOpenDCR] = useState<boolean>(false);
   const historyQuery = useUserHistories(20);
   const historyWin = useHistoryWin();
 
@@ -82,6 +85,22 @@ export default function Home({ systemSettings, user }: TPageProp) {
             <WarningButton>Hướng Dẫn</WarningButton>
           </Link>
         </Stack>
+        {systemSettings.daily_checkpoint.active && user && (
+          <Stack
+            gap="2px"
+            direction="row"
+            m="auto"
+            flexWrap="wrap"
+            justifyContent="center"
+          >
+            <PrimaryButton
+              className="min-w-[250px]"
+              onClick={() => setOpenDCR(true)}
+            >
+              Điểm danh hằng ngày
+            </PrimaryButton>
+          </Stack>
+        )}
         <Card title="CÁCH CHƠI">
           <Stack gap={2}>
             <WarningAlert>
@@ -143,6 +162,12 @@ export default function Home({ systemSettings, user }: TPageProp) {
         isOpen={isOpenModalNotif}
         onClose={() => {
           setOpenModalNotif(false);
+        }}
+      />
+      <DailyCheckpoint
+        isOpen={isOpenDCR}
+        onClose={() => {
+          setOpenDCR(false);
         }}
       />
     </>

@@ -31,6 +31,11 @@ const initialState: TSystemSettingState = {
         S: {},
       },
     },
+    daily_checkpoint: {
+      active: false,
+      min: 0,
+      step: 0,
+    },
   },
 };
 
