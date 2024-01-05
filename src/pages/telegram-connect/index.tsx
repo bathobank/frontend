@@ -22,8 +22,8 @@ export default function TelegramConnect({ systemSettings, user }: TPageProp) {
               <Box className="text-center">
                 <h4>
                   Tài khoản của bạn đã được liên kết Telegram. Truy cập{" "}
-                  <Link href="https://t.me/bat_ho_bank_bot" target="_blank">
-                    @bat_ho_bank
+                  <Link href="https://t.me/cltxbankbot" target="_blank">
+                    @cltxbankbot
                   </Link>{" "}
                   ngay!
                 </h4>
@@ -34,7 +34,7 @@ export default function TelegramConnect({ systemSettings, user }: TPageProp) {
                   TÀI KHOẢN CỦA BẠN CHƯA ĐƯỢC LIÊN KẾT TELEGRAM
                 </h4>
                 <Link
-                  href={`https://t.me/bat_ho_bank_bot/?start=${user.uuid}`}
+                  href={`https://t.me/cltxbankbot/?start=${user.uuid}`}
                   target="_blank"
                 >
                   <SuccessButton>Liên kết ngay</SuccessButton>
